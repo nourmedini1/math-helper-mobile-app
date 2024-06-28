@@ -12,4 +12,10 @@ class Endpoints {
   static const MULTIPLICATION_ENDPOINT =
       "$BASE_URL$API_VERSION/complex/multiplication";
   static const POLAR_FORM_ENDPOINT = "$BASE_URL$API_VERSION/complex/polar-form";
+
+//! derivatives endpoints
+  static const SYMBOLIC_DERIVATIVE_ENDPOINT =
+      "$BASE_URL$API_VERSION/derivatives/symbolic";
+  static const NUMERICAL_DERIVATIVE_ENDPOINT =
+      "$BASE_URL$API_VERSION/derivatives/numeric";
 }
