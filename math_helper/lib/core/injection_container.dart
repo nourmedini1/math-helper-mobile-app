@@ -19,6 +19,19 @@ import 'package:math_helper/features/derivatives/domain/usecases/numeric_derivat
 import 'package:math_helper/features/derivatives/domain/usecases/symbolic_derivative_usecase.dart';
 import 'package:math_helper/features/derivatives/presentation/bloc/numeric_derivative/numeric_derivative_bloc.dart';
 import 'package:math_helper/features/derivatives/presentation/bloc/symbolic_derivative/symbolic_derivative_bloc.dart';
+import 'package:math_helper/features/integrals/data/api/integrals_api.dart';
+import 'package:math_helper/features/integrals/data/repository/integrals_repository_impl.dart';
+import 'package:math_helper/features/integrals/domain/repository/integrals_repository.dart';
+import 'package:math_helper/features/integrals/domain/usecases/double_integral_usecase.dart';
+import 'package:math_helper/features/integrals/domain/usecases/single_integral_usecase.dart';
+import 'package:math_helper/features/integrals/domain/usecases/single_primitive_usecase.dart';
+import 'package:math_helper/features/integrals/domain/usecases/triple_integral_usecase.dart';
+import 'package:math_helper/features/integrals/presentation/bloc/double_integral/double_integral_bloc.dart';
+import 'package:math_helper/features/integrals/presentation/bloc/double_primitive/double_primitive_bloc.dart';
+import 'package:math_helper/features/integrals/presentation/bloc/single_integral/single_integral_bloc.dart';
+import 'package:math_helper/features/integrals/presentation/bloc/single_primitive/single_primitive_bloc.dart';
+import 'package:math_helper/features/integrals/presentation/bloc/triple_integral/triple_integral_bloc.dart';
+import 'package:math_helper/features/integrals/presentation/bloc/triple_primitive/triple_primitive_bloc.dart';
 
 final ic = GetIt.instance;
 
@@ -63,4 +76,29 @@ Future<void> init() async {
       () => SymbolicDerivativeBloc(symbolicDerivativeUsecase: ic()));
   ic.registerFactory(
       () => NumericDerivativeBloc(numericDerivativeUsecase: ic()));
+
+  // integrals
+  ic.registerLazySingleton(() => IntegralsApi(client: ic()));
+  ic.registerLazySingleton<IntegralsRepository>(
+      () => IntegralsRepositoryImpl(connectivity: ic(), integralsApi: ic()));
+
+  ic.registerLazySingleton(
+      () => SinglePrimitiveUsecase(integralsRepository: ic()));
+  ic.registerLazySingleton(
+      () => DoubleIntegralUsecase(integralsRepository: ic()));
+  ic.registerLazySingleton(
+      () => TripleIntegralUsecase(integralsRepository: ic()));
+  ic.registerLazySingleton(
+      () => SingleIntegralUsecase(integralsRepository: ic()));
+  ic.registerLazySingleton(
+      () => DoubleIntegralUsecase(integralsRepository: ic()));
+  ic.registerLazySingleton(
+      () => TripleIntegralUsecase(integralsRepository: ic()));
+
+  ic.registerFactory(() => SingleIntegralBloc(singleIntegralUsecase: ic()));
+  ic.registerFactory(() => DoubleIntegralBloc(doubleIntegralUsecase: ic()));
+  ic.registerFactory(() => TripleIntegralBloc(tripleIntegralUsecase: ic()));
+  ic.registerFactory(() => SinglePrimitiveBloc(singlePrimitiveUsecase: ic()));
+  ic.registerFactory(() => DoublePrimitiveBloc(doublePrimitiveUsecase: ic()));
+  ic.registerFactory(() => TriplePrimitiveBloc(triplePrimitiveUsecase: ic()));
 }
