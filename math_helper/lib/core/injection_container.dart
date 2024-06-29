@@ -19,6 +19,15 @@ import 'package:math_helper/features/derivatives/domain/usecases/numeric_derivat
 import 'package:math_helper/features/derivatives/domain/usecases/symbolic_derivative_usecase.dart';
 import 'package:math_helper/features/derivatives/presentation/bloc/numeric_derivative/numeric_derivative_bloc.dart';
 import 'package:math_helper/features/derivatives/presentation/bloc/symbolic_derivative/symbolic_derivative_bloc.dart';
+import 'package:math_helper/features/differential_equations/data/api/differential_equations_api.dart';
+import 'package:math_helper/features/differential_equations/data/repository/differential_equations_repository_impl.dart';
+import 'package:math_helper/features/differential_equations/domain/repository/differential_equations_repository.dart';
+import 'package:math_helper/features/differential_equations/domain/usecases/first_order_differential_equation_usecase.dart';
+import 'package:math_helper/features/differential_equations/domain/usecases/second_order_differential_equation_usecase.dart';
+import 'package:math_helper/features/differential_equations/domain/usecases/third_order_differential_equation_usecase.dart';
+import 'package:math_helper/features/differential_equations/presentation/bloc/first_order_differential_equation/first_order_differential_equation_bloc.dart';
+import 'package:math_helper/features/differential_equations/presentation/bloc/second_order_differential_equation/second_order_differential_equation_bloc.dart';
+import 'package:math_helper/features/differential_equations/presentation/bloc/third_order_differential_equation/third_order_differential_equation_bloc.dart';
 import 'package:math_helper/features/integrals/data/api/integrals_api.dart';
 import 'package:math_helper/features/integrals/data/repository/integrals_repository_impl.dart';
 import 'package:math_helper/features/integrals/domain/repository/integrals_repository.dart';
@@ -101,4 +110,24 @@ Future<void> init() async {
   ic.registerFactory(() => SinglePrimitiveBloc(singlePrimitiveUsecase: ic()));
   ic.registerFactory(() => DoublePrimitiveBloc(doublePrimitiveUsecase: ic()));
   ic.registerFactory(() => TriplePrimitiveBloc(triplePrimitiveUsecase: ic()));
+
+  //  differential equations
+  ic.registerLazySingleton(() => DifferentialEquationsApi(client: ic()));
+  ic.registerLazySingleton<DifferentialEquationsRepository>(() =>
+      DifferentialEquationsRepositoryImpl(
+          connectivity: ic(), differentialEquationsApi: ic()));
+
+  ic.registerLazySingleton(() => FirstOrderDifferentialEquationUsecase(
+      differentialEquationsRepository: ic()));
+  ic.registerLazySingleton(() => SecondOrderDifferentialEquationUsecase(
+      differentialEquationsRepository: ic()));
+  ic.registerLazySingleton(() => ThirdOrderDifferentialEquationUsecase(
+      differentialEquationsRepository: ic()));
+
+  ic.registerFactory(() => FirstOrderDifferentialEquationBloc(
+      firstOrderDifferentialEquationUsecase: ic()));
+  ic.registerFactory(() => SecondOrderDifferentialEquationBloc(
+      secondOrderDifferentialEquationUsecase: ic()));
+  ic.registerFactory(() =>
+      ThirdOrderDifferentialEquationBloc(thirdOrderDifferentialEquation: ic()));
 }
