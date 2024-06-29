@@ -32,4 +32,12 @@ class Endpoints {
       "$BASE_URL$API_VERSION/integrals/definite/double";
   static const TRIPLE_INTEGRAL_ENDPOINT =
       "$BASE_URL$API_VERSION/integrals/definite/triple";
+
+// differential equations endpoints
+  static const FIRST_ORDER_DIFFERENTIAL_EQUATION_ENDPOINT =
+      "$BASE_URL$API_VERSION/differential-equations/first";
+  static const SECOND_ORDER_DIFFERENTIAL_EQUATION_ENDPOINT =
+      "$BASE_URL$API_VERSION/differential-equations/second";
+  static const THIRD_ORDER_DIFFERENTIAL_EQUATION_ENDPOINT =
+      "$BASE_URL$API_VERSION/differential-equations/third";
 }
