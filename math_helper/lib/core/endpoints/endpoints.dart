@@ -18,4 +18,18 @@ class Endpoints {
       "$BASE_URL$API_VERSION/derivatives/symbolic";
   static const NUMERICAL_DERIVATIVE_ENDPOINT =
       "$BASE_URL$API_VERSION/derivatives/numeric";
+
+//! integrals endpoints
+  static const SINGLE_PRIMITIVE_ENDPOINT =
+      "$BASE_URL$API_VERSION/integrals/single";
+  static const DOUBLE_PRIMITIVE_ENDPOINT =
+      "$BASE_URL$API_VERSION/integrals/double";
+  static const TRIPLE_PRIMITIVE_ENDPOINT =
+      "$BASE_URL$API_VERSION/integrals/triple";
+  static const SINGLE_INTEGRAL_ENDPOINT =
+      "$BASE_URL$API_VERSION/integrals/definite/single";
+  static const DOUBLE_INTEGRAL_ENDPOINT =
+      "$BASE_URL$API_VERSION/integrals/definite/double";
+  static const TRIPLE_INTEGRAL_ENDPOINT =
+      "$BASE_URL$API_VERSION/integrals/definite/triple";
 }
