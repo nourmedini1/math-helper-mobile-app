@@ -48,9 +48,12 @@ class Endpoints {
   static const TRIPLE_LIMIT_ENDPOINT = "$BASE_URL$API_VERSION/limits/triple";
 
 //! product endpoints
-
   static const SYMBOLIC_PRODUCT_ENDPOINT =
       "$BASE_URL$API_VERSION/product/symbolic";
   static const NUMERICAL_PRODUCT_ENDPOINT =
       "$BASE_URL$API_VERSION/product/numeric";
+
+//! sum endpoints
+  static const SYMBOLIC_SUM_ENDPOINT = "$BASE_URL$API_VERSION/sum/symbolic";
+  static const NUMERICAL_SUM_ENDPOINT = "$BASE_URL$API_VERSION/sum/numeric";
 }
