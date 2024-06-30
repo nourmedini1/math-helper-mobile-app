@@ -11,14 +11,13 @@ part 'third_order_differential_equation_state.dart';
 class ThirdOrderDifferentialEquationBloc extends Bloc<
     ThirdOrderDifferentialEquationEvent, ThirdOrderDifferentialEquationState> {
   final ThirdOrderDifferentialEquationUsecase
-      thirdOrderDifferentialEquationUsecasese;
+      thirdOrderDifferentialEquationUsecase;
   ThirdOrderDifferentialEquationBloc(
-      {required this.thirdOrderDifferentialEquationUsecasese})
+      {required this.thirdOrderDifferentialEquationUsecase})
       : super(ThirdOrderDifferentialEquationInitial()) {
     on<ThirdOrderDifferentialEquationEvent>((event, emit) async {
       emit(ThirdOrderDifferentialEquationLoading());
-      final result =
-          await thirdOrderDifferentialEquationUsecasese(event.request);
+      final result = await thirdOrderDifferentialEquationUsecase(event.request);
       result.fold(
         (failure) => emit(
             ThirdOrderDifferentialEquationFailure(message: failure.message)),
