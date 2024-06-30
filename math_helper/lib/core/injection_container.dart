@@ -57,6 +57,13 @@ import 'package:math_helper/features/product/domain/usecases/numeric_product_use
 import 'package:math_helper/features/product/domain/usecases/symbolic_product_usecase.dart';
 import 'package:math_helper/features/product/presentation/bloc/numeric_product/numeric_product_bloc.dart';
 import 'package:math_helper/features/product/presentation/bloc/symbolic_product/symbolic_product_bloc.dart';
+import 'package:math_helper/features/sum/data/api/sum_api.dart';
+import 'package:math_helper/features/sum/data/repository/sum_repository_impl.dart';
+import 'package:math_helper/features/sum/domain/repository/sum_repository.dart';
+import 'package:math_helper/features/sum/domain/usecases/numeric_sum_usecase.dart';
+import 'package:math_helper/features/sum/domain/usecases/symbolic_sum_usecase.dart';
+import 'package:math_helper/features/sum/presentation/bloc/numeric_sum/numeric_sum_bloc.dart';
+import 'package:math_helper/features/sum/presentation/bloc/symbolic_sum/symbolic_sum_bloc.dart';
 
 final ic = GetIt.instance;
 
@@ -169,4 +176,15 @@ Future<void> init() async {
 
   ic.registerFactory(() => SymbolicProductBloc(symbolicProductUsecase: ic()));
   ic.registerFactory(() => NumericProductBloc(numericProductUsecase: ic()));
+
+  // sum
+  ic.registerLazySingleton(() => SumApi(client: ic()));
+  ic.registerLazySingleton<SumRepository>(
+      () => SumRepositoryImpl(connectivity: ic(), sumApi: ic()));
+
+  ic.registerLazySingleton(() => SymbolicSumUsecase(repository: ic()));
+  ic.registerLazySingleton(() => NumericSumUsecase(repository: ic()));
+
+  ic.registerFactory(() => SymbolicSumBloc(symbolicSumUsecase: ic()));
+  ic.registerFactory(() => NumericSumBloc(numericSumUsecase: ic()));
 }
