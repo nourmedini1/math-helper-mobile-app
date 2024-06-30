@@ -7,7 +7,7 @@ import 'package:math_helper/features/product/domain/repository/product_repositor
 class SymbolicProductUsecase {
   final ProductRepository repository;
 
-  SymbolicProductUsecase(this.repository);
+  const SymbolicProductUsecase({required this.repository});
 
   Future<Either<Failure, ProductResponse>> call(ProductRequest request) async {
     return await repository.symbolic(request);

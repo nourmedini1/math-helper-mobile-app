@@ -7,7 +7,7 @@ import 'package:math_helper/features/product/domain/repository/product_repositor
 class NumericProductUsecase {
   final ProductRepository repository;
 
-  NumericProductUsecase(this.repository);
+  const NumericProductUsecase({required this.repository});
 
   Future<Either<Failure, ProductResponse>> call(ProductRequest request) async {
     return await repository.numeric(request);

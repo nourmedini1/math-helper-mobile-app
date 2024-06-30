@@ -50,6 +50,13 @@ import 'package:math_helper/features/limits/domain/usecases/triple_limit_usecase
 import 'package:math_helper/features/limits/presentation/bloc/double_limit/double_limit_bloc.dart';
 import 'package:math_helper/features/limits/presentation/bloc/single_limit/single_limit_bloc.dart';
 import 'package:math_helper/features/limits/presentation/bloc/triple_limit/triple_limit_bloc.dart';
+import 'package:math_helper/features/product/data/api/product_api.dart';
+import 'package:math_helper/features/product/data/repository/product_repository_impl.dart';
+import 'package:math_helper/features/product/domain/repository/product_repository.dart';
+import 'package:math_helper/features/product/domain/usecases/numeric_product_usecase.dart';
+import 'package:math_helper/features/product/domain/usecases/symbolic_product_usecase.dart';
+import 'package:math_helper/features/product/presentation/bloc/numeric_product/numeric_product_bloc.dart';
+import 'package:math_helper/features/product/presentation/bloc/symbolic_product/symbolic_product_bloc.dart';
 
 final ic = GetIt.instance;
 
@@ -151,4 +158,15 @@ Future<void> init() async {
   ic.registerFactory(() => SingleLimitBloc(singleLimitUsecase: ic()));
   ic.registerFactory(() => DoubleLimitBloc(doubleLimitUsecase: ic()));
   ic.registerFactory(() => TripleLimitBloc(tripleLimitUsecase: ic()));
+
+  // products
+  ic.registerLazySingleton(() => ProductApi(client: ic()));
+  ic.registerLazySingleton<ProductRepository>(
+      () => ProductRepositoryImpl(connectivity: ic(), productApi: ic()));
+
+  ic.registerLazySingleton(() => SymbolicProductUsecase(repository: ic()));
+  ic.registerLazySingleton(() => NumericProductUsecase(repository: ic()));
+
+  ic.registerFactory(() => SymbolicProductBloc(symbolicProductUsecase: ic()));
+  ic.registerFactory(() => NumericProductBloc(numericProductUsecase: ic()));
 }
