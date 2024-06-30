@@ -46,4 +46,11 @@ class Endpoints {
   static const SINGLE_LIMIT_ENDPOINT = "$BASE_URL$API_VERSION/limits/single";
   static const DOUBLE_LIMIT_ENDPOINT = "$BASE_URL$API_VERSION/limits/double";
   static const TRIPLE_LIMIT_ENDPOINT = "$BASE_URL$API_VERSION/limits/triple";
+
+//! product endpoints
+
+  static const SYMBOLIC_PRODUCT_ENDPOINT =
+      "$BASE_URL$API_VERSION/product/symbolic";
+  static const NUMERICAL_PRODUCT_ENDPOINT =
+      "$BASE_URL$API_VERSION/product/numeric";
 }
