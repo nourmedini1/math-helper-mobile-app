@@ -41,6 +41,15 @@ import 'package:math_helper/features/integrals/presentation/bloc/single_integral
 import 'package:math_helper/features/integrals/presentation/bloc/single_primitive/single_primitive_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/triple_integral/triple_integral_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/triple_primitive/triple_primitive_bloc.dart';
+import 'package:math_helper/features/limits/data/api/limits_api.dart';
+import 'package:math_helper/features/limits/data/repository/limits_repository_impl.dart';
+import 'package:math_helper/features/limits/domain/repository/limits_repository.dart';
+import 'package:math_helper/features/limits/domain/usecases/double_limit_usecase.dart';
+import 'package:math_helper/features/limits/domain/usecases/single_limit_usecase.dart';
+import 'package:math_helper/features/limits/domain/usecases/triple_limit_usecase.dart';
+import 'package:math_helper/features/limits/presentation/bloc/double_limit/double_limit_bloc.dart';
+import 'package:math_helper/features/limits/presentation/bloc/single_limit/single_limit_bloc.dart';
+import 'package:math_helper/features/limits/presentation/bloc/triple_limit/triple_limit_bloc.dart';
 
 final ic = GetIt.instance;
 
@@ -130,4 +139,16 @@ Future<void> init() async {
       secondOrderDifferentialEquationUsecase: ic()));
   ic.registerFactory(() => ThirdOrderDifferentialEquationBloc(
       thirdOrderDifferentialEquationUsecase: ic()));
+
+  // limits
+  ic.registerLazySingleton(() => LimitsApi(client: ic()));
+  ic.registerLazySingleton<LimitsRepository>(
+      () => LimitsRepositoryImpl(connectivity: ic(), limitsApi: ic()));
+  ic.registerLazySingleton(() => SingleLimitUsecase(limitsRepository: ic()));
+  ic.registerLazySingleton(() => DoubleLimitUsecase(limitsRepository: ic()));
+  ic.registerLazySingleton(() => TripleLimitUsecase(limitsRepository: ic()));
+
+  ic.registerFactory(() => SingleLimitBloc(singleLimitUsecase: ic()));
+  ic.registerFactory(() => DoubleLimitBloc(doubleLimitUsecase: ic()));
+  ic.registerFactory(() => TripleLimitBloc(tripleLimitUsecase: ic()));
 }
