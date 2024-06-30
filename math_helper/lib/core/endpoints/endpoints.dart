@@ -3,6 +3,7 @@ class Endpoints {
   Endpoints._();
 
   static const BASE_URL = "http://10.0.2.2:8000/api/";
+  static const PUBLIC_BASE_URL = "https://math-helper-api-v1.onrender.com";
   static const API_VERSION = "v1";
 
 //! complex endpoints
@@ -33,11 +34,16 @@ class Endpoints {
   static const TRIPLE_INTEGRAL_ENDPOINT =
       "$BASE_URL$API_VERSION/integrals/definite/triple";
 
-// differential equations endpoints
+//! differential equations endpoints
   static const FIRST_ORDER_DIFFERENTIAL_EQUATION_ENDPOINT =
       "$BASE_URL$API_VERSION/differential-equations/first";
   static const SECOND_ORDER_DIFFERENTIAL_EQUATION_ENDPOINT =
       "$BASE_URL$API_VERSION/differential-equations/second";
   static const THIRD_ORDER_DIFFERENTIAL_EQUATION_ENDPOINT =
       "$BASE_URL$API_VERSION/differential-equations/third";
+
+//! limits endpoints
+  static const SINGLE_LIMIT_ENDPOINT = "$BASE_URL$API_VERSION/limits/single";
+  static const DOUBLE_LIMIT_ENDPOINT = "$BASE_URL$API_VERSION/limits/double";
+  static const TRIPLE_LIMIT_ENDPOINT = "$BASE_URL$API_VERSION/limits/triple";
 }
