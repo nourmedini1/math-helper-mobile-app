@@ -129,5 +129,5 @@ Future<void> init() async {
   ic.registerFactory(() => SecondOrderDifferentialEquationBloc(
       secondOrderDifferentialEquationUsecase: ic()));
   ic.registerFactory(() => ThirdOrderDifferentialEquationBloc(
-      thirdOrderDifferentialEquationUsecasese: ic()));
+      thirdOrderDifferentialEquationUsecase: ic()));
 }
