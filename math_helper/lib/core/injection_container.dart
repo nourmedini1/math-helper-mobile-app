@@ -55,6 +55,15 @@ import 'package:math_helper/features/linear_systems/data/repository/linear_syste
 import 'package:math_helper/features/linear_systems/domain/repository/linear_systems_repository.dart';
 import 'package:math_helper/features/linear_systems/domain/usecases/solve_linear_system_usecase.dart';
 import 'package:math_helper/features/linear_systems/presentation/bloc/solve_linear_system/solve_linear_system_bloc.dart';
+import 'package:math_helper/features/matrix/data/api/matrix_api.dart';
+import 'package:math_helper/features/matrix/data/repository/matrix_repository_impl.dart';
+import 'package:math_helper/features/matrix/domain/repository/matrix_repository.dart';
+import 'package:math_helper/features/matrix/domain/usecases/add_matrix_usecase.dart';
+import 'package:math_helper/features/matrix/domain/usecases/get_determinant_usecase.dart';
+import 'package:math_helper/features/matrix/domain/usecases/get_eigen_usecase.dart';
+import 'package:math_helper/features/matrix/domain/usecases/get_rank_usecase.dart';
+import 'package:math_helper/features/matrix/domain/usecases/multiply_matrix_usecase.dart';
+import 'package:math_helper/features/matrix/presentation/bloc/add_matrix/add_matrix_bloc.dart';
 import 'package:math_helper/features/product/data/api/product_api.dart';
 import 'package:math_helper/features/product/data/repository/product_repository_impl.dart';
 import 'package:math_helper/features/product/domain/repository/product_repository.dart';
@@ -215,4 +224,16 @@ Future<void> init() async {
 
   ic.registerFactory(
       () => SolveLinearSystemBloc(solveLinearSystemUsecase: ic()));
+
+  // matrix operations
+  ic.registerLazySingleton(() => MatrixApi(client: ic()));
+
+  ic.registerLazySingleton<MatrixRepository>(
+      () => MatrixRepositoryImpl(connectivity: ic(), matrixApi: ic()));
+  ic.registerLazySingleton(() => AddMatrixUsecase(repository: ic()));
+  ic.registerLazySingleton(() => MultiplyMatrixUsecase(repository: ic()));
+  ic.registerLazySingleton(() => GetEigenUsecase(repository: ic()));
+  ic.registerLazySingleton(() => GetDeterminantUsecase(repository: ic()));
+  ic.registerLazySingleton(() => GetRankUsecase(repository: ic()));
+  ic.registerFactory(() => AddMatrixBloc(addMatrixUsecase: ic()));
 }

@@ -7,7 +7,7 @@ import 'package:math_helper/features/matrix/domain/repository/matrix_repository.
 class InvertMatrixUsecase {
   final MatrixRepository repository;
 
-  InvertMatrixUsecase(this.repository);
+  InvertMatrixUsecase({required this.repository});
 
   Future<Either<Failure, MatrixResponse>> call(MatrixRequest request) async {
     return await repository.invert(request);

@@ -7,7 +7,7 @@ import 'package:math_helper/features/matrix/domain/repository/matrix_repository.
 class GetDeterminantUsecase {
   final MatrixRepository repository;
 
-  GetDeterminantUsecase(this.repository);
+  GetDeterminantUsecase({required this.repository});
 
   Future<Either<Failure, MatrixResponse>> call(MatrixRequest request) async {
     return await repository.determinant(request);

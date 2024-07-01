@@ -7,7 +7,7 @@ import 'package:math_helper/features/matrix/domain/repository/matrix_repository.
 class GetEigenUsecase {
   final MatrixRepository repository;
 
-  GetEigenUsecase(this.repository);
+  GetEigenUsecase({required this.repository});
 
   Future<Either<Failure, MatrixResponse>> call(MatrixRequest request) async {
     return await repository.eigen(request);

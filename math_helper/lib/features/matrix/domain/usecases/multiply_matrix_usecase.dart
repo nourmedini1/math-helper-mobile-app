@@ -7,7 +7,7 @@ import 'package:math_helper/features/matrix/domain/repository/matrix_repository.
 class MultiplyMatrixUsecase {
   final MatrixRepository repository;
 
-  MultiplyMatrixUsecase(this.repository);
+  MultiplyMatrixUsecase({required this.repository});
 
   Future<Either<Failure, MatrixResponse>> call(MatrixRequest request) async {
     return await repository.multiply(request);
