@@ -56,4 +56,8 @@ class Endpoints {
 //! sum endpoints
   static const SYMBOLIC_SUM_ENDPOINT = "$BASE_URL$API_VERSION/sum/symbolic";
   static const NUMERICAL_SUM_ENDPOINT = "$BASE_URL$API_VERSION/sum/numeric";
+
+//! taylor series endpoints
+  static const TAYLOR_SERIES_EXPANSION_ENDPOINT =
+      "$BASE_URL$API_VERSION/taylor-series/expand";
 }
