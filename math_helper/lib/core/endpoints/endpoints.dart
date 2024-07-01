@@ -60,4 +60,8 @@ class Endpoints {
 //! taylor series endpoints
   static const TAYLOR_SERIES_EXPANSION_ENDPOINT =
       "$BASE_URL$API_VERSION/taylor-series/expand";
+
+//! linear systems endpoints
+  static const LINEAR_SYSTEMS_ENDPOINT =
+      "$BASE_URL$API_VERSION/linear-systems/solve";
 }
