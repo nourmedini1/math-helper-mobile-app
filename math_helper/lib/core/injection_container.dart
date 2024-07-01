@@ -64,6 +64,11 @@ import 'package:math_helper/features/sum/domain/usecases/numeric_sum_usecase.dar
 import 'package:math_helper/features/sum/domain/usecases/symbolic_sum_usecase.dart';
 import 'package:math_helper/features/sum/presentation/bloc/numeric_sum/numeric_sum_bloc.dart';
 import 'package:math_helper/features/sum/presentation/bloc/symbolic_sum/symbolic_sum_bloc.dart';
+import 'package:math_helper/features/taylor_series/data/api/taylor_series_api.dart';
+import 'package:math_helper/features/taylor_series/data/repository/taylor_series_repository_impl.dart';
+import 'package:math_helper/features/taylor_series/domain/repository/taylor_series_repository.dart';
+import 'package:math_helper/features/taylor_series/domain/usecases/expand_taylor_series_usecase.dart';
+import 'package:math_helper/features/taylor_series/presentation/bloc/expand_taylor_series/expand_taylor_series_bloc.dart';
 
 final ic = GetIt.instance;
 
@@ -187,4 +192,13 @@ Future<void> init() async {
 
   ic.registerFactory(() => SymbolicSumBloc(symbolicSumUsecase: ic()));
   ic.registerFactory(() => NumericSumBloc(numericSumUsecase: ic()));
+
+  // taylor series
+  ic.registerLazySingleton(() => TaylorSeriesApi(client: ic()));
+  ic.registerLazySingleton<TaylorSeriesRepository>(() =>
+      TaylorSeriesRepositoryImpl(connectivity: ic(), taylorSeriesApi: ic()));
+
+  ic.registerLazySingleton(
+      () => ExpandTaylorSeriesUsecase(taylorSeriesRepository: ic()));
+  ic.registerFactory(() => ExpandTaylorSeriesBloc(taylorSeriesUsecase: ic()));
 }
