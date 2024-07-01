@@ -64,4 +64,18 @@ class Endpoints {
 //! linear systems endpoints
   static const LINEAR_SYSTEMS_ENDPOINT =
       "$BASE_URL$API_VERSION/linear-systems/solve";
+
+//! matrix endpoints
+  static const INVERT_MATRIX_ENDPOINT =
+      "$BASE_URL$API_VERSION/matrix-operations/invert";
+  static const DETERMINANT_MATRIX_ENDPOINT =
+      "$BASE_URL$API_VERSION/matrix-operations/determinant";
+  static const RANK_MATRIX_ENDPOINT =
+      "$BASE_URL$API_VERSION/matrix-operations/rank";
+  static const EIGEN_MATRIX_ENDPOINT =
+      "$BASE_URL$API_VERSION/matrix-operations/eigen";
+  static const ADD_MATRIX_ENDPOINT =
+      "$BASE_URL$API_VERSION/matrix-operations/add";
+  static const MULTIPLY_MATRIX_ENDPOINT =
+      "$BASE_URL$API_VERSION/matrix-operations/multiply";
 }
