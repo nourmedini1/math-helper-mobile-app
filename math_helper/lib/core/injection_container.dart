@@ -50,6 +50,11 @@ import 'package:math_helper/features/limits/domain/usecases/triple_limit_usecase
 import 'package:math_helper/features/limits/presentation/bloc/double_limit/double_limit_bloc.dart';
 import 'package:math_helper/features/limits/presentation/bloc/single_limit/single_limit_bloc.dart';
 import 'package:math_helper/features/limits/presentation/bloc/triple_limit/triple_limit_bloc.dart';
+import 'package:math_helper/features/linear_systems/data/api/linear_systems_api.dart';
+import 'package:math_helper/features/linear_systems/data/repository/linear_systems_repository_impl.dart';
+import 'package:math_helper/features/linear_systems/domain/repository/linear_systems_repository.dart';
+import 'package:math_helper/features/linear_systems/domain/usecases/solve_linear_system_usecase.dart';
+import 'package:math_helper/features/linear_systems/presentation/bloc/solve_linear_system/solve_linear_system_bloc.dart';
 import 'package:math_helper/features/product/data/api/product_api.dart';
 import 'package:math_helper/features/product/data/repository/product_repository_impl.dart';
 import 'package:math_helper/features/product/domain/repository/product_repository.dart';
@@ -201,4 +206,13 @@ Future<void> init() async {
   ic.registerLazySingleton(
       () => ExpandTaylorSeriesUsecase(taylorSeriesRepository: ic()));
   ic.registerFactory(() => ExpandTaylorSeriesBloc(taylorSeriesUsecase: ic()));
+
+  // linear systems
+  ic.registerLazySingleton(() => LinearSystemsApi(client: ic()));
+  ic.registerLazySingleton<LinearSystemsRepository>(() =>
+      LinearSystemsRepositoryImpl(connectivity: ic(), linearSystemsApi: ic()));
+  ic.registerLazySingleton(() => SolveLinearSystemUsecase(repository: ic()));
+
+  ic.registerFactory(
+      () => SolveLinearSystemBloc(solveLinearSystemUsecase: ic()));
 }
