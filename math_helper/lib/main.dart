@@ -1,15 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:math_helper/core/injection_container.dart';
+import 'package:math_helper/core/ui/theme_manager.dart';
+import 'package:math_helper/pages/home_page.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await init();
+  runApp(ChangeNotifierProvider(
+    create: (context) => ThemeManager(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp();
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const HomePage(),
+      theme: Provider.of<ThemeManager>(context).themeData,
+    );
   }
 }
