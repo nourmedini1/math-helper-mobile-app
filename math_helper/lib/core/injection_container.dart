@@ -32,9 +32,11 @@ import 'package:math_helper/features/integrals/data/api/integrals_api.dart';
 import 'package:math_helper/features/integrals/data/repository/integrals_repository_impl.dart';
 import 'package:math_helper/features/integrals/domain/repository/integrals_repository.dart';
 import 'package:math_helper/features/integrals/domain/usecases/double_integral_usecase.dart';
+import 'package:math_helper/features/integrals/domain/usecases/double_primitive_usecase.dart';
 import 'package:math_helper/features/integrals/domain/usecases/single_integral_usecase.dart';
 import 'package:math_helper/features/integrals/domain/usecases/single_primitive_usecase.dart';
 import 'package:math_helper/features/integrals/domain/usecases/triple_integral_usecase.dart';
+import 'package:math_helper/features/integrals/domain/usecases/triple_primitive_usecase.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/double_integral/double_integral_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/double_primitive/double_primitive_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/single_integral/single_integral_bloc.dart';
@@ -136,9 +138,9 @@ Future<void> init() async {
   ic.registerLazySingleton(
       () => SinglePrimitiveUsecase(integralsRepository: ic()));
   ic.registerLazySingleton(
-      () => DoubleIntegralUsecase(integralsRepository: ic()));
+      () => DoublePrimitiveUsecase(integralsRepository: ic()));
   ic.registerLazySingleton(
-      () => TripleIntegralUsecase(integralsRepository: ic()));
+      () => TriplePrimitiveUsecase(integralsRepository: ic()));
   ic.registerLazySingleton(
       () => SingleIntegralUsecase(integralsRepository: ic()));
   ic.registerLazySingleton(
