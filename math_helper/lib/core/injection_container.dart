@@ -1,6 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
+import 'package:math_helper/core/storage/local_storage_service.dart';
 import 'package:math_helper/features/complex/data/api/complex_api.dart';
 import 'package:math_helper/features/complex/data/repository/complex_repository_impl.dart';
 import 'package:math_helper/features/complex/domain/repository/complex_repository.dart';
@@ -85,6 +86,7 @@ import 'package:math_helper/features/taylor_series/data/repository/taylor_series
 import 'package:math_helper/features/taylor_series/domain/repository/taylor_series_repository.dart';
 import 'package:math_helper/features/taylor_series/domain/usecases/expand_taylor_series_usecase.dart';
 import 'package:math_helper/features/taylor_series/presentation/bloc/expand_taylor_series/expand_taylor_series_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final ic = GetIt.instance;
 
@@ -92,6 +94,10 @@ Future<void> init() async {
   //!core
   ic.registerLazySingleton(() => Connectivity());
   ic.registerLazySingleton(() => http.Client());
+  final SharedPreferences sharedPreferences =
+      await SharedPreferences.getInstance();
+  ic.registerLazySingleton(() => sharedPreferences);
+  ic.registerLazySingleton(() => LocalStorageService(sharedPreferences: ic()));
 
   //!features
 

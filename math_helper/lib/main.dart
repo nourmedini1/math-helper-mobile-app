@@ -8,20 +8,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await init();
   runApp(ChangeNotifierProvider(
-    create: (context) => ThemeManager(),
-    child: const MyApp(),
+    create: (context) => ThemeManager()..init(),
+    child: Consumer<ThemeManager>(
+        builder: (context, ThemeManager themeManager, child) {
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: const HomePage(),
+        theme: themeManager.themeData,
+      );
+    }),
   ));
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const HomePage(),
-      theme: Provider.of<ThemeManager>(context).themeData,
-    );
-  }
 }

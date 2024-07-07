@@ -17,8 +17,9 @@ class AboutPage extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: MediaQuery.of(context).orientation == Orientation.portrait
             ? pageBody(context)
-            : SingleChildScrollView(
-                child: pageBody(context),
+            : ListView(
+                physics: const BouncingScrollPhysics(),
+                children: [pageBody(context)],
               ),
       ),
     );
