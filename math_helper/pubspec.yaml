@@ -48,6 +48,7 @@ dependencies:
   fluttertoast: ^8.2.4
   dartz: ^0.10.1
   get: ^4.6.6
+  icons_plus: ^5.0.0
   bloc_concurrency: ^0.2.4
   connectivity: ^3.0.6
   flutter_tex: ^4.0.4
@@ -83,7 +84,25 @@ flutter:
     - lib/core/assets/icons/single-primitive.svg
     - lib/core/assets/icons/definite_integral.svg
     - lib/core/assets/icons/integral.png
-    
+    - lib/core/assets/icons/differential-calculus.png
+    - lib/core/assets/icons/differential-equation.png
+    - lib/core/assets/icons/partial-derivative.png
+    - lib/core/assets/icons/derivative.png
+    - lib/core/assets/icons/complex-analysis.png
+    - lib/core/assets/icons/polar-form.png
+    - lib/core/assets/icons/operations.png
+    - lib/core/assets/icons/binomial.png
+    - lib/core/assets/icons/summation.webp
+    - lib/core/assets/icons/product.png
+    - lib/core/assets/icons/taylor-series.png
+    - lib/core/assets/icons/limit.webp
+    - lib/core/assets/icons/limits.png
+    - lib/core/assets/icons/algebra.png
+    - lib/core/assets/icons/matrix.png
+    - lib/core/assets/icons/rank.png
+    - lib/core/assets/icons/linear-equation.png
+    - lib/core/assets/icons/determinant.png
+  
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
