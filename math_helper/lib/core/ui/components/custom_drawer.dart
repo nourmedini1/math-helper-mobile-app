@@ -18,8 +18,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
       child: ListView(
         children: <Widget>[
           DrawerHeader(
-              child: Padding(
-            padding: const EdgeInsets.only(left: 40),
+              child: Center(
             child: Text(
               Strings.appName,
               style: Theme.of(context).appBarTheme.titleTextStyle,

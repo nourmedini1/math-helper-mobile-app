@@ -12,7 +12,7 @@ class AppThemeData {
       cardColor: AppColors.customBlackTint90,
       appBarTheme: const AppBarTheme(
           backgroundColor: AppColors.customBlackTint90,
-          toolbarHeight: 100,
+          //  toolbarHeight: 100,
           centerTitle: false,
           titleTextStyle: TextStyle(
               fontFamily: CustomFonts.ubuntuBold,
@@ -82,7 +82,7 @@ class AppThemeData {
       appBarTheme: const AppBarTheme(
           backgroundColor: AppColors.customDarkGrey,
           // elevation: 0,
-          toolbarHeight: 100,
+          // toolbarHeight: 100,
           centerTitle: false,
           titleTextStyle: TextStyle(
               fontFamily: CustomFonts.ubuntuBold,

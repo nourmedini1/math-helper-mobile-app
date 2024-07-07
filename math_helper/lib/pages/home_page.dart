@@ -35,23 +35,28 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         appBar: CustomAppBar(
           tabController: tabController,
           context: context,
+          isHomePage: true,
         ),
         drawer: const CustomDrawer(),
         body: TabBarView(children: [
-          ListView(
+          SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.vertical,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 28, bottom: 0, left: 24),
-                child: Text(
-                  "Mathematical topics",
-                  style: Theme.of(context).textTheme.titleMedium,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 28, bottom: 0, left: 24),
+                  child: Text(
+                    "Mathematical topics",
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
                 ),
-              ),
-              const MathematicalTopicsGroupWidget(),
-            ],
-          ),
+                const MathematicalTopicsGroupWidget(),
+              ],
+            ),
+          )
         ]),
       ),
     );
