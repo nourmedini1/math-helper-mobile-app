@@ -8,7 +8,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await init();
   runApp(ChangeNotifierProvider(
-    create: (context) => ThemeManager()..init(),
+    create: (context) => ic<ThemeManager>()..init(),
     child: Consumer<ThemeManager>(
         builder: (context, ThemeManager themeManager, child) {
       return MaterialApp(
