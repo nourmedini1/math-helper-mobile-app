@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:math_helper/core/ui/app_colors.dart';
 import 'package:math_helper/core/ui/app_theme_data.dart';
-import 'package:math_helper/core/ui/components/app_bar_border.dart';
+import 'package:math_helper/core/ui/components/app_bar/app_bar_border.dart';
 import 'package:math_helper/core/ui/cubits/search/search_cubit.dart';
 import 'package:math_helper/core/ui/theme_manager.dart';
 import 'package:math_helper/pages/home_page.dart';

@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:math_helper/core/assets/icons/icons.dart';
 import 'package:math_helper/core/ui/app_colors.dart';
 import 'package:math_helper/core/ui/app_theme_data.dart';
-import 'package:math_helper/core/ui/components/mathematical_topic.dart';
+import 'package:math_helper/core/ui/components/home_screen_menu/mathematical_topic.dart';
 import 'package:math_helper/core/ui/theme_manager.dart';
 import 'package:math_helper/pages/about_page.dart';
 import 'package:provider/provider.dart';

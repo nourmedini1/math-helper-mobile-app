@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:math_helper/core/functionalities.dart';
-import 'package:math_helper/core/ui/components/search_item.dart';
+import 'package:math_helper/core/ui/components/search/search_item.dart';
 import 'package:meta/meta.dart';
 
 part 'search_state.dart';

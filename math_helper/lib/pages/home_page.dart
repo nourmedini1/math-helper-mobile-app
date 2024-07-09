@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:math_helper/core/ui/components/custom_app_bar.dart';
-import 'package:math_helper/core/ui/components/custom_drawer.dart';
-import 'package:math_helper/core/ui/components/mathematical_topics_group.dart';
+import 'package:math_helper/core/ui/components/app_bar/custom_app_bar.dart';
+import 'package:math_helper/core/ui/components/drawer/custom_drawer.dart';
+import 'package:math_helper/core/ui/components/home_screen_menu/mathematical_topics_group.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

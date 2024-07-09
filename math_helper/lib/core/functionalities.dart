@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:math_helper/core/assets/icons/icons.dart';
 import 'package:math_helper/core/ui/app_colors.dart';
 import 'package:math_helper/core/ui/app_theme_data.dart';
-import 'package:math_helper/core/ui/components/search_item.dart';
+import 'package:math_helper/core/ui/components/search/search_item.dart';
 import 'package:math_helper/core/ui/theme_manager.dart';
 import 'package:provider/provider.dart';
 
