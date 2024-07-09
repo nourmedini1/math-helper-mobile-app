@@ -291,7 +291,7 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                       mathTopicListile(
                           context,
                           "Invert Matrix",
-                          "Inverts the inputed matrix if it is invertible in  record timing",
+                          "Inverts the inputed matrix if it is invertible in record timing",
                           Image.asset(
                             CustomIcons.matrix,
                             width: 25,

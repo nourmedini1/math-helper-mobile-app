@@ -2,6 +2,8 @@ import 'package:connectivity/connectivity.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
 import 'package:math_helper/core/storage/local_storage_service.dart';
+import 'package:math_helper/core/ui/cubits/search/search_cubit.dart';
+import 'package:math_helper/core/ui/theme_manager.dart';
 import 'package:math_helper/features/complex/data/api/complex_api.dart';
 import 'package:math_helper/features/complex/data/repository/complex_repository_impl.dart';
 import 'package:math_helper/features/complex/domain/repository/complex_repository.dart';
@@ -98,6 +100,8 @@ Future<void> init() async {
       await SharedPreferences.getInstance();
   ic.registerLazySingleton(() => sharedPreferences);
   ic.registerLazySingleton(() => LocalStorageService(sharedPreferences: ic()));
+  ic.registerFactory(() => SearchCubit());
+  ic.registerLazySingleton(() => ThemeManager());
 
   //!features
 

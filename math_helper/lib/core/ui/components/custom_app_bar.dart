@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:math_helper/core/injection_container.dart';
 import 'package:math_helper/core/strings.dart';
 import 'package:math_helper/core/ui/app_colors.dart';
 import 'package:math_helper/core/ui/app_theme_data.dart';
 import 'package:math_helper/core/ui/components/app_bar_border.dart';
 import 'package:math_helper/core/ui/components/tab_bar_item.dart';
+import 'package:math_helper/core/ui/cubits/search/search_cubit.dart';
 import 'package:math_helper/core/ui/theme_manager.dart';
+import 'package:math_helper/pages/search_page.dart';
 import 'package:provider/provider.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -116,7 +120,12 @@ class _CustomAppBarState extends State<CustomAppBar> {
       actions: <Widget>[
         IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/search');
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => BlocProvider(
+                  create: (context) => ic<SearchCubit>(),
+                  child: const SearchPage(),
+                ),
+              ));
             },
             icon: Icon(
               Icons.search_rounded,
