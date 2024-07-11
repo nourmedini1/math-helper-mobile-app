@@ -2,16 +2,15 @@
 class Endpoints {
   Endpoints._();
 
-  static const BASE_URL = "http://10.0.2.2:8000/api/";
-  static const PUBLIC_BASE_URL = "https://math-helper-api-v1.onrender.com";
+  static const DEV_BASE_URL = "http://10.0.2.2:8000/api/";
+  static const BASE_URL = "https://math-helper-api-v1.onrender.com/api/";
   static const API_VERSION = "v1";
 
 //! complex endpoints
-  static const ADDITION_ENDPOINT = "$BASE_URL$API_VERSION/complex/addition";
-  static const SUBSTRACTION_ENDPOINT =
-      "$BASE_URL$API_VERSION/complex/substraction";
+  static const ADDITION_ENDPOINT = "$BASE_URL$API_VERSION/complex/add";
+  static const SUBSTRACTION_ENDPOINT = "$BASE_URL$API_VERSION/complex/subtract";
   static const MULTIPLICATION_ENDPOINT =
-      "$BASE_URL$API_VERSION/complex/multiplication";
+      "$BASE_URL$API_VERSION/complex/multiply";
   static const POLAR_FORM_ENDPOINT = "$BASE_URL$API_VERSION/complex/polar-form";
 
 //! derivatives endpoints
