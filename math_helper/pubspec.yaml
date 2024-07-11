@@ -51,7 +51,8 @@ dependencies:
   icons_plus: ^5.0.0
   bloc_concurrency: ^0.2.4
   connectivity: ^3.0.6
-  flutter_tex: ^4.0.4
+  flutter_tex: ^4.0.6
+  tex_text: ^0.1.9
 
 dev_dependencies:
   flutter_test:
@@ -131,6 +132,9 @@ flutter:
     - family: ubuntuBold
       fonts:
         - asset: lib/core/assets/fonts/Ubuntu-Bold.ttf
+    - family: latex
+      fonts:
+        - asset: lib/core/assets/fonts/CormorantGaramond-LightItalic.ttf
         
   #
   # For details regarding fonts from package dependencies,
