@@ -2,8 +2,8 @@
 class Endpoints {
   Endpoints._();
 
-  static const DEV_BASE_URL = "http://10.0.2.2:8000/api/";
-  static const BASE_URL = "https://math-helper-api-v1.onrender.com/api/";
+  static const BASE_URL = "http://192.168.1.18:3775/api/";
+  static const PUBLIC_BASE_URL = "https://math-helper-api-v1.onrender.com/api/";
   static const API_VERSION = "v1";
 
 //! complex endpoints
