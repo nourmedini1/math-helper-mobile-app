@@ -4,6 +4,7 @@ import 'package:math_helper/core/ui/app_colors.dart';
 
 class AppThemeData {
   static ThemeData lightTheme = ThemeData(
+      primaryColor: AppColors.primaryColor,
       drawerTheme: const DrawerThemeData(
         backgroundColor: AppColors.primaryColorTint50,
         width: 300,

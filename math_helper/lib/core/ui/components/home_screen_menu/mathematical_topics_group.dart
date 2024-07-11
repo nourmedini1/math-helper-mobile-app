@@ -1,11 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:math_helper/core/assets/icons/icons.dart';
+import 'package:math_helper/core/injection_container.dart';
 import 'package:math_helper/core/ui/app_colors.dart';
 import 'package:math_helper/core/ui/app_theme_data.dart';
 import 'package:math_helper/core/ui/components/home_screen_menu/mathematical_topic.dart';
 import 'package:math_helper/core/ui/theme_manager.dart';
+import 'package:math_helper/features/complex/presentation/bloc/complex_addition/complex_addition_bloc.dart';
+import 'package:math_helper/features/complex/presentation/bloc/complex_multiplication/complex_multiplication_bloc.dart';
+import 'package:math_helper/features/complex/presentation/bloc/complex_substraction/complex_substraction_bloc.dart';
+import 'package:math_helper/features/complex/presentation/screens/complex_operation_page.dart';
 import 'package:math_helper/pages/about_page.dart';
 import 'package:provider/provider.dart';
 
@@ -142,8 +148,23 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                                         AppThemeData.lightTheme
                                     ? AppColors.customBlack
                                     : AppColors.customWhite,
-                          ),
-                          () {}),
+                          ), (context) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => MultiBlocProvider(providers: [
+                            BlocProvider(
+                              create: (context) => ic<ComplexAdditionBloc>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<ComplexMultiplicationBloc>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<ComplexSubstractionBloc>(),
+                            ),
+                          ], child: const ComplexOperationPage()),
+                        ));
+                      }),
                       mathTopicListile(
                           context,
                           "Polar Form",
@@ -458,6 +479,7 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
   ListTile mathTopicListile(BuildContext context, String title,
       String description, Widget icon, Function onTap) {
     return ListTile(
+      onTap: () => onTap(context),
       leading: icon,
       trailing: Icon(
         Icons.arrow_forward_ios_sharp,

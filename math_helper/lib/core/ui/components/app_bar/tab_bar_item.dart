@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:math_helper/core/assets/fonts/fonts.dart';
 
 class TabBarItem extends StatelessWidget {
-  final IconData icon;
   final String title;
-  const TabBarItem({super.key, required this.icon, required this.title});
+  final double? fontSize;
+  final Widget icon;
+  const TabBarItem(
+      {super.key, required this.icon, required this.title, this.fontSize = 14});
 
   @override
   Widget build(BuildContext context) {
@@ -13,16 +15,14 @@ class TabBarItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            icon,
-          ),
+          icon,
           const SizedBox(
             width: 0,
           ),
           Text(
             title,
-            style: const TextStyle(
-              fontSize: 14,
+            style: TextStyle(
+              fontSize: fontSize,
               fontFamily: CustomFonts.robotoMedium,
             ),
           )
