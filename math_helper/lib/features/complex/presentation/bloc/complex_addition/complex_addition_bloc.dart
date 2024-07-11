@@ -15,10 +15,18 @@ class ComplexAdditionBloc
   ComplexAdditionBloc({required this.complexAdditionUsecase})
       : super(ComplexAdditionInitial()) {
     on<ComplexAdditionEvent>((event, emit) async {
-      final response = await complexAdditionUsecase.call(event.request);
-      response.fold(
-          (failure) => ComplexAdditionFailure(message: failure.message),
-          (success) => ComplexAdditionOperationSuccess(response: success));
+      if (event is ComplexAdditionReset) {
+        emit(ComplexAdditionInitial());
+      } else {
+        if (event is ComplexAdditionRequested) {
+          emit(ComplexAdditionLoading());
+          final response = await complexAdditionUsecase.call(event.request);
+          response.fold(
+              (failure) =>
+                  emit(ComplexAdditionFailure(message: failure.message)),
+              (success) => emit(ComplexAdditionSuccess(response: success)));
+        }
+      }
     }, transformer: droppable());
   }
 }

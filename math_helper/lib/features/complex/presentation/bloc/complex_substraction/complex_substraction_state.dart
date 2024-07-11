@@ -7,11 +7,10 @@ final class ComplexSubstractionInitial extends ComplexSubstractionState {}
 
 final class ComplexSubstractionLoading extends ComplexSubstractionState {}
 
-final class ComplexSubstractionOperationSuccess
-    extends ComplexSubstractionState {
+final class ComplexSubstractionSuccess extends ComplexSubstractionState {
   final ComplexOperationsResponse response;
 
-  ComplexSubstractionOperationSuccess({required this.response});
+  ComplexSubstractionSuccess({required this.response});
 }
 
 final class ComplexSubstractionFailure extends ComplexSubstractionState {

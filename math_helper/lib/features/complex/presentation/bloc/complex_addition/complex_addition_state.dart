@@ -7,10 +7,10 @@ final class ComplexAdditionInitial extends ComplexAdditionState {}
 
 final class ComplexAdditionLoading extends ComplexAdditionState {}
 
-final class ComplexAdditionOperationSuccess extends ComplexAdditionState {
+final class ComplexAdditionSuccess extends ComplexAdditionState {
   final ComplexOperationsResponse response;
 
-  ComplexAdditionOperationSuccess({required this.response});
+  ComplexAdditionSuccess({required this.response});
 }
 
 final class ComplexAdditionFailure extends ComplexAdditionState {
