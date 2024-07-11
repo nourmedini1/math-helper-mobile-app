@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:math_helper/core/ui/app_colors.dart';
+import 'package:math_helper/core/ui/app_theme_data.dart';
+import 'package:math_helper/core/ui/components/app_bar/app_bar_border.dart';
 import 'package:math_helper/core/ui/components/app_bar/custom_app_bar.dart';
 import 'package:math_helper/core/ui/components/drawer/custom_drawer.dart';
+import 'package:math_helper/core/ui/theme_manager.dart';
+import 'package:provider/provider.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -11,7 +15,12 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-          context: context, tabController: null, isHomePage: false),
+        context: context,
+        tabController: null,
+        hasHomeIcon: true,
+        hasTabBar: false,
+        appBarBottom: appBarBottom(context),
+      ),
       drawer: const CustomDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -21,6 +30,19 @@ class AboutPage extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 children: [pageBody(context)],
               ),
+      ),
+    );
+  }
+
+  PreferredSize appBarBottom(BuildContext context) {
+    return PreferredSize(
+      preferredSize: const Size.fromHeight(0),
+      child: AppBarBottomBorder(
+        height: 1,
+        color: Provider.of<ThemeManager>(context).themeData ==
+                AppThemeData.lightTheme
+            ? AppColors.primaryColorTint50
+            : AppColors.customBlackTint60,
       ),
     );
   }
