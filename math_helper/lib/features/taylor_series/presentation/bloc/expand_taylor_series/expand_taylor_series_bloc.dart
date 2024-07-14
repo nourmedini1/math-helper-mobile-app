@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:equatable/equatable.dart';
 import 'package:math_helper/features/taylor_series/data/models/taylor_series_request.dart';
 import 'package:math_helper/features/taylor_series/data/models/taylor_series_response.dart';
 import 'package:math_helper/features/taylor_series/domain/usecases/expand_taylor_series_usecase.dart';
@@ -14,12 +15,18 @@ class ExpandTaylorSeriesBloc
   ExpandTaylorSeriesBloc({required this.taylorSeriesUsecase})
       : super(ExpandTaylorSeriesInitial()) {
     on<ExpandTaylorSeriesEvent>((event, emit) async {
-      emit(ExpandTaylorSeriesLoading());
-      final result = await taylorSeriesUsecase(event.request);
-      result.fold(
-        (failure) => emit(ExpandTaylorSeriesFailure(message: failure.message)),
-        (response) => emit(ExpandTaylorSeriesSuccess(response: response)),
-      );
+      if (event is ExpandTaylorSeriesReset) {
+        emit(ExpandTaylorSeriesInitial());
+      }
+      if (event is ExpandTaylorSeriesRequested) {
+        emit(ExpandTaylorSeriesLoading());
+        final result = await taylorSeriesUsecase(event.request);
+        result.fold(
+          (failure) =>
+              emit(ExpandTaylorSeriesFailure(message: failure.message)),
+          (response) => emit(ExpandTaylorSeriesSuccess(response: response)),
+        );
+      }
     }, transformer: droppable());
   }
 }

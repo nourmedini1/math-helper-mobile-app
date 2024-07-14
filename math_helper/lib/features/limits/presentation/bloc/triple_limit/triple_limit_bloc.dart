@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:equatable/equatable.dart';
 import 'package:math_helper/features/limits/data/models/limit_request.dart';
 import 'package:math_helper/features/limits/data/models/limit_response.dart';
 import 'package:math_helper/features/limits/domain/usecases/triple_limit_usecase.dart';
@@ -13,12 +14,17 @@ class TripleLimitBloc extends Bloc<TripleLimitEvent, TripleLimitState> {
   TripleLimitBloc({required this.tripleLimitUsecase})
       : super(TripleLimitInitial()) {
     on<TripleLimitEvent>((event, emit) async {
-      emit(TripleLimitLoading());
-      final result = await tripleLimitUsecase(event.request);
-      result.fold(
-        (failure) => emit(TripleLimitFailure(message: failure.message)),
-        (response) => emit(TripleLimitSuccess(response: response)),
-      );
+      if (event is TripleLimitReset) {
+        emit(TripleLimitInitial());
+      }
+      if (event is TripleLimitRequested) {
+        emit(TripleLimitLoading());
+        final result = await tripleLimitUsecase(event.request);
+        result.fold(
+          (failure) => emit(TripleLimitFailure(message: failure.message)),
+          (response) => emit(TripleLimitSuccess(response: response)),
+        );
+      }
     }, transformer: droppable());
   }
 }

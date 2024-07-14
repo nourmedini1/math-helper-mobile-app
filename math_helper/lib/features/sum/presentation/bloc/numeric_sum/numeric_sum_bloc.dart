@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:equatable/equatable.dart';
 import 'package:math_helper/features/sum/data/models/sum_request.dart';
 import 'package:math_helper/features/sum/data/models/sum_response.dart';
 import 'package:math_helper/features/sum/domain/usecases/numeric_sum_usecase.dart';
@@ -13,12 +14,17 @@ class NumericSumBloc extends Bloc<NumericSumEvent, NumericSumState> {
   NumericSumBloc({required this.numericSumUsecase})
       : super(NumericSumInitial()) {
     on<NumericSumEvent>((event, emit) async {
-      emit(NumericSumLoading());
-      final result = await numericSumUsecase(event.request);
-      result.fold(
-        (failure) => emit(NumericSumFailure(message: failure.message)),
-        (response) => emit(NumericSumSuccess(response: response)),
-      );
+      if (event is NumericSumReset) {
+        emit(NumericSumInitial());
+      }
+      if (event is NumericSumRequested) {
+        emit(NumericSumLoading());
+        final result = await numericSumUsecase(event.request);
+        result.fold(
+          (failure) => emit(NumericSumFailure(message: failure.message)),
+          (response) => emit(NumericSumSuccess(response: response)),
+        );
+      }
     }, transformer: droppable());
   }
 }

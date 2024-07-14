@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:equatable/equatable.dart';
 import 'package:math_helper/features/matrix/data/models/matrix_request.dart';
 import 'package:math_helper/features/matrix/data/models/matrix_response.dart';
 import 'package:math_helper/features/matrix/domain/usecases/multiply_matrix_usecase.dart';
@@ -14,11 +15,16 @@ class MultiplyMatrixBloc
   MultiplyMatrixBloc({required this.multiplyMatrixUsecase})
       : super(MultiplyMatrixInitial()) {
     on<MultiplyMatrixEvent>((event, emit) async {
-      emit(MultiplyMatrixLoading());
-      final result = await multiplyMatrixUsecase(event.request);
-      result.fold(
-          (failure) => emit(MultiplyMatrixFailure(message: failure.message)),
-          (response) => emit(MultiplyMatrixSuccess(response: response)));
+      if (event is MultiplyMatrixReset) {
+        emit(MultiplyMatrixInitial());
+      }
+      if (event is MultiplyMatrixRequested) {
+        emit(MultiplyMatrixLoading());
+        final result = await multiplyMatrixUsecase(event.request);
+        result.fold(
+            (failure) => emit(MultiplyMatrixFailure(message: failure.message)),
+            (response) => emit(MultiplyMatrixSuccess(response: response)));
+      }
     }, transformer: droppable());
   }
 }

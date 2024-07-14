@@ -1,8 +1,19 @@
 part of 'rank_bloc.dart';
 
 @immutable
-sealed class RankEvent {
-  final MatrixRequest request;
+sealed class RankEvent extends Equatable {
+  const RankEvent();
+}
 
-  const RankEvent({required this.request});
+final class RankRequested extends RankEvent {
+  final MatrixRequest request;
+  const RankRequested({required this.request});
+  @override
+  List<Object> get props => [request];
+}
+
+final class RankReset extends RankEvent {
+  const RankReset();
+  @override
+  List<Object> get props => [];
 }

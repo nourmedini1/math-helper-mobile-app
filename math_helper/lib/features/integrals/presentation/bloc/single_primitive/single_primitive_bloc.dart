@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:equatable/equatable.dart';
 import 'package:math_helper/features/integrals/data/models/integral_request.dart';
 import 'package:math_helper/features/integrals/data/models/integral_response.dart';
 import 'package:math_helper/features/integrals/domain/usecases/single_primitive_usecase.dart';
@@ -14,12 +15,17 @@ class SinglePrimitiveBloc
   SinglePrimitiveBloc({required this.singlePrimitiveUsecase})
       : super(SinglePrimitiveInitial()) {
     on<SinglePrimitiveEvent>((event, emit) async {
-      emit(SinglePrimitiveLoading());
-      final result = await singlePrimitiveUsecase(event.request);
-      result.fold(
-        (failure) => emit(SinglePrimitiveFailure(message: failure.message)),
-        (response) => emit(SinglePrimitiveSuccess(integralResponse: response)),
-      );
+      if (event is SinglePrimitiveReset) {
+        emit(SinglePrimitiveInitial());
+      } else if (event is SinglePrimitiveRequested) {
+        emit(SinglePrimitiveLoading());
+        final result = await singlePrimitiveUsecase(event.request);
+        result.fold(
+          (failure) => emit(SinglePrimitiveFailure(message: failure.message)),
+          (response) =>
+              emit(SinglePrimitiveSuccess(integralResponse: response)),
+        );
+      }
     }, transformer: droppable());
   }
 }

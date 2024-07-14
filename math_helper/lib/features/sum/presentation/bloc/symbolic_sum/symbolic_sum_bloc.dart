@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:equatable/equatable.dart';
 import 'package:math_helper/features/sum/data/models/sum_request.dart';
 import 'package:math_helper/features/sum/data/models/sum_response.dart';
 import 'package:math_helper/features/sum/domain/usecases/symbolic_sum_usecase.dart';
@@ -13,12 +14,16 @@ class SymbolicSumBloc extends Bloc<SymbolicSumEvent, SymbolicSumState> {
   SymbolicSumBloc({required this.symbolicSumUsecase})
       : super(SymbolicSumInitial()) {
     on<SymbolicSumEvent>((event, emit) async {
-      emit(SymbolicSumLoading());
-      final result = await symbolicSumUsecase(event.request);
-      result.fold(
-        (failure) => emit(SymbolicSumFailure(message: failure.message)),
-        (response) => emit(SymbolicSumSuccess(response: response)),
-      );
+      if (event is SymbolicSumReset) {
+        emit(SymbolicSumInitial());
+      } else if (event is SymbolicSumRequested) {
+        emit(SymbolicSumLoading());
+        final result = await symbolicSumUsecase(event.request);
+        result.fold(
+          (failure) => emit(SymbolicSumFailure(message: failure.message)),
+          (response) => emit(SymbolicSumSuccess(response: response)),
+        );
+      }
     }, transformer: droppable());
   }
 }

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:equatable/equatable.dart';
 import 'package:math_helper/features/integrals/data/models/integral_request.dart';
 import 'package:math_helper/features/integrals/data/models/integral_response.dart';
 import 'package:math_helper/features/integrals/domain/usecases/triple_primitive_usecase.dart';
@@ -14,12 +15,18 @@ class TriplePrimitiveBloc
   TriplePrimitiveBloc({required this.triplePrimitiveUsecase})
       : super(TriplePrimitiveInitial()) {
     on<TriplePrimitiveEvent>((event, emit) async {
-      emit(TriplePrimitiveLoading());
-      final result = await triplePrimitiveUsecase(event.request);
-      result.fold(
-        (failure) => emit(TriplePrimitiveFailure(message: failure.message)),
-        (response) => emit(TriplePrimitiveSuccess(integralResponse: response)),
-      );
+      if (event is TriplePrimitiveReset) {
+        emit(TriplePrimitiveInitial());
+      }
+      if (event is TriplePrimitiveRequested) {
+        emit(TriplePrimitiveLoading());
+        final result = await triplePrimitiveUsecase(event.request);
+        result.fold(
+          (failure) => emit(TriplePrimitiveFailure(message: failure.message)),
+          (response) =>
+              emit(TriplePrimitiveSuccess(integralResponse: response)),
+        );
+      }
     }, transformer: droppable());
   }
 }

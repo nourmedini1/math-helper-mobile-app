@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:equatable/equatable.dart';
 import 'package:math_helper/features/linear_systems/data/models/linear_system_request.dart';
 import 'package:math_helper/features/linear_systems/data/models/linear_system_response.dart';
 import 'package:math_helper/features/linear_systems/domain/usecases/solve_linear_system_usecase.dart';
@@ -14,12 +15,17 @@ class SolveLinearSystemBloc
   SolveLinearSystemBloc({required this.solveLinearSystemUsecase})
       : super(SolveLinearSystemInitial()) {
     on<SolveLinearSystemEvent>((event, emit) async {
-      emit(SolveLinearSystemLoading());
-      final result = await solveLinearSystemUsecase(event.request);
-      result.fold(
-        (failure) => emit(SolveLinearSystemFailure(message: failure.message)),
-        (response) => emit(SolveLinearSystemSuccess(response: response)),
-      );
+      if (event is SolveLinearSystemReset) {
+        emit(SolveLinearSystemInitial());
+      }
+      if (event is SolveLinearSystemRequested) {
+        emit(SolveLinearSystemLoading());
+        final result = await solveLinearSystemUsecase(event.request);
+        result.fold(
+          (failure) => emit(SolveLinearSystemFailure(message: failure.message)),
+          (response) => emit(SolveLinearSystemSuccess(response: response)),
+        );
+      }
     }, transformer: droppable());
   }
 }

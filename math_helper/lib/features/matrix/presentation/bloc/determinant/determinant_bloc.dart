@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:equatable/equatable.dart';
 import 'package:math_helper/features/matrix/data/models/matrix_request.dart';
 import 'package:math_helper/features/matrix/data/models/matrix_response.dart';
 import 'package:math_helper/features/matrix/domain/usecases/get_determinant_usecase.dart';
@@ -13,11 +14,16 @@ class DeterminantBloc extends Bloc<DeterminantEvent, DeterminantState> {
   DeterminantBloc({required this.getDeterminantUsecase})
       : super(DeterminantInitial()) {
     on<DeterminantEvent>((event, emit) async {
-      emit(DeterminantLoading());
-      final result = await getDeterminantUsecase(event.request);
-      result.fold(
-          (failure) => emit(DeterminantFailure(message: failure.message)),
-          (response) => emit(DeterminantSuccess(response: response)));
+      if (event is DeterminantReset) {
+        emit(DeterminantInitial());
+      }
+      if (event is DeterminantRequested) {
+        emit(DeterminantLoading());
+        final result = await getDeterminantUsecase(event.request);
+        result.fold(
+            (failure) => emit(DeterminantFailure(message: failure.message)),
+            (response) => emit(DeterminantSuccess(response: response)));
+      }
     }, transformer: droppable());
   }
 }

@@ -1,7 +1,19 @@
 part of 'triple_integral_bloc.dart';
 
 @immutable
-sealed class TripleIntegralEvent {
+sealed class TripleIntegralEvent extends Equatable {
+  const TripleIntegralEvent();
+}
+
+final class TripleIntegralRequested extends TripleIntegralEvent {
   final IntegralRequest request;
-  const TripleIntegralEvent({required this.request});
+  const TripleIntegralRequested({required this.request});
+  @override
+  List<Object> get props => [request];
+}
+
+final class TripleIntegralReset extends TripleIntegralEvent {
+  const TripleIntegralReset();
+  @override
+  List<Object> get props => [];
 }
