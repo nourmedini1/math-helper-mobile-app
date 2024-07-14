@@ -4,7 +4,12 @@ import 'package:math_helper/core/ui/app_colors.dart';
 import 'package:math_helper/core/ui/app_theme_data.dart';
 import 'package:math_helper/core/ui/components/app_bar/custom_app_bar.dart';
 import 'package:math_helper/core/ui/components/app_bar/tab_bar_item.dart';
+import 'package:math_helper/core/ui/components/clear_button_decoration.dart';
 import 'package:math_helper/core/ui/components/drawer/custom_drawer.dart';
+import 'package:math_helper/core/ui/components/reset_button.dart';
+import 'package:math_helper/core/ui/components/tex_view_widget.dart';
+import 'package:math_helper/core/ui/components/text_field_decoration.dart';
+import 'package:math_helper/core/ui/components/text_field_input_decoration.dart';
 import 'package:math_helper/core/ui/theme_manager.dart';
 import 'package:math_helper/features/complex/data/models/complex_operations_request.dart';
 import 'package:math_helper/features/complex/presentation/bloc/complex_addition/complex_addition_bloc.dart';
@@ -200,13 +205,6 @@ class _ComplexOperationPageState extends State<ComplexOperationPage>
               SnackBar(
                 content: Text(state.message),
                 backgroundColor: AppColors.customRed,
-              ),
-            );
-          } else if (state is ComplexAdditionSuccess) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text("Operation completed successfully"),
-                backgroundColor: Color.fromARGB(255, 160, 223, 186),
               ),
             );
           }
@@ -450,12 +448,12 @@ class _ComplexOperationPageState extends State<ComplexOperationPage>
                       ),
                     ),
                 child: teXViewWidget(
-                    "result", r"""$$""" + algebraicForm + r"""$$"""))),
+                    context, "result", r"""$$""" + algebraicForm + r"""$$"""))),
         Padding(
             padding: const EdgeInsets.only(left: 20, right: 10),
             child: TeXView(
                 child: teXViewWidget(
-                    "result", r"""$$""" + polarForm + r"""$$"""))),
+                    context, "result", r"""$$""" + polarForm + r"""$$"""))),
       ],
     );
   }
@@ -588,10 +586,7 @@ class _ComplexOperationPageState extends State<ComplexOperationPage>
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment:
-                    MediaQuery.of(context).orientation == Orientation.portrait
-                        ? MainAxisAlignment.center
-                        : MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Padding(
@@ -620,127 +615,55 @@ class _ComplexOperationPageState extends State<ComplexOperationPage>
 
   GestureDetector complexResetButton(String operation) {
     return GestureDetector(
-      onTap: () {
-        switch (operation) {
-          case "Complex Addition":
-            BlocProvider.of<ComplexAdditionBloc>(context).add(
-              const ComplexAdditionReset(),
-            );
-            break;
+        onTap: () {
+          switch (operation) {
+            case "Complex Addition":
+              BlocProvider.of<ComplexAdditionBloc>(context).add(
+                const ComplexAdditionReset(),
+              );
+              break;
 
-          case "Complex Substraction":
-            BlocProvider.of<ComplexSubstractionBloc>(context).add(
-              const ComplexSubstractionReset(),
-            );
-            break;
-          case "Complex Multiplication":
-            BlocProvider.of<ComplexMultiplicationBloc>(context).add(
-              const ComplexMultiplicationReset(),
-            );
-            break;
-        }
-      },
-      child: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: AppColors.primaryColorTint50),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment:
-                MediaQuery.of(context).orientation == Orientation.portrait
-                    ? MainAxisAlignment.center
-                    : MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(right: 5),
-                child: Icon(
-                  Icons.arrow_back,
-                  color: AppColors.customWhite,
-                ),
-              ),
-              Text(
-                "Go back",
-                style: TextStyle(
-                  color: AppColors.customWhite,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  fontFamily:
-                      Theme.of(context).textTheme.labelMedium!.fontFamily,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+            case "Complex Substraction":
+              BlocProvider.of<ComplexSubstractionBloc>(context).add(
+                const ComplexSubstractionReset(),
+              );
+              break;
+            case "Complex Multiplication":
+              BlocProvider.of<ComplexMultiplicationBloc>(context).add(
+                const ComplexMultiplicationReset(),
+              );
+              break;
+          }
+        },
+        child: resetButton(context));
   }
 
   GestureDetector complexClearButton(String operation) {
     return GestureDetector(
-      onTap: () {
-        switch (operation) {
-          case "Complex Addition":
-            additionFirstImaginaryController.clear();
-            additionFirstRealController.clear();
-            additionSecondImaginaryController.clear();
-            additionSecondRealController.clear();
-            break;
+        onTap: () {
+          switch (operation) {
+            case "Complex Addition":
+              additionFirstImaginaryController.clear();
+              additionFirstRealController.clear();
+              additionSecondImaginaryController.clear();
+              additionSecondRealController.clear();
+              break;
 
-          case "Complex Substraction":
-            substractionFirstImaginaryController.clear();
-            substractionFirstRealController.clear();
-            substractionSecondImaginaryController.clear();
-            substractionSecondRealController.clear();
-            break;
-          case "Complex Multiplication":
-            multiplicationFirstImaginaryController.clear();
-            multiplicationFirstRealController.clear();
-            multiplicationSecondImaginaryController.clear();
-            multiplicationSecondRealController.clear();
-            break;
-        }
-      },
-      child: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: AppColors.secondaryColor),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment:
-                MediaQuery.of(context).orientation == Orientation.portrait
-                    ? MainAxisAlignment.center
-                    : MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(right: 5),
-                child: Icon(
-                  Icons.clear,
-                  color: AppColors.customWhite,
-                ),
-              ),
-              Text(
-                "Clear",
-                style: TextStyle(
-                  color: AppColors.customWhite,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  fontFamily:
-                      Theme.of(context).textTheme.labelMedium!.fontFamily,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+            case "Complex Substraction":
+              substractionFirstImaginaryController.clear();
+              substractionFirstRealController.clear();
+              substractionSecondImaginaryController.clear();
+              substractionSecondRealController.clear();
+              break;
+            case "Complex Multiplication":
+              multiplicationFirstImaginaryController.clear();
+              multiplicationFirstRealController.clear();
+              multiplicationSecondImaginaryController.clear();
+              multiplicationSecondRealController.clear();
+              break;
+          }
+        },
+        child: clearButtonDecoration(context));
   }
 
   Padding textFields(
@@ -795,118 +718,73 @@ class _ComplexOperationPageState extends State<ComplexOperationPage>
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Container(
         height: 50,
-        decoration: BoxDecoration(
-          color: Provider.of<ThemeManager>(context, listen: false).themeData ==
-                  AppThemeData.lightTheme
-              ? AppColors.customBlackTint80.withOpacity(0.3)
-              : AppColors.customBlackTint40.withOpacity(0.3),
-          borderRadius: BorderRadius.circular(10),
-        ),
+        decoration: textFieldDecoration(context),
         child: TextField(
-          onChanged: (value) {
-            if (controllers[0].text.isNotEmpty &&
-                controllers[1].text.isNotEmpty &&
-                controllers[2].text.isNotEmpty &&
-                controllers[3].text.isNotEmpty) {
-              switch (operation) {
-                case "Complex Addition":
-                  setState(() {
-                    isAdditionFieldsReady = true;
-                  });
+            onChanged: (value) {
+              if (controllers[0].text.isNotEmpty &&
+                  controllers[1].text.isNotEmpty &&
+                  controllers[2].text.isNotEmpty &&
+                  controllers[3].text.isNotEmpty) {
+                switch (operation) {
+                  case "Complex Addition":
+                    setState(() {
+                      isAdditionFieldsReady = true;
+                    });
 
-                  break;
-                case "Complex Substraction":
-                  setState(() {
-                    isSubstractionFieldsReady = true;
-                  });
-                  break;
-                case "Complex Multiplication":
-                  setState(() {
-                    isMultiplicationFieldsReady = true;
-                  });
-                  break;
+                    break;
+                  case "Complex Substraction":
+                    setState(() {
+                      isSubstractionFieldsReady = true;
+                    });
+                    break;
+                  case "Complex Multiplication":
+                    setState(() {
+                      isMultiplicationFieldsReady = true;
+                    });
+                    break;
+                }
+              } else {
+                switch (operation) {
+                  case "Complex Addition":
+                    setState(() {
+                      isAdditionFieldsReady = false;
+                    });
+                    break;
+                  case "Complex Substraction":
+                    setState(() {
+                      isSubstractionFieldsReady = false;
+                    });
+                    break;
+                  case "Complex Multiplication":
+                    setState(() {
+                      isMultiplicationFieldsReady = false;
+                    });
+                    break;
+                }
               }
-            } else {
-              switch (operation) {
-                case "Complex Addition":
-                  setState(() {
-                    isAdditionFieldsReady = false;
-                  });
-                  break;
-                case "Complex Substraction":
-                  setState(() {
-                    isSubstractionFieldsReady = false;
-                  });
-                  break;
-                case "Complex Multiplication":
-                  setState(() {
-                    isMultiplicationFieldsReady = false;
-                  });
-                  break;
-              }
-            }
-          },
-          keyboardType: TextInputType.number,
-          textInputAction: TextInputAction.next,
-          maxLines: 1,
-          cursorColor:
-              Provider.of<ThemeManager>(context, listen: false).themeData ==
-                      AppThemeData.lightTheme
-                  ? AppColors.primaryColor
-                  : AppColors.customWhite,
-          cursorWidth: 0.8,
-          style: TextStyle(
-              color:
-                  Provider.of<ThemeManager>(context, listen: false).themeData ==
-                          AppThemeData.lightTheme
-                      ? AppColors.customBlack
-                      : AppColors.customWhite,
-              fontSize: Theme.of(context).textTheme.bodySmall!.fontSize,
-              fontFamily: Theme.of(context).textTheme.bodySmall!.fontFamily),
-          textAlign: TextAlign.start,
-          controller: controller,
-          decoration: InputDecoration(
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            border: InputBorder.none,
-            hintText: hint,
-            hintStyle: TextStyle(
-                fontFamily: Theme.of(context).textTheme.labelSmall!.fontFamily,
-                color: AppColors.customBlackTint60,
-                fontSize: 14),
-          ),
-        ),
-      ),
-    );
-  }
-
-  TeXViewWidget teXViewWidget(String title, String body) {
-    return TeXViewDocument(body,
-        style: TeXViewStyle(
-            fontStyle: TeXViewFontStyle(
-              fontSize: 16,
-            ),
-            contentColor:
+            },
+            keyboardType: TextInputType.number,
+            textInputAction: TextInputAction.next,
+            maxLines: 1,
+            cursorColor:
                 Provider.of<ThemeManager>(context, listen: false).themeData ==
+                        AppThemeData.lightTheme
+                    ? AppColors.primaryColor
+                    : AppColors.customWhite,
+            cursorWidth: 0.8,
+            style: TextStyle(
+                color: Provider.of<ThemeManager>(context, listen: false)
+                            .themeData ==
                         AppThemeData.lightTheme
                     ? AppColors.customBlack
                     : AppColors.customWhite,
-            borderRadius: const TeXViewBorderRadius.all(10),
-            border: TeXViewBorder.all(TeXViewBorderDecoration(
-              borderWidth: 2,
-              borderStyle: TeXViewBorderStyle.solid,
-              borderColor:
-                  Provider.of<ThemeManager>(context, listen: false).themeData ==
-                          AppThemeData.lightTheme
-                      ? AppColors.secondaryColor
-                      : AppColors.customBlackTint20,
-            )),
-            backgroundColor:
-                Provider.of<ThemeManager>(context, listen: false).themeData ==
-                        AppThemeData.lightTheme
-                    ? AppColors.customWhite.withOpacity(0.3)
-                    : AppColors.customBlackTint40.withOpacity(0.3),
-            margin: const TeXViewMargin.only(top: 10, right: 10)));
+                fontSize: Theme.of(context).textTheme.bodySmall!.fontSize,
+                fontFamily: Theme.of(context).textTheme.bodySmall!.fontFamily),
+            textAlign: TextAlign.start,
+            controller: controller,
+            decoration: textFieldInputDecoration(context, hint)),
+      ),
+    );
   }
 
   dynamic parseNumber(dynamic number) {

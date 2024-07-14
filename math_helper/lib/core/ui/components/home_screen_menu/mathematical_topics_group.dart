@@ -11,7 +11,9 @@ import 'package:math_helper/core/ui/theme_manager.dart';
 import 'package:math_helper/features/complex/presentation/bloc/complex_addition/complex_addition_bloc.dart';
 import 'package:math_helper/features/complex/presentation/bloc/complex_multiplication/complex_multiplication_bloc.dart';
 import 'package:math_helper/features/complex/presentation/bloc/complex_substraction/complex_substraction_bloc.dart';
+import 'package:math_helper/features/complex/presentation/bloc/polar_form/polar_form_bloc.dart';
 import 'package:math_helper/features/complex/presentation/screens/complex_operation_page.dart';
+import 'package:math_helper/features/complex/presentation/screens/complex_polar_form_page.dart';
 import 'package:math_helper/pages/about_page.dart';
 import 'package:provider/provider.dart';
 
@@ -178,8 +180,16 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                                         AppThemeData.lightTheme
                                     ? AppColors.customBlack
                                     : AppColors.customWhite,
+                          ), (context) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => BlocProvider(
+                            create: (context) {
+                              return ic<PolarFormBloc>();
+                            },
+                            child: const ComplexPolarFormPage(),
                           ),
-                          () {})
+                        ));
+                      })
                     ]),
                 const SizedBox(
                   height: 10,
