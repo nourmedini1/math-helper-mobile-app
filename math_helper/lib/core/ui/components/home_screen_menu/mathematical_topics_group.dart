@@ -14,6 +14,9 @@ import 'package:math_helper/features/complex/presentation/bloc/complex_substract
 import 'package:math_helper/features/complex/presentation/bloc/polar_form/polar_form_bloc.dart';
 import 'package:math_helper/features/complex/presentation/screens/complex_operation_page.dart';
 import 'package:math_helper/features/complex/presentation/screens/complex_polar_form_page.dart';
+import 'package:math_helper/features/derivatives/presentation/bloc/numeric_derivative/numeric_derivative_bloc.dart';
+import 'package:math_helper/features/derivatives/presentation/bloc/symbolic_derivative/symbolic_derivative_bloc.dart';
+import 'package:math_helper/features/derivatives/presentation/screens/derivatives_page.dart';
 import 'package:math_helper/pages/about_page.dart';
 import 'package:provider/provider.dart';
 
@@ -38,7 +41,8 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                     "Integrals measure the area under curves up to 3 dimensions",
                     Image.asset(
                       CustomIcons.integral,
-                      color: Provider.of<ThemeManager>(context).themeData ==
+                      color: Provider.of<ThemeManager>(context, listen: false)
+                                  .themeData ==
                               AppThemeData.lightTheme
                           ? null
                           : AppColors.customWhite,
@@ -50,11 +54,12 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                           "Definite integrals measure the surface under a curve for a given interval",
                           SvgPicture.asset(
                             CustomIcons.singlePrimitive,
-                            color:
-                                Provider.of<ThemeManager>(context).themeData ==
-                                        AppThemeData.lightTheme
-                                    ? AppColors.customBlack
-                                    : AppColors.customWhite,
+                            color: Provider.of<ThemeManager>(context,
+                                            listen: false)
+                                        .themeData ==
+                                    AppThemeData.lightTheme
+                                ? AppColors.customBlack
+                                : AppColors.customWhite,
                           ),
                           () {}),
                       mathTopicListile(
@@ -65,11 +70,12 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                             CustomIcons.definiteIntegral,
                             width: 15,
                             height: 20,
-                            color:
-                                Provider.of<ThemeManager>(context).themeData ==
-                                        AppThemeData.lightTheme
-                                    ? AppColors.customBlack
-                                    : AppColors.customWhite,
+                            color: Provider.of<ThemeManager>(context,
+                                            listen: false)
+                                        .themeData ==
+                                    AppThemeData.lightTheme
+                                ? AppColors.customBlack
+                                : AppColors.customWhite,
                           ),
                           () {})
                     ]),
@@ -83,7 +89,8 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                     Image.asset(
                       CustomIcons.differentialCalculus,
                       width: 57,
-                      color: Provider.of<ThemeManager>(context).themeData ==
+                      color: Provider.of<ThemeManager>(context, listen: false)
+                                  .themeData ==
                               AppThemeData.lightTheme
                           ? AppColors.customBlack
                           : AppColors.customWhite,
@@ -97,13 +104,24 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                             CustomIcons.derivative,
                             width: 25,
                             height: 30,
-                            color:
-                                Provider.of<ThemeManager>(context).themeData ==
-                                        AppThemeData.lightTheme
-                                    ? AppColors.customBlack
-                                    : AppColors.customWhite,
-                          ),
-                          () {}),
+                            color: Provider.of<ThemeManager>(context,
+                                            listen: false)
+                                        .themeData ==
+                                    AppThemeData.lightTheme
+                                ? AppColors.customBlack
+                                : AppColors.customWhite,
+                          ), (context) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => MultiBlocProvider(providers: [
+                            BlocProvider(
+                              create: (context) => ic<SymbolicDerivativeBloc>(),
+                            ),
+                            BlocProvider(
+                              create: (context) => ic<NumericDerivativeBloc>(),
+                            ),
+                          ], child: const DerivativesPage()),
+                        ));
+                      }),
                       mathTopicListile(
                           context,
                           "Differential Equations",
@@ -112,11 +130,12 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                             CustomIcons.differentialEquation,
                             width: 25,
                             height: 50,
-                            color:
-                                Provider.of<ThemeManager>(context).themeData ==
-                                        AppThemeData.lightTheme
-                                    ? AppColors.customBlack
-                                    : AppColors.customWhite,
+                            color: Provider.of<ThemeManager>(context,
+                                            listen: false)
+                                        .themeData ==
+                                    AppThemeData.lightTheme
+                                ? AppColors.customBlack
+                                : AppColors.customWhite,
                           ),
                           () {})
                     ]),
@@ -131,7 +150,8 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                       CustomIcons.complexAnalysis,
                       width: 57,
                       height: 70,
-                      color: Provider.of<ThemeManager>(context).themeData ==
+                      color: Provider.of<ThemeManager>(context, listen: false)
+                                  .themeData ==
                               AppThemeData.lightTheme
                           ? AppColors.customBlack
                           : AppColors.customWhite,
@@ -145,11 +165,12 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                             CustomIcons.operations,
                             width: 25,
                             height: 30,
-                            color:
-                                Provider.of<ThemeManager>(context).themeData ==
-                                        AppThemeData.lightTheme
-                                    ? AppColors.customBlack
-                                    : AppColors.customWhite,
+                            color: Provider.of<ThemeManager>(context,
+                                            listen: false)
+                                        .themeData ==
+                                    AppThemeData.lightTheme
+                                ? AppColors.customBlack
+                                : AppColors.customWhite,
                           ), (context) {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => MultiBlocProvider(providers: [
@@ -175,11 +196,12 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                             CustomIcons.polarForm,
                             width: 25,
                             height: 50,
-                            color:
-                                Provider.of<ThemeManager>(context).themeData ==
-                                        AppThemeData.lightTheme
-                                    ? AppColors.customBlack
-                                    : AppColors.customWhite,
+                            color: Provider.of<ThemeManager>(context,
+                                            listen: false)
+                                        .themeData ==
+                                    AppThemeData.lightTheme
+                                ? AppColors.customBlack
+                                : AppColors.customWhite,
                           ), (context) {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => BlocProvider(
@@ -202,7 +224,8 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                       CustomIcons.binomial,
                       width: 57,
                       height: 100,
-                      color: Provider.of<ThemeManager>(context).themeData ==
+                      color: Provider.of<ThemeManager>(context, listen: false)
+                                  .themeData ==
                               AppThemeData.lightTheme
                           ? AppColors.customBlack
                           : AppColors.customWhite,
@@ -216,11 +239,12 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                             CustomIcons.summation,
                             width: 25,
                             height: 30,
-                            color:
-                                Provider.of<ThemeManager>(context).themeData ==
-                                        AppThemeData.lightTheme
-                                    ? AppColors.customBlack
-                                    : AppColors.customWhite,
+                            color: Provider.of<ThemeManager>(context,
+                                            listen: false)
+                                        .themeData ==
+                                    AppThemeData.lightTheme
+                                ? AppColors.customBlack
+                                : AppColors.customWhite,
                           ),
                           () {}),
                       mathTopicListile(
@@ -231,11 +255,12 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                             CustomIcons.product,
                             width: 25,
                             height: 50,
-                            color:
-                                Provider.of<ThemeManager>(context).themeData ==
-                                        AppThemeData.lightTheme
-                                    ? AppColors.customBlack
-                                    : AppColors.customWhite,
+                            color: Provider.of<ThemeManager>(context,
+                                            listen: false)
+                                        .themeData ==
+                                    AppThemeData.lightTheme
+                                ? AppColors.customBlack
+                                : AppColors.customWhite,
                           ),
                           () {}),
                       mathTopicListile(
@@ -246,11 +271,12 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                             CustomIcons.taylorSeries,
                             width: 25,
                             height: 400,
-                            color:
-                                Provider.of<ThemeManager>(context).themeData ==
-                                        AppThemeData.lightTheme
-                                    ? AppColors.customBlack
-                                    : AppColors.customWhite,
+                            color: Provider.of<ThemeManager>(context,
+                                            listen: false)
+                                        .themeData ==
+                                    AppThemeData.lightTheme
+                                ? AppColors.customBlack
+                                : AppColors.customWhite,
                           ),
                           () {})
                     ]),
@@ -265,7 +291,8 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                       CustomIcons.limit,
                       width: 57,
                       height: 70,
-                      color: Provider.of<ThemeManager>(context).themeData ==
+                      color: Provider.of<ThemeManager>(context, listen: false)
+                                  .themeData ==
                               AppThemeData.lightTheme
                           ? AppColors.customBlack
                           : AppColors.customWhite,
@@ -279,11 +306,12 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                             CustomIcons.limits,
                             width: 25,
                             height: 30,
-                            color:
-                                Provider.of<ThemeManager>(context).themeData ==
-                                        AppThemeData.lightTheme
-                                    ? AppColors.customBlack
-                                    : AppColors.customWhite,
+                            color: Provider.of<ThemeManager>(context,
+                                            listen: false)
+                                        .themeData ==
+                                    AppThemeData.lightTheme
+                                ? AppColors.customBlack
+                                : AppColors.customWhite,
                           ),
                           () {}),
                     ]),
@@ -298,7 +326,8 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                       CustomIcons.algebra,
                       width: 57,
                       height: 40,
-                      color: Provider.of<ThemeManager>(context).themeData ==
+                      color: Provider.of<ThemeManager>(context, listen: false)
+                                  .themeData ==
                               AppThemeData.lightTheme
                           ? AppColors.customBlack
                           : AppColors.customWhite,
@@ -312,11 +341,12 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                             CustomIcons.operations,
                             width: 25,
                             height: 30,
-                            color:
-                                Provider.of<ThemeManager>(context).themeData ==
-                                        AppThemeData.lightTheme
-                                    ? AppColors.customBlack
-                                    : AppColors.customWhite,
+                            color: Provider.of<ThemeManager>(context,
+                                            listen: false)
+                                        .themeData ==
+                                    AppThemeData.lightTheme
+                                ? AppColors.customBlack
+                                : AppColors.customWhite,
                           ),
                           () {}),
                       mathTopicListile(
@@ -327,11 +357,12 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                             CustomIcons.matrix,
                             width: 25,
                             height: 50,
-                            color:
-                                Provider.of<ThemeManager>(context).themeData ==
-                                        AppThemeData.lightTheme
-                                    ? AppColors.customBlack
-                                    : AppColors.customWhite,
+                            color: Provider.of<ThemeManager>(context,
+                                            listen: false)
+                                        .themeData ==
+                                    AppThemeData.lightTheme
+                                ? AppColors.customBlack
+                                : AppColors.customWhite,
                           ),
                           () {}),
                       mathTopicListile(
@@ -342,11 +373,12 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                             CustomIcons.rank,
                             width: 25,
                             height: 50,
-                            color:
-                                Provider.of<ThemeManager>(context).themeData ==
-                                        AppThemeData.lightTheme
-                                    ? AppColors.customBlack
-                                    : AppColors.customWhite,
+                            color: Provider.of<ThemeManager>(context,
+                                            listen: false)
+                                        .themeData ==
+                                    AppThemeData.lightTheme
+                                ? AppColors.customBlack
+                                : AppColors.customWhite,
                           ),
                           () {}),
                       mathTopicListile(
@@ -357,11 +389,12 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                             CustomIcons.determinant,
                             width: 25,
                             height: 100,
-                            color:
-                                Provider.of<ThemeManager>(context).themeData ==
-                                        AppThemeData.lightTheme
-                                    ? AppColors.customBlack
-                                    : AppColors.customWhite,
+                            color: Provider.of<ThemeManager>(context,
+                                            listen: false)
+                                        .themeData ==
+                                    AppThemeData.lightTheme
+                                ? AppColors.customBlack
+                                : AppColors.customWhite,
                           ),
                           () {}),
                       mathTopicListile(
@@ -372,11 +405,12 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                             CustomIcons.linearEquation,
                             width: 25,
                             height: 10,
-                            color:
-                                Provider.of<ThemeManager>(context).themeData ==
-                                        AppThemeData.lightTheme
-                                    ? AppColors.customBlack
-                                    : AppColors.customWhite,
+                            color: Provider.of<ThemeManager>(context,
+                                            listen: false)
+                                        .themeData ==
+                                    AppThemeData.lightTheme
+                                ? AppColors.customBlack
+                                : AppColors.customWhite,
                           ),
                           () {}),
                     ]),
@@ -447,10 +481,11 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
-            color: Provider.of<ThemeManager>(context).themeData ==
-                    AppThemeData.lightTheme
-                ? AppColors.customBlackTint80
-                : AppColors.customBlackTint20,
+            color:
+                Provider.of<ThemeManager>(context, listen: false).themeData ==
+                        AppThemeData.lightTheme
+                    ? AppColors.customBlackTint80
+                    : AppColors.customBlackTint20,
             spreadRadius: 2,
             blurRadius: 7,
             offset: const Offset(0, 1),
@@ -461,26 +496,28 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
         title: title,
         description: description,
         topicIcon: topicIcon,
-        collapsedIcon: Provider.of<ThemeManager>(context).themeData ==
-                AppThemeData.lightTheme
-            ? const Icon(
-                Icons.keyboard_arrow_down,
-                color: AppColors.primaryColor,
-              )
-            : const Icon(
-                Icons.keyboard_arrow_down,
-                color: AppColors.customBlackTint80,
-              ),
-        expandedIcon: Provider.of<ThemeManager>(context).themeData ==
-                AppThemeData.lightTheme
-            ? const Icon(
-                Icons.keyboard_arrow_up,
-                color: AppColors.primaryColor,
-              )
-            : const Icon(
-                Icons.keyboard_arrow_up,
-                color: AppColors.customBlackTint80,
-              ),
+        collapsedIcon:
+            Provider.of<ThemeManager>(context, listen: false).themeData ==
+                    AppThemeData.lightTheme
+                ? const Icon(
+                    Icons.keyboard_arrow_down,
+                    color: AppColors.primaryColor,
+                  )
+                : const Icon(
+                    Icons.keyboard_arrow_down,
+                    color: AppColors.customBlackTint80,
+                  ),
+        expandedIcon:
+            Provider.of<ThemeManager>(context, listen: false).themeData ==
+                    AppThemeData.lightTheme
+                ? const Icon(
+                    Icons.keyboard_arrow_up,
+                    color: AppColors.primaryColor,
+                  )
+                : const Icon(
+                    Icons.keyboard_arrow_up,
+                    color: AppColors.customBlackTint80,
+                  ),
         elementsCards: elements,
       ),
     );
@@ -493,7 +530,7 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
       leading: icon,
       trailing: Icon(
         Icons.arrow_forward_ios_sharp,
-        color: Provider.of<ThemeManager>(context).themeData ==
+        color: Provider.of<ThemeManager>(context, listen: false).themeData ==
                 AppThemeData.lightTheme
             ? AppColors.primaryColor
             : AppColors.customBlackTint80,

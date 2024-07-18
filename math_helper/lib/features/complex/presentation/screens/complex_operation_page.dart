@@ -133,10 +133,11 @@ class _ComplexOperationPageState extends State<ComplexOperationPage>
         children: [
           Divider(
             height: 1,
-            color: Provider.of<ThemeManager>(context).themeData ==
-                    AppThemeData.lightTheme
-                ? AppColors.primaryColorTint50
-                : AppColors.customBlackTint60,
+            color:
+                Provider.of<ThemeManager>(context, listen: false).themeData ==
+                        AppThemeData.lightTheme
+                    ? AppColors.primaryColorTint50
+                    : AppColors.customBlackTint60,
           ),
           Padding(
             padding: const EdgeInsets.only(top: 10),
@@ -147,7 +148,8 @@ class _ComplexOperationPageState extends State<ComplexOperationPage>
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  color: Provider.of<ThemeManager>(context).themeData ==
+                  color: Provider.of<ThemeManager>(context, listen: false)
+                              .themeData ==
                           AppThemeData.lightTheme
                       ? AppColors.customBlackTint90
                       : AppColors.customDarkGrey,
@@ -162,7 +164,8 @@ class _ComplexOperationPageState extends State<ComplexOperationPage>
                   ),
                   labelColor: AppColors.customWhite,
                   unselectedLabelColor:
-                      Provider.of<ThemeManager>(context).themeData ==
+                      Provider.of<ThemeManager>(context, listen: false)
+                                  .themeData ==
                               AppThemeData.lightTheme
                           ? AppColors.customBlack
                           : AppColors.customBlackTint90,

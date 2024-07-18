@@ -5,6 +5,8 @@ import 'package:math_helper/core/ui/app_theme_data.dart';
 import 'package:math_helper/core/ui/components/app_bar/custom_app_bar.dart';
 import 'package:math_helper/core/ui/components/clear_button_decoration.dart';
 import 'package:math_helper/core/ui/components/drawer/custom_drawer.dart';
+import 'package:math_helper/core/ui/components/input_title.dart';
+import 'package:math_helper/core/ui/components/loading_component.dart';
 import 'package:math_helper/core/ui/components/reset_button.dart';
 import 'package:math_helper/core/ui/components/tex_view_widget.dart';
 import 'package:math_helper/core/ui/components/text_field_decoration.dart';
@@ -195,26 +197,8 @@ class _ComplexPolarFormPageState extends State<ComplexPolarFormPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 30),
-                        child: Text(
-                          "The complex number",
-                          style: TextStyle(
-                            fontFamily: Theme.of(context)
-                                .textTheme
-                                .titleSmall!
-                                .fontFamily,
-                            fontSize: Theme.of(context)
-                                .textTheme
-                                .titleSmall!
-                                .fontSize,
-                            color:
-                                Provider.of<ThemeManager>(context).themeData ==
-                                        AppThemeData.lightTheme
-                                    ? AppColors.customBlack
-                                    : AppColors.customBlackTint80,
-                          ),
-                        ),
-                      ),
+                          padding: const EdgeInsets.only(left: 30),
+                          child: inputTitle(context, "The complex number")),
                       const SizedBox(
                         height: 10,
                       ),
@@ -241,18 +225,6 @@ class _ComplexPolarFormPageState extends State<ComplexPolarFormPage> {
             child: polarClearButton(context),
           )
         ],
-      ),
-    );
-  }
-
-  Widget loadingComponent(BuildContext context) {
-    return Align(
-      alignment: Alignment.center,
-      child: CircularProgressIndicator(
-        color: Provider.of<ThemeManager>(context, listen: false).themeData ==
-                AppThemeData.lightTheme
-            ? AppColors.primaryColor
-            : AppColors.customBlackTint60,
       ),
     );
   }
