@@ -17,6 +17,10 @@ import 'package:math_helper/features/complex/presentation/screens/complex_polar_
 import 'package:math_helper/features/derivatives/presentation/bloc/numeric_derivative/numeric_derivative_bloc.dart';
 import 'package:math_helper/features/derivatives/presentation/bloc/symbolic_derivative/symbolic_derivative_bloc.dart';
 import 'package:math_helper/features/derivatives/presentation/screens/derivatives_page.dart';
+import 'package:math_helper/features/differential_equations/presentation/bloc/first_order_differential_equation/first_order_differential_equation_bloc.dart';
+import 'package:math_helper/features/differential_equations/presentation/bloc/second_order_differential_equation/second_order_differential_equation_bloc.dart';
+import 'package:math_helper/features/differential_equations/presentation/bloc/third_order_differential_equation/third_order_differential_equation_bloc.dart';
+import 'package:math_helper/features/differential_equations/presentation/screens/differential_equations_page.dart';
 import 'package:math_helper/pages/about_page.dart';
 import 'package:provider/provider.dart';
 
@@ -136,8 +140,24 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                                     AppThemeData.lightTheme
                                 ? AppColors.customBlack
                                 : AppColors.customWhite,
-                          ),
-                          () {})
+                          ), (context) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => MultiBlocProvider(providers: [
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<FirstOrderDifferentialEquationBloc>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<SecondOrderDifferentialEquationBloc>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<ThirdOrderDifferentialEquationBloc>(),
+                            ),
+                          ], child: const DifferentialEquationsPage()),
+                        ));
+                      })
                     ]),
                 const SizedBox(
                   height: 10,

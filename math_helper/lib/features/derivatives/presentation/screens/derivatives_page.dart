@@ -193,8 +193,12 @@ class _DerivativesPageState extends State<DerivativesPage>
               child: loadingComponent(context),
             );
           } else if (state is NumericDerivativeSuccess) {
-            return numericSuccessWidget(context, "Numeric Derivative",
-                state.response.derivative, state.response.result.toString());
+            return successWidget(
+                context,
+                "Numeric Derivative",
+                state.response.derivative,
+                state.response.result.toString(),
+                "numeric");
           } else if (state is NumericDerivativeFailure) {
             return numericInitialWidget(context);
           }
@@ -231,8 +235,12 @@ class _DerivativesPageState extends State<DerivativesPage>
               child: loadingComponent(context),
             );
           } else if (state is SymbolicDerivativeSuccess) {
-            return symbolicSuccessWidget(context, "Symbolic Derivative",
-                state.response.derivative, state.response.result.toString());
+            return successWidget(
+                context,
+                "Symbolic Derivative",
+                state.response.derivative,
+                state.response.result.toString(),
+                "symbolic");
           } else if (state is SymbolicDerivativeFailure) {
             return symbolicInitialWidget(context);
           }
@@ -543,8 +551,8 @@ class _DerivativesPageState extends State<DerivativesPage>
     );
   }
 
-  Widget symbolicSuccessWidget(
-      BuildContext context, String title, String expression, String result) {
+  Widget successWidget(BuildContext context, String title, String expression,
+      String result, String operation) {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Column(
@@ -595,73 +603,14 @@ class _DerivativesPageState extends State<DerivativesPage>
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40),
-            child: polarResetButton(context, "symbolic"),
+            child: derivativeResetButton(context, operation),
           ),
         ],
       ),
     );
   }
 
-  Widget numericSuccessWidget(
-      BuildContext context, String title, String expression, String result) {
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: Column(
-        children: [
-          Align(
-              alignment: Alignment.center,
-              child: Text(
-                title,
-                style: TextStyle(
-                    color: AppColors.primaryColorTint50,
-                    fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
-                    fontFamily:
-                        Theme.of(context).textTheme.titleMedium!.fontFamily),
-              )),
-          Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 25,
-              ),
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Provider.of<ThemeManager>(context, listen: false)
-                                .themeData ==
-                            AppThemeData.lightTheme
-                        ? AppColors.customBlackTint60
-                        : AppColors.customBlackTint90, // Border color
-                    width: 0.5, // Border width
-                  ),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(10.0), // Border radius
-                  ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    derivativeResult(
-                        context, "The derivative result", expression, result),
-                    const SizedBox(
-                      height: 20,
-                    )
-                  ],
-                ),
-              )),
-          const SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40),
-            child: polarResetButton(context, "numeric"),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget polarResetButton(BuildContext context, String operation) {
+  Widget derivativeResetButton(BuildContext context, String operation) {
     return GestureDetector(
       onTap: () {
         if (operation == "symbolic") {
