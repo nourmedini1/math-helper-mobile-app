@@ -61,13 +61,18 @@ class _DifferentialEquationsPageState extends State<DifferentialEquationsPage>
   late TextEditingController thirdOdeConstant;
   late TextEditingController thirdOdeRightHandSide;
 
+  String firstOdeContraintText = "Coefficients: ";
+  String firstOdeInitialConditionsText = "Initial Conditions: ";
+
+  String secondContraintText = "Coefficients: ";
+  String secondInitialConditionsText = "Initial Conditions: ";
+
+  String thirdOdeContraintText = "Coefficients: ";
+  String thirdOdeInitialConditionsText = "Initial Conditions: ";
+
   List<TextEditingController> firstOdeControllers = [];
   List<TextEditingController> secondOdeControllers = [];
   List<TextEditingController> thirdOdeControllers = [];
-
-  bool isFirstOdeFieldsReady = false;
-  bool isSecondOdeFieldsReady = false;
-  bool isThirdOdeFieldsReady = false;
 
   @override
   void initState() {
@@ -256,6 +261,42 @@ class _DifferentialEquationsPageState extends State<DifferentialEquationsPage>
     );
   }
 
+  void updateFirstOdeContraintText(String value) {
+    setState(() {
+      firstOdeContraintText = value;
+    });
+  }
+
+  void updateFirstOdeInitialConditionsText(String value) {
+    setState(() {
+      firstOdeInitialConditionsText = value;
+    });
+  }
+
+  void updateSecondOdeContraintText(String value) {
+    setState(() {
+      secondContraintText = value;
+    });
+  }
+
+  void updateSecondOdeInitialConditionsText(String value) {
+    setState(() {
+      secondInitialConditionsText = value;
+    });
+  }
+
+  void updateThirdOdeContraintText(String value) {
+    setState(() {
+      thirdOdeContraintText = value;
+    });
+  }
+
+  void updateThirdOdeInitialConditionsText(String value) {
+    setState(() {
+      thirdOdeInitialConditionsText = value;
+    });
+  }
+
   Widget firstOdeScreen(BuildContext context) {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
@@ -421,6 +462,8 @@ class _DifferentialEquationsPageState extends State<DifferentialEquationsPage>
                               onTap: () => Navigator.of(context)
                                       .push(HeroDialogRoute(builder: (context) {
                                     return CustomPopupWidget(
+                                        updateValue:
+                                            updateThirdOdeContraintText,
                                         fourthController:
                                             thirdOdeFourthCoefficient,
                                         fourthHint:
@@ -457,7 +500,7 @@ class _DifferentialEquationsPageState extends State<DifferentialEquationsPage>
                                         padding: const EdgeInsets.only(
                                             top: 15, left: 20),
                                         child: Text(
-                                          "Input the Ode's coefficients",
+                                          thirdOdeContraintText,
                                           style: TextStyle(
                                               fontFamily: Theme.of(context)
                                                   .textTheme
@@ -481,6 +524,8 @@ class _DifferentialEquationsPageState extends State<DifferentialEquationsPage>
                               onTap: () => Navigator.of(context)
                                       .push(HeroDialogRoute(builder: (context) {
                                     return CustomPopupWidget(
+                                        updateValue:
+                                            updateThirdOdeInitialConditionsText,
                                         fourthHint: "Example: x,f'''(x)",
                                         thirdController:
                                             thirdOdeThirdInitialCondition,
@@ -513,7 +558,7 @@ class _DifferentialEquationsPageState extends State<DifferentialEquationsPage>
                                         padding: const EdgeInsets.only(
                                             top: 15, left: 20),
                                         child: Text(
-                                          "Input the Ode's initial conditions",
+                                          thirdOdeInitialConditionsText,
                                           style: TextStyle(
                                               fontFamily: Theme.of(context)
                                                   .textTheme
@@ -549,7 +594,7 @@ class _DifferentialEquationsPageState extends State<DifferentialEquationsPage>
                     ])),
           ),
         ),
-        submitButton(context, "third", isThirdOdeFieldsReady),
+        submitButton(context, "third"),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40),
           child: clearButton(context, thirdOdeControllers, "third"),
@@ -604,6 +649,7 @@ class _DifferentialEquationsPageState extends State<DifferentialEquationsPage>
                             onTap: () => Navigator.of(context)
                                     .push(HeroDialogRoute(builder: (context) {
                                   return CustomPopupWidget(
+                                      updateValue: updateSecondOdeContraintText,
                                       thirdController:
                                           secondOdeThirdCoefficient,
                                       thirdLabel: "Third coefficient",
@@ -633,7 +679,7 @@ class _DifferentialEquationsPageState extends State<DifferentialEquationsPage>
                                       padding: const EdgeInsets.only(
                                           top: 15, left: 20),
                                       child: Text(
-                                        "Input the Ode's coefficients",
+                                        secondContraintText,
                                         style: TextStyle(
                                             fontFamily: Theme.of(context)
                                                 .textTheme
@@ -656,6 +702,8 @@ class _DifferentialEquationsPageState extends State<DifferentialEquationsPage>
                             onTap: () => Navigator.of(context)
                                     .push(HeroDialogRoute(builder: (context) {
                                   return CustomPopupWidget(
+                                      updateValue:
+                                          updateSecondOdeInitialConditionsText,
                                       thirdController:
                                           secondOdeThirdInitialCondition,
                                       thirdLabel: "Third initial condition",
@@ -684,7 +732,7 @@ class _DifferentialEquationsPageState extends State<DifferentialEquationsPage>
                                       padding: const EdgeInsets.only(
                                           top: 15, left: 20),
                                       child: Text(
-                                        "Input the Ode's initial conditions",
+                                        secondInitialConditionsText,
                                         style: TextStyle(
                                             fontFamily: Theme.of(context)
                                                 .textTheme
@@ -719,7 +767,7 @@ class _DifferentialEquationsPageState extends State<DifferentialEquationsPage>
                   ])),
         ),
       ),
-      submitButton(context, "second", isSecondOdeFieldsReady),
+      submitButton(context, "second"),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40),
         child: clearButton(context, secondOdeControllers, "second"),
@@ -897,6 +945,8 @@ class _DifferentialEquationsPageState extends State<DifferentialEquationsPage>
                               onTap: () => Navigator.of(context)
                                       .push(HeroDialogRoute(builder: (context) {
                                     return CustomPopupWidget(
+                                        updateValue:
+                                            updateFirstOdeContraintText,
                                         title: "First Order Ode",
                                         tag: "first-coefficients-popup",
                                         operation: "first",
@@ -923,7 +973,7 @@ class _DifferentialEquationsPageState extends State<DifferentialEquationsPage>
                                         padding: const EdgeInsets.only(
                                             top: 15, left: 20),
                                         child: Text(
-                                          "Input the Ode's coefficients",
+                                          firstOdeContraintText,
                                           style: TextStyle(
                                               fontFamily: Theme.of(context)
                                                   .textTheme
@@ -947,6 +997,8 @@ class _DifferentialEquationsPageState extends State<DifferentialEquationsPage>
                               onTap: () => Navigator.of(context)
                                       .push(HeroDialogRoute(builder: (context) {
                                     return CustomPopupWidget(
+                                        updateValue:
+                                            updateFirstOdeInitialConditionsText,
                                         title: "First Order Ode",
                                         tag: "first-initial-conditions-popup",
                                         operation: "first",
@@ -971,7 +1023,7 @@ class _DifferentialEquationsPageState extends State<DifferentialEquationsPage>
                                         padding: const EdgeInsets.only(
                                             top: 15, left: 20),
                                         child: Text(
-                                          "Input the Ode's initial conditions",
+                                          firstOdeInitialConditionsText,
                                           style: TextStyle(
                                               fontFamily: Theme.of(context)
                                                   .textTheme
@@ -1007,7 +1059,10 @@ class _DifferentialEquationsPageState extends State<DifferentialEquationsPage>
                     ])),
           ),
         ),
-        submitButton(context, "first", isFirstOdeFieldsReady),
+        submitButton(
+          context,
+          "first",
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40),
           child: clearButton(context, firstOdeControllers, "first"),
@@ -1016,105 +1071,86 @@ class _DifferentialEquationsPageState extends State<DifferentialEquationsPage>
     );
   }
 
-  Widget submitButton(
-      BuildContext context, String operation, bool isFieldsReady) {
+  Widget submitButton(BuildContext context, String operation) {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
         child: Center(
             child: GestureDetector(
-          onTap: isFieldsReady
-              ? () {
-                  switch (operation) {
-                    case "first":
-                      final DifferentialEquationRequest request = parseRequest(
-                          "x",
-                          firstOdeConstant.text == ''
-                              ? "0"
-                              : firstOdeConstant.text,
-                          firstOdeRightHandSide.text == ''
-                              ? "0"
-                              : firstOdeRightHandSide.text,
-                          [
-                            firstOdeFirstCoefficient,
-                            firstOdeSecondCoefficient
-                          ],
-                          [
-                            firstOdeFirstInitialCondition,
-                            firstOdeSecondInitialCondition
-                          ]);
+          onTap: () {
+            switch (operation) {
+              case "first":
+                final DifferentialEquationRequest request = parseRequest(
+                    "x",
+                    firstOdeConstant.text == '' ? "0" : firstOdeConstant.text,
+                    firstOdeRightHandSide.text == ''
+                        ? "0"
+                        : firstOdeRightHandSide.text,
+                    [
+                      firstOdeFirstCoefficient,
+                      firstOdeSecondCoefficient
+                    ],
+                    [
+                      firstOdeFirstInitialCondition,
+                      firstOdeSecondInitialCondition
+                    ]);
 
-                      BlocProvider.of<FirstOrderDifferentialEquationBloc>(
-                              context)
-                          .add(FirstOrderDifferentialEquationRequested(
-                              request: request));
-                      break;
-                    case "second":
-                      final DifferentialEquationRequest request = parseRequest(
-                          "x",
-                          secondOdeConstant.text == ''
-                              ? "0"
-                              : secondOdeConstant.text,
-                          secondOdeRightHandSide.text == ''
-                              ? "0"
-                              : secondOdeRightHandSide.text,
-                          [
-                            secondOdeFirstCoefficient,
-                            secondOdeSecondCoefficient,
-                            secondOdeThirdCoefficient
-                          ],
-                          [
-                            secondOdeFirstInitialCondition,
-                            secondOdeSecondInitialCondition,
-                            secondOdeThirdInitialCondition
-                          ]);
+                BlocProvider.of<FirstOrderDifferentialEquationBloc>(context)
+                    .add(FirstOrderDifferentialEquationRequested(
+                        request: request));
+                break;
+              case "second":
+                final DifferentialEquationRequest request = parseRequest(
+                    "x",
+                    secondOdeConstant.text == '' ? "0" : secondOdeConstant.text,
+                    secondOdeRightHandSide.text == ''
+                        ? "0"
+                        : secondOdeRightHandSide.text,
+                    [
+                      secondOdeFirstCoefficient,
+                      secondOdeSecondCoefficient,
+                      secondOdeThirdCoefficient
+                    ],
+                    [
+                      secondOdeFirstInitialCondition,
+                      secondOdeSecondInitialCondition,
+                      secondOdeThirdInitialCondition
+                    ]);
 
-                      BlocProvider.of<SecondOrderDifferentialEquationBloc>(
-                              context)
-                          .add(SecondOrderDifferentialEquationRequested(
-                              request: request));
+                BlocProvider.of<SecondOrderDifferentialEquationBloc>(context)
+                    .add(SecondOrderDifferentialEquationRequested(
+                        request: request));
 
-                      break;
-                    case "third":
-                      final DifferentialEquationRequest request = parseRequest(
-                          "x",
-                          thirdOdeConstant.text == ''
-                              ? "0"
-                              : thirdOdeConstant.text,
-                          thirdOdeRightHandSide.text == ''
-                              ? "0"
-                              : thirdOdeRightHandSide.text,
-                          [
-                            thirdOdeFirstCoefficient,
-                            thirdOdeSecondCoefficient,
-                            thirdOdeThirdCoefficient,
-                            thirdOdeFourthCoefficient
-                          ],
-                          [
-                            thirdOdeFirstInitialCondition,
-                            thirdOdeSecondInitialCondition,
-                            thirdOdeThirdInitialCondition,
-                            thirdOdeFourthInitialCondition
-                          ]);
+                break;
+              case "third":
+                final DifferentialEquationRequest request = parseRequest(
+                    "x",
+                    thirdOdeConstant.text == '' ? "0" : thirdOdeConstant.text,
+                    thirdOdeRightHandSide.text == ''
+                        ? "0"
+                        : thirdOdeRightHandSide.text,
+                    [
+                      thirdOdeFirstCoefficient,
+                      thirdOdeSecondCoefficient,
+                      thirdOdeThirdCoefficient,
+                      thirdOdeFourthCoefficient
+                    ],
+                    [
+                      thirdOdeFirstInitialCondition,
+                      thirdOdeSecondInitialCondition,
+                      thirdOdeThirdInitialCondition,
+                      thirdOdeFourthInitialCondition
+                    ]);
 
-                      BlocProvider.of<ThirdOrderDifferentialEquationBloc>(
-                              context)
-                          .add(ThirdOrderDifferentialEquationRequested(
-                              request: request));
-                  }
-                }
-              : () {},
+                BlocProvider.of<ThirdOrderDifferentialEquationBloc>(context)
+                    .add(ThirdOrderDifferentialEquationRequested(
+                        request: request));
+            }
+          },
           child: Container(
             width: double.infinity,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: isFieldsReady
-                  ? AppColors.primaryColorTint50
-                  : Provider.of<ThemeManager>(context, listen: false)
-                              .themeData ==
-                          AppThemeData.lightTheme
-                      ? AppColors.customBlackTint80
-                      : AppColors.customBlackTint60,
-            ),
+                borderRadius: BorderRadius.circular(10),
+                color: AppColors.primaryColorTint50),
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
               child: Row(
@@ -1150,21 +1186,24 @@ class _DifferentialEquationsPageState extends State<DifferentialEquationsPage>
       List<TextEditingController> controllers, String operation) {
     return GestureDetector(
       onTap: () {
+        for (var element in controllers) {
+          element.clear();
+        }
         if (operation == "first") {
           setState(() {
-            isFirstOdeFieldsReady = false;
+            firstOdeContraintText = "Coefficients:";
+            firstOdeInitialConditionsText = "Initial Conditions: ";
           });
         } else if (operation == "second") {
           setState(() {
-            isSecondOdeFieldsReady = false;
+            secondContraintText = "Coefficients:";
+            secondInitialConditionsText = "Initial Conditions: ";
           });
         } else {
           setState(() {
-            isThirdOdeFieldsReady = false;
+            thirdOdeContraintText = "Coefficients:";
+            thirdOdeInitialConditionsText = "Initial Conditions: ";
           });
-        }
-        for (var element in controllers) {
-          element.clear();
         }
       },
       child: clearButtonDecoration(context),
@@ -1244,6 +1283,8 @@ class CustomPopupWidget extends StatefulWidget {
   final String tag;
   final TextEditingController firstController;
   final TextEditingController secondController;
+  final Function(String) updateValue;
+
   String? thirdLabel;
   String? thirdHint;
   TextEditingController? thirdController;
@@ -1269,6 +1310,7 @@ class CustomPopupWidget extends StatefulWidget {
     this.fourthLabel,
     this.fourthHint,
     this.fourthController,
+    required this.updateValue,
   }) : super(key: key);
 
   @override
@@ -1276,11 +1318,6 @@ class CustomPopupWidget extends StatefulWidget {
 }
 
 class _CustomPopupWidgetState extends State<CustomPopupWidget> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -1461,6 +1498,39 @@ class _CustomPopupWidgetState extends State<CustomPopupWidget> {
       width: width,
       decoration: textFieldDecoration(context),
       child: TextField(
+          onChanged: (value) {
+            switch (operation) {
+              case "first":
+                if (widget.tag.contains("initial-conditions")) {
+                  widget.updateValue(
+                      "Initial conditions: {(${widget.firstController.text}),(${widget.secondController.text})}");
+                } else {
+                  widget.updateValue(
+                      "Coefficients: {${widget.firstController.text},${widget.secondController.text}}");
+                }
+
+                break;
+
+              case "second":
+                if (widget.tag.contains("initial-conditions")) {
+                  widget.updateValue(
+                      "Initial conditions: {(${widget.firstController.text}),(${widget.secondController.text}),(${widget.thirdController!.text})}");
+                } else {
+                  widget.updateValue(
+                      "Coefficients: {${widget.firstController.text},${widget.secondController.text},${widget.thirdController!.text}}");
+                }
+
+                break;
+              default:
+                if (widget.tag.contains("initial-conditions")) {
+                  widget.updateValue(
+                      "Initial conditions: {(${widget.firstController.text}),(${widget.secondController.text}),(${widget.thirdController!.text}),(${widget.fourthController!.text}),(${widget.fourthController!.text})}");
+                } else {
+                  widget.updateValue(
+                      "Coefficients: {${widget.firstController.text},${widget.secondController.text},${widget.thirdController!.text},${widget.fourthController!.text},${widget.fourthController!.text}}");
+                }
+            }
+          },
           controller: controller,
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.next,
