@@ -22,9 +22,13 @@ import 'package:math_helper/features/differential_equations/presentation/bloc/se
 import 'package:math_helper/features/differential_equations/presentation/bloc/third_order_differential_equation/third_order_differential_equation_bloc.dart';
 import 'package:math_helper/features/differential_equations/presentation/screens/differential_equations_page.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/double_integral/double_integral_bloc.dart';
+import 'package:math_helper/features/integrals/presentation/bloc/double_primitive/double_primitive_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/single_integral/single_integral_bloc.dart';
+import 'package:math_helper/features/integrals/presentation/bloc/single_primitive/single_primitive_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/triple_integral/triple_integral_bloc.dart';
+import 'package:math_helper/features/integrals/presentation/bloc/triple_primitive/triple_primitive_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/screens/definite_integral_page.dart';
+import 'package:math_helper/features/integrals/presentation/screens/indefinite_integral_page.dart';
 import 'package:math_helper/pages/about_page.dart';
 import 'package:provider/provider.dart';
 
@@ -99,8 +103,21 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                                     AppThemeData.lightTheme
                                 ? AppColors.customBlack
                                 : AppColors.customWhite,
-                          ),
-                          () {})
+                          ), (context) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => MultiBlocProvider(providers: [
+                            BlocProvider(
+                              create: (context) => ic<SinglePrimitiveBloc>(),
+                            ),
+                            BlocProvider(
+                              create: (context) => ic<DoublePrimitiveBloc>(),
+                            ),
+                            BlocProvider(
+                              create: (context) => ic<TriplePrimitiveBloc>(),
+                            ),
+                          ], child: const IndefinitePrimitivePage()),
+                        ));
+                      })
                     ]),
                 const SizedBox(
                   height: 10,

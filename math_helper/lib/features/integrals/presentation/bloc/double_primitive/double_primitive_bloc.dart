@@ -14,18 +14,17 @@ class DoublePrimitiveBloc
   final DoublePrimitiveUsecase doublePrimitiveUsecase;
   DoublePrimitiveBloc({required this.doublePrimitiveUsecase})
       : super(DoublePrimitiveInitial()) {
-    on<DoublePrimitiveEvent>((event, emit) {
+    on<DoublePrimitiveEvent>((event, emit) async {
       if (event is DoublePrimitiveReset) {
         emit(DoublePrimitiveInitial());
       } else if (event is DoublePrimitiveRequested) {
         emit(DoublePrimitiveLoading());
-        doublePrimitiveUsecase(event.request).then((result) {
-          result.fold(
-            (failure) => emit(DoublePrimitiveFailure(message: failure.message)),
-            (response) =>
-                emit(DoublePrimitiveSuccess(integralResponse: response)),
-          );
-        });
+        final result = await doublePrimitiveUsecase(event.request);
+        result.fold(
+          (failure) => emit(DoublePrimitiveFailure(message: failure.message)),
+          (response) =>
+              emit(DoublePrimitiveSuccess(integralResponse: response)),
+        );
       }
     }, transformer: droppable());
   }
