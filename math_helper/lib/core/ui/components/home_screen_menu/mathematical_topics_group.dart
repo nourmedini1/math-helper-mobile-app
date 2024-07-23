@@ -21,6 +21,10 @@ import 'package:math_helper/features/differential_equations/presentation/bloc/fi
 import 'package:math_helper/features/differential_equations/presentation/bloc/second_order_differential_equation/second_order_differential_equation_bloc.dart';
 import 'package:math_helper/features/differential_equations/presentation/bloc/third_order_differential_equation/third_order_differential_equation_bloc.dart';
 import 'package:math_helper/features/differential_equations/presentation/screens/differential_equations_page.dart';
+import 'package:math_helper/features/integrals/presentation/bloc/double_integral/double_integral_bloc.dart';
+import 'package:math_helper/features/integrals/presentation/bloc/single_integral/single_integral_bloc.dart';
+import 'package:math_helper/features/integrals/presentation/bloc/triple_integral/triple_integral_bloc.dart';
+import 'package:math_helper/features/integrals/presentation/screens/definite_integral_page.dart';
 import 'package:math_helper/pages/about_page.dart';
 import 'package:provider/provider.dart';
 
@@ -57,21 +61,36 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                           "Definite integrals",
                           "Definite integrals measure the surface under a curve for a given interval",
                           SvgPicture.asset(
-                            CustomIcons.singlePrimitive,
+                            CustomIcons.definiteIntegral,
+                            width: 15,
+                            height: 20,
                             color: Provider.of<ThemeManager>(context,
                                             listen: false)
                                         .themeData ==
                                     AppThemeData.lightTheme
                                 ? AppColors.customBlack
                                 : AppColors.customWhite,
-                          ),
-                          () {}),
+                          ), (context) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => MultiBlocProvider(providers: [
+                            BlocProvider(
+                              create: (context) => ic<SingleIntegralBloc>(),
+                            ),
+                            BlocProvider(
+                              create: (context) => ic<DoubleIntegralBloc>(),
+                            ),
+                            BlocProvider(
+                              create: (context) => ic<TripleIntegralBloc>(),
+                            ),
+                          ], child: const DefiniteIntegralPage()),
+                        ));
+                      }),
                       mathTopicListile(
                           context,
                           "Indefinite Integrals",
                           "Determines the primitive's expression of a given function",
                           SvgPicture.asset(
-                            CustomIcons.definiteIntegral,
+                            CustomIcons.singlePrimitive,
                             width: 15,
                             height: 20,
                             color: Provider.of<ThemeManager>(context,
