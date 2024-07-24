@@ -29,6 +29,12 @@ import 'package:math_helper/features/integrals/presentation/bloc/triple_integral
 import 'package:math_helper/features/integrals/presentation/bloc/triple_primitive/triple_primitive_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/screens/definite_integral_page.dart';
 import 'package:math_helper/features/integrals/presentation/screens/indefinite_integral_page.dart';
+import 'package:math_helper/features/product/presentation/bloc/numeric_product/numeric_product_bloc.dart';
+import 'package:math_helper/features/product/presentation/bloc/symbolic_product/symbolic_product_bloc.dart';
+import 'package:math_helper/features/product/presentation/screens/product_page.dart';
+import 'package:math_helper/features/sum/presentation/bloc/numeric_sum/numeric_sum_bloc.dart';
+import 'package:math_helper/features/sum/presentation/bloc/symbolic_sum/symbolic_sum_bloc.dart';
+import 'package:math_helper/features/sum/presentation/screens/sum_page.dart';
 import 'package:math_helper/pages/about_page.dart';
 import 'package:provider/provider.dart';
 
@@ -301,8 +307,18 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                                     AppThemeData.lightTheme
                                 ? AppColors.customBlack
                                 : AppColors.customWhite,
-                          ),
-                          () {}),
+                          ), (context) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => MultiBlocProvider(providers: [
+                            BlocProvider(
+                              create: (context) => ic<SymbolicSumBloc>(),
+                            ),
+                            BlocProvider(
+                              create: (context) => ic<NumericSumBloc>(),
+                            ),
+                          ], child: const SumPage()),
+                        ));
+                      }),
                       mathTopicListile(
                           context,
                           "Products",
@@ -317,8 +333,18 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                                     AppThemeData.lightTheme
                                 ? AppColors.customBlack
                                 : AppColors.customWhite,
-                          ),
-                          () {}),
+                          ), (context) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => MultiBlocProvider(providers: [
+                            BlocProvider(
+                              create: (context) => ic<SymbolicProductBloc>(),
+                            ),
+                            BlocProvider(
+                              create: (context) => ic<NumericProductBloc>(),
+                            ),
+                          ], child: const ProductPage()),
+                        ));
+                      }),
                       mathTopicListile(
                           context,
                           "Taylor Series",
