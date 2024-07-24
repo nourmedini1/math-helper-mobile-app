@@ -35,6 +35,8 @@ import 'package:math_helper/features/product/presentation/screens/product_page.d
 import 'package:math_helper/features/sum/presentation/bloc/numeric_sum/numeric_sum_bloc.dart';
 import 'package:math_helper/features/sum/presentation/bloc/symbolic_sum/symbolic_sum_bloc.dart';
 import 'package:math_helper/features/sum/presentation/screens/sum_page.dart';
+import 'package:math_helper/features/taylor_series/presentation/bloc/expand_taylor_series/expand_taylor_series_bloc.dart';
+import 'package:math_helper/features/taylor_series/presentation/screens/taylor_series_page.dart';
 import 'package:math_helper/pages/about_page.dart';
 import 'package:provider/provider.dart';
 
@@ -359,8 +361,14 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                                     AppThemeData.lightTheme
                                 ? AppColors.customBlack
                                 : AppColors.customWhite,
+                          ), (context) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => BlocProvider(
+                            create: (context) => ic<ExpandTaylorSeriesBloc>(),
+                            child: const TaylorSeriesPage(),
                           ),
-                          () {})
+                        ));
+                      })
                     ]),
                 const SizedBox(
                   height: 10,

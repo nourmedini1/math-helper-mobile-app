@@ -16,11 +16,15 @@ class ApiHelpers {
             jsonDecode(response.body)['violations'][0]['message'];
         throw ConstraintViolationException(message: message);
       } else {
-        final String message = jsonDecode(response.body)['message'];
+        print(response.body);
+        final String message = jsonDecode(response.body)['detail'];
         throw BadRequestException(message: message);
       }
     } else if (response.statusCode == 500) {
       throw ServerException(message: jsonDecode(response.body)['message']);
+    } else if (response.statusCode == 422) {
+      const String message = "Invalid input in the request";
+      throw BadRequestException(message: message);
     } else {
       throw UnexpectedException(message: unexpectedErrorMessage);
     }
