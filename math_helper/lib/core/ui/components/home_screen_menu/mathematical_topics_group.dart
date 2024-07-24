@@ -29,6 +29,10 @@ import 'package:math_helper/features/integrals/presentation/bloc/triple_integral
 import 'package:math_helper/features/integrals/presentation/bloc/triple_primitive/triple_primitive_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/screens/definite_integral_page.dart';
 import 'package:math_helper/features/integrals/presentation/screens/indefinite_integral_page.dart';
+import 'package:math_helper/features/limits/presentation/bloc/double_limit/double_limit_bloc.dart';
+import 'package:math_helper/features/limits/presentation/bloc/single_limit/single_limit_bloc.dart';
+import 'package:math_helper/features/limits/presentation/bloc/triple_limit/triple_limit_bloc.dart';
+import 'package:math_helper/features/limits/presentation/limits_page.dart';
 import 'package:math_helper/features/product/presentation/bloc/numeric_product/numeric_product_bloc.dart';
 import 'package:math_helper/features/product/presentation/bloc/symbolic_product/symbolic_product_bloc.dart';
 import 'package:math_helper/features/product/presentation/screens/product_page.dart';
@@ -402,8 +406,21 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                                     AppThemeData.lightTheme
                                 ? AppColors.customBlack
                                 : AppColors.customWhite,
-                          ),
-                          () {}),
+                          ), (context) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => MultiBlocProvider(providers: [
+                            BlocProvider(
+                              create: (context) => ic<SingleLimitBloc>(),
+                            ),
+                            BlocProvider(
+                              create: (context) => ic<DoubleLimitBloc>(),
+                            ),
+                            BlocProvider(
+                              create: (context) => ic<TripleLimitBloc>(),
+                            ),
+                          ], child: const LimitsPage()),
+                        ));
+                      }),
                     ]),
                 const SizedBox(
                   height: 10,
