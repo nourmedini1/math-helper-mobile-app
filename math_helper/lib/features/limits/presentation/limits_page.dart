@@ -685,7 +685,7 @@ class _LimitsPageState extends State<LimitsPage> with TickerProviderStateMixin {
     );
   }
 
-  Widget successWidget(BuildContext context, String title, String Limit,
+  Widget successWidget(BuildContext context, String title, String limit,
       String result, String operation) {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
@@ -724,7 +724,7 @@ class _LimitsPageState extends State<LimitsPage> with TickerProviderStateMixin {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    LimitResult(context, Limit, result, "The Limit result"),
+                    limitResult(context, limit, result, "The Limit result"),
                     const SizedBox(
                       height: 20,
                     )
@@ -736,15 +736,15 @@ class _LimitsPageState extends State<LimitsPage> with TickerProviderStateMixin {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40),
-            child: LimitResetButton(context, operation),
+            child: limitResetButton(context, operation),
           ),
         ],
       ),
     );
   }
 
-  Widget LimitResult(
-      BuildContext context, String Limit, String result, String title) {
+  Widget limitResult(
+      BuildContext context, String limit, String result, String title) {
     return Column(
       children: [
         Align(
@@ -779,7 +779,7 @@ class _LimitsPageState extends State<LimitsPage> with TickerProviderStateMixin {
                       ),
                     ),
                 child: teXViewWidget(
-                    context, "result", r"""$$""" + Limit + r"""$$"""))),
+                    context, "result", r"""$$""" + limit + r"""$$"""))),
         Padding(
             padding: const EdgeInsets.only(left: 10, right: 10),
             child: TeXView(
@@ -789,7 +789,7 @@ class _LimitsPageState extends State<LimitsPage> with TickerProviderStateMixin {
     );
   }
 
-  Widget LimitResetButton(BuildContext context, String operation) {
+  Widget limitResetButton(BuildContext context, String operation) {
     return GestureDetector(
       onTap: () {
         if (operation == "single") {

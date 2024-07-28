@@ -33,6 +33,9 @@ import 'package:math_helper/features/limits/presentation/bloc/double_limit/doubl
 import 'package:math_helper/features/limits/presentation/bloc/single_limit/single_limit_bloc.dart';
 import 'package:math_helper/features/limits/presentation/bloc/triple_limit/triple_limit_bloc.dart';
 import 'package:math_helper/features/limits/presentation/limits_page.dart';
+import 'package:math_helper/features/matrix/presentation/bloc/add_matrix/add_matrix_bloc.dart';
+import 'package:math_helper/features/matrix/presentation/bloc/multiply_matrix/multiply_matrix_bloc.dart';
+import 'package:math_helper/features/matrix/presentation/screens/matrix_operations_page.dart';
 import 'package:math_helper/features/product/presentation/bloc/numeric_product/numeric_product_bloc.dart';
 import 'package:math_helper/features/product/presentation/bloc/symbolic_product/symbolic_product_bloc.dart';
 import 'package:math_helper/features/product/presentation/screens/product_page.dart';
@@ -454,8 +457,18 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                                     AppThemeData.lightTheme
                                 ? AppColors.customBlack
                                 : AppColors.customWhite,
-                          ),
-                          () {}),
+                          ), (context) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => MultiBlocProvider(providers: [
+                            BlocProvider(
+                              create: (context) => ic<AddMatrixBloc>(),
+                            ),
+                            BlocProvider(
+                              create: (context) => ic<MultiplyMatrixBloc>(),
+                            ),
+                          ], child: const MatrixOperationsPage()),
+                        ));
+                      }),
                       mathTopicListile(
                           context,
                           "Invert Matrix",

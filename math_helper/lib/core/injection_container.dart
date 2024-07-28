@@ -69,6 +69,10 @@ import 'package:math_helper/features/matrix/domain/usecases/get_eigen_usecase.da
 import 'package:math_helper/features/matrix/domain/usecases/get_rank_usecase.dart';
 import 'package:math_helper/features/matrix/domain/usecases/multiply_matrix_usecase.dart';
 import 'package:math_helper/features/matrix/presentation/bloc/add_matrix/add_matrix_bloc.dart';
+import 'package:math_helper/features/matrix/presentation/bloc/determinant/determinant_bloc.dart';
+import 'package:math_helper/features/matrix/presentation/bloc/eigen/eigen_bloc.dart';
+import 'package:math_helper/features/matrix/presentation/bloc/multiply_matrix/multiply_matrix_bloc.dart';
+import 'package:math_helper/features/matrix/presentation/bloc/rank/rank_bloc.dart';
 import 'package:math_helper/features/product/data/api/product_api.dart';
 import 'package:math_helper/features/product/data/repository/product_repository_impl.dart';
 import 'package:math_helper/features/product/domain/repository/product_repository.dart';
@@ -247,5 +251,10 @@ Future<void> init() async {
   ic.registerLazySingleton(() => GetEigenUsecase(repository: ic()));
   ic.registerLazySingleton(() => GetDeterminantUsecase(repository: ic()));
   ic.registerLazySingleton(() => GetRankUsecase(repository: ic()));
+
   ic.registerFactory(() => AddMatrixBloc(addMatrixUsecase: ic()));
+  ic.registerFactory(() => MultiplyMatrixBloc(multiplyMatrixUsecase: ic()));
+  ic.registerFactory(() => EigenBloc(getEigenUsecase: ic()));
+  ic.registerFactory(() => DeterminantBloc(getDeterminantUsecase: ic()));
+  ic.registerFactory(() => RankBloc(getRankUsecase: ic()));
 }
