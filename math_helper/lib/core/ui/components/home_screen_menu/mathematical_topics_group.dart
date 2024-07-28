@@ -34,7 +34,9 @@ import 'package:math_helper/features/limits/presentation/bloc/single_limit/singl
 import 'package:math_helper/features/limits/presentation/bloc/triple_limit/triple_limit_bloc.dart';
 import 'package:math_helper/features/limits/presentation/limits_page.dart';
 import 'package:math_helper/features/matrix/presentation/bloc/add_matrix/add_matrix_bloc.dart';
+import 'package:math_helper/features/matrix/presentation/bloc/invert_matrix/invert_matrix_bloc.dart';
 import 'package:math_helper/features/matrix/presentation/bloc/multiply_matrix/multiply_matrix_bloc.dart';
+import 'package:math_helper/features/matrix/presentation/screens/invert_matrix_page.dart';
 import 'package:math_helper/features/matrix/presentation/screens/matrix_operations_page.dart';
 import 'package:math_helper/features/product/presentation/bloc/numeric_product/numeric_product_bloc.dart';
 import 'package:math_helper/features/product/presentation/bloc/symbolic_product/symbolic_product_bloc.dart';
@@ -483,8 +485,14 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                                     AppThemeData.lightTheme
                                 ? AppColors.customBlack
                                 : AppColors.customWhite,
+                          ), (context) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => BlocProvider(
+                            create: (context) => ic<InvertMatrixBloc>(),
+                            child: const InvertMatrixPage(),
                           ),
-                          () {}),
+                        ));
+                      }),
                       mathTopicListile(
                           context,
                           "Matrix Rank",

@@ -280,61 +280,67 @@ class _MatrixOperationsPageState extends State<MatrixOperationsPage>
                               !isAdditionFirstMatrixGenerated),
                         ],
                       ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 30),
-                              child: inputTitle(context, "The second matrix"),
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 10),
-                                child: textField(
-                                    context,
-                                    additionSecondRowsController,
-                                    "Rows",
-                                    "add",
-                                    1,
-                                    150),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 10),
-                                child: textField(
-                                    context,
-                                    additionSecondColumnsController,
-                                    "Columns",
-                                    "add",
-                                    1,
-                                    150),
-                              ),
-                            ],
-                          ),
-                          generateMatrixButton(
-                              false,
-                              true,
-                              context,
-                              additionSecondMatrixControllers,
-                              updateAdditionSecondMatrixGenerated,
-                              int.tryParse(additionSecondRowsController.text) ??
-                                  4,
-                              int.tryParse(
-                                      additionSecondColumnsController.text) ??
-                                  4,
-                              !isAdditionSecondMatrixGenerated),
-                        ],
-                      ),
                     ],
                   )))),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color:
+                  Provider.of<ThemeManager>(context, listen: false).themeData ==
+                          AppThemeData.lightTheme
+                      ? AppColors.customBlackTint60
+                      : AppColors.customBlackTint90, // Border color
+              width: 0.5, // Border width
+            ),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(10.0), // Border radius
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 30),
+                    child: inputTitle(context, "The second matrix"),
+                  ),
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
+                      child: textField(context, additionSecondRowsController,
+                          "Rows", "add", 1, 150),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
+                      child: textField(context, additionSecondColumnsController,
+                          "Columns", "add", 1, 150),
+                    ),
+                  ],
+                ),
+                generateMatrixButton(
+                    false,
+                    true,
+                    context,
+                    additionSecondMatrixControllers,
+                    updateAdditionSecondMatrixGenerated,
+                    int.tryParse(additionSecondRowsController.text) ?? 4,
+                    int.tryParse(additionSecondColumnsController.text) ?? 4,
+                    !isAdditionSecondMatrixGenerated),
+              ],
+            ),
+          ),
+        ),
+      ),
       submitButton(
           context,
           "add",
@@ -442,62 +448,78 @@ class _MatrixOperationsPageState extends State<MatrixOperationsPage>
                               !isMultiplicationFirstMatrixGenerated),
                         ],
                       ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 30),
-                              child: inputTitle(context, "The second matrix"),
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 10),
-                                child: textField(
-                                    context,
-                                    multiplicationSecondRowsController,
-                                    "Rows",
-                                    "multiply",
-                                    1,
-                                    150),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 10),
-                                child: textField(
-                                    context,
-                                    multiplicationSecondColumnsController,
-                                    "Columns",
-                                    "multiply",
-                                    1,
-                                    150),
-                              ),
-                            ],
-                          ),
-                          generateMatrixButton(
-                              false,
-                              true,
-                              context,
-                              multiplicationSecondMatrixControllers,
-                              updateMultiplicationSecondMatrixGenerated,
-                              int.tryParse(multiplicationSecondRowsController
-                                      .text) ??
-                                  4,
-                              int.tryParse(multiplicationSecondColumnsController
-                                      .text) ??
-                                  4,
-                              !isMultiplicationSecondMatrixGenerated),
-                        ],
-                      ),
                     ],
                   )))),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color:
+                  Provider.of<ThemeManager>(context, listen: false).themeData ==
+                          AppThemeData.lightTheme
+                      ? AppColors.customBlackTint60
+                      : AppColors.customBlackTint90, // Border color
+              width: 0.5, // Border width
+            ),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(10.0), // Border radius
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 30),
+                    child: inputTitle(context, "The second matrix"),
+                  ),
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
+                      child: textField(
+                          context,
+                          multiplicationSecondRowsController,
+                          "Rows",
+                          "multiply",
+                          1,
+                          150),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
+                      child: textField(
+                          context,
+                          multiplicationSecondColumnsController,
+                          "Columns",
+                          "multiply",
+                          1,
+                          150),
+                    ),
+                  ],
+                ),
+                generateMatrixButton(
+                    false,
+                    true,
+                    context,
+                    multiplicationSecondMatrixControllers,
+                    updateMultiplicationSecondMatrixGenerated,
+                    int.tryParse(multiplicationSecondRowsController.text) ?? 4,
+                    int.tryParse(multiplicationSecondColumnsController.text) ??
+                        4,
+                    !isMultiplicationSecondMatrixGenerated),
+              ],
+            ),
+          ),
+        ),
+      ),
       submitButton(
           context,
           "multiply",
@@ -694,22 +716,68 @@ class _MatrixOperationsPageState extends State<MatrixOperationsPage>
           onTap: isFieldsReady
               ? () {
                   if (operation == "add") {
+                    int rows1 = int.parse(additonFirstRowsController.text);
+                    int columns1 =
+                        int.parse(additionFirstColumnsController.text);
+                    int rows2 = int.parse(additionSecondRowsController.text);
+                    int columns2 =
+                        int.parse(additionSecondColumnsController.text);
+                    if (rows1 != rows2 || columns1 != columns2) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          duration: Duration(seconds: 2),
+                          content: Text(
+                            "The matrices must have the same size",
+                            style: TextStyle(
+                              color: AppColors.customWhite,
+                            ),
+                          ),
+                          backgroundColor: AppColors.customRed,
+                        ),
+                      );
+                      return;
+                    }
+
                     MatrixRequest request = parseRequest(
-                        int.parse(additonFirstRowsController.text),
-                        int.parse(additionFirstColumnsController.text),
-                        int.parse(additionSecondRowsController.text),
-                        int.parse(additionSecondColumnsController.text),
+                        rows1,
+                        columns1,
+                        rows2,
+                        columns2,
                         firstMatrixControllers,
                         secondMatrixControllers);
 
                     BlocProvider.of<AddMatrixBloc>(context)
                         .add(AddMatrixRequested(request: request));
                   } else {
+                    int rows1 =
+                        int.parse(multiplicationFirstRowsController.text);
+                    int columns1 =
+                        int.parse(multiplicationFirstColumnsController.text);
+                    int rows2 =
+                        int.parse(multiplicationSecondRowsController.text);
+                    int columns2 =
+                        int.parse(multiplicationSecondColumnsController.text);
+
+                    if (columns1 != rows2) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          duration: Duration(seconds: 2),
+                          content: Text(
+                            "The matrices do not have matching sizes to be multiplied",
+                            style: TextStyle(
+                              color: AppColors.customWhite,
+                            ),
+                          ),
+                          backgroundColor: AppColors.customRed,
+                        ),
+                      );
+                      return;
+                    }
                     MatrixRequest request = parseRequest(
-                        int.parse(multiplicationFirstRowsController.text),
-                        int.parse(multiplicationFirstColumnsController.text),
-                        int.parse(multiplicationSecondRowsController.text),
-                        int.parse(multiplicationSecondColumnsController.text),
+                        rows1,
+                        columns1,
+                        rows2,
+                        columns2,
                         firstMatrixControllers,
                         secondMatrixControllers);
 
@@ -1195,6 +1263,7 @@ class _MatrixInputPopupState extends State<MatrixInputPopup> {
                                   width: 50,
                                   decoration: textFieldDecoration(context),
                                   child: TextField(
+                                    cursorColor: AppColors.primaryColor,
                                     onChanged: (value) {
                                       widget.updateVariable(
                                           false, widget.controllers);
