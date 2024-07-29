@@ -105,7 +105,8 @@ class _MatrixRankPageState extends State<MatrixRankPage> {
               child: loadingComponent(context),
             );
           } else if (state is RankSuccess) {
-            return successWidget(context, "Matrix Rank", state.response.rank!);
+            return successWidget(context, "Matrix Rank", state.response.rank!,
+                state.response.matrixA!);
           } else if (state is RankFailure) {
             return rankInitialWidget(context);
           }
@@ -220,7 +221,8 @@ class _MatrixRankPageState extends State<MatrixRankPage> {
     ]);
   }
 
-  Widget successWidget(BuildContext context, String title, String result) {
+  Widget successWidget(
+      BuildContext context, String title, String result, String matrix) {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Column(
@@ -258,7 +260,7 @@ class _MatrixRankPageState extends State<MatrixRankPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    matrixResult(context, result, "The matrix rank"),
+                    matrixResult(context, result, "The matrix rank", matrix),
                     const SizedBox(
                       height: 20,
                     )
@@ -277,9 +279,27 @@ class _MatrixRankPageState extends State<MatrixRankPage> {
     );
   }
 
-  Widget matrixResult(BuildContext context, String result, String title) {
+  Widget matrixResult(
+      BuildContext context, String result, String title, String matrix) {
     return Column(
       children: [
+        Padding(
+            padding:
+                const EdgeInsets.only(left: 10, right: 10, bottom: 20, top: 20),
+            child: TeXView(
+                style: const TeXViewStyle(textAlign: TeXViewTextAlign.left),
+                loadingWidgetBuilder: (context) => Align(
+                      alignment: Alignment.center,
+                      child: CircularProgressIndicator(
+                        color: Provider.of<ThemeManager>(context, listen: false)
+                                    .themeData ==
+                                AppThemeData.lightTheme
+                            ? AppColors.primaryColor
+                            : AppColors.customBlackTint60,
+                      ),
+                    ),
+                child: teXViewWidget(
+                    context, "result", r"""$$""" + matrix + r"""$$"""))),
         Align(
           alignment: Alignment.topLeft,
           child: Padding(
@@ -534,6 +554,9 @@ class _MatrixRankPageState extends State<MatrixRankPage> {
       decoration: textFieldDecoration(context),
       child: TextField(
           onChanged: (value) {
+            setState(() {
+              isMatrixGenerated = false;
+            });
             if (rowsController.text.isNotEmpty &&
                 columnsController.text.isNotEmpty) {
               setState(() {

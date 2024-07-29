@@ -147,7 +147,12 @@ class _MatrixOperationsPageState extends State<MatrixOperationsPage>
             );
           } else if (state is AddMatrixSuccess) {
             return successWidget(
-                context, "Matrix Addition", state.response.matrix!, "add");
+                context,
+                "Matrix Addition",
+                state.response.matrix!,
+                "add",
+                state.response.matrixA!,
+                state.response.matrixB!);
           } else if (state is AddMatrixFailure) {
             return additionInitialWidget(context);
           }
@@ -184,8 +189,13 @@ class _MatrixOperationsPageState extends State<MatrixOperationsPage>
               child: loadingComponent(context),
             );
           } else if (state is MultiplyMatrixSuccess) {
-            return successWidget(context, "Matrix Multiplication",
-                state.response.matrix!, "multiply");
+            return successWidget(
+                context,
+                "Matrix Multiplication",
+                state.response.matrix!,
+                "multiply",
+                state.response.matrixA!,
+                state.response.matrixB!);
           } else if (state is MultiplyMatrixFailure) {
             return multiplicationInitialWidget(context);
           }
@@ -541,9 +551,43 @@ class _MatrixOperationsPageState extends State<MatrixOperationsPage>
     ]);
   }
 
-  Widget matrixResult(BuildContext context, String matrix, String title) {
+  Widget matrixResult(BuildContext context, String matrix, String title,
+      String matrixA, String matrixB) {
     return Column(
       children: [
+        Padding(
+            padding:
+                const EdgeInsets.only(left: 10, right: 10, bottom: 20, top: 20),
+            child: TeXView(
+                style: const TeXViewStyle(textAlign: TeXViewTextAlign.left),
+                loadingWidgetBuilder: (context) => Align(
+                      alignment: Alignment.center,
+                      child: CircularProgressIndicator(
+                        color: Provider.of<ThemeManager>(context, listen: false)
+                                    .themeData ==
+                                AppThemeData.lightTheme
+                            ? AppColors.primaryColor
+                            : AppColors.customBlackTint60,
+                      ),
+                    ),
+                child: teXViewWidget(
+                    context, "result", r"""$$""" + matrixA + r"""$$"""))),
+        Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10, bottom: 20),
+            child: TeXView(
+                style: const TeXViewStyle(textAlign: TeXViewTextAlign.left),
+                loadingWidgetBuilder: (context) => Align(
+                      alignment: Alignment.center,
+                      child: CircularProgressIndicator(
+                        color: Provider.of<ThemeManager>(context, listen: false)
+                                    .themeData ==
+                                AppThemeData.lightTheme
+                            ? AppColors.primaryColor
+                            : AppColors.customBlackTint60,
+                      ),
+                    ),
+                child: teXViewWidget(
+                    context, "result", r"""$$""" + matrixB + r"""$$"""))),
         Align(
           alignment: Alignment.topLeft,
           child: Padding(
@@ -581,8 +625,8 @@ class _MatrixOperationsPageState extends State<MatrixOperationsPage>
     );
   }
 
-  Widget successWidget(
-      BuildContext context, String title, String matrix, String operation) {
+  Widget successWidget(BuildContext context, String title, String matrix,
+      String operation, String matrixA, String matrixB) {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Column(
@@ -620,7 +664,8 @@ class _MatrixOperationsPageState extends State<MatrixOperationsPage>
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    matrixResult(context, matrix, "The matrix result"),
+                    matrixResult(
+                        context, matrix, "The matrix result", matrixA, matrixB),
                     const SizedBox(
                       height: 20,
                     )

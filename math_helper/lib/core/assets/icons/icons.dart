@@ -27,4 +27,5 @@ class CustomIcons {
   static const String linearEquation =
       "lib/core/assets/icons/linear-equation.png";
   static const String determinant = "lib/core/assets/icons/determinant.png";
+  static const String eigen = "lib/core/assets/icons/eigen.png";
 }

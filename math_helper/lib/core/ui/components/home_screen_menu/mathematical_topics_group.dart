@@ -34,9 +34,12 @@ import 'package:math_helper/features/limits/presentation/bloc/single_limit/singl
 import 'package:math_helper/features/limits/presentation/bloc/triple_limit/triple_limit_bloc.dart';
 import 'package:math_helper/features/limits/presentation/limits_page.dart';
 import 'package:math_helper/features/matrix/presentation/bloc/add_matrix/add_matrix_bloc.dart';
+import 'package:math_helper/features/matrix/presentation/bloc/determinant/determinant_bloc.dart';
+import 'package:math_helper/features/matrix/presentation/bloc/eigen/eigen_bloc.dart';
 import 'package:math_helper/features/matrix/presentation/bloc/invert_matrix/invert_matrix_bloc.dart';
 import 'package:math_helper/features/matrix/presentation/bloc/multiply_matrix/multiply_matrix_bloc.dart';
 import 'package:math_helper/features/matrix/presentation/bloc/rank/rank_bloc.dart';
+import 'package:math_helper/features/matrix/presentation/screens/determinant_page.dart';
 import 'package:math_helper/features/matrix/presentation/screens/invert_matrix_page.dart';
 import 'package:math_helper/features/matrix/presentation/screens/matrix_operations_page.dart';
 import 'package:math_helper/features/matrix/presentation/screens/matrix_rank_page.dart';
@@ -531,12 +534,40 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                                     AppThemeData.lightTheme
                                 ? AppColors.customBlack
                                 : AppColors.customWhite,
+                          ), (context) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => BlocProvider(
+                            create: (context) => ic<DeterminantBloc>(),
+                            child: const DeterminantPage(),
                           ),
-                          () {}),
+                        ));
+                      }),
+                      mathTopicListile(
+                          context,
+                          "Eigen values and vectors",
+                          "Finds the eigen value and vector of a given matrix",
+                          Image.asset(
+                            CustomIcons.eigen,
+                            width: 25,
+                            height: 100,
+                            color: Provider.of<ThemeManager>(context,
+                                            listen: false)
+                                        .themeData ==
+                                    AppThemeData.lightTheme
+                                ? AppColors.customBlack
+                                : AppColors.customWhite,
+                          ), (context) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => BlocProvider(
+                            create: (context) => ic<EigenBloc>(),
+                            child: const DeterminantPage(),
+                          ),
+                        ));
+                      }),
                       mathTopicListile(
                           context,
                           "Linear Equations",
-                          "Solves a linear system of equations by specifying the values that satisfy all the conditions",
+                          "Solves a linear equations by specifying the values that satisfy all the conditions",
                           Image.asset(
                             CustomIcons.linearEquation,
                             width: 25,

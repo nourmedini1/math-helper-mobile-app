@@ -103,6 +103,7 @@ flutter:
     - lib/core/assets/icons/rank.png
     - lib/core/assets/icons/linear-equation.png
     - lib/core/assets/icons/determinant.png
+    - lib/core/assets/icons/eigen.png
   
 
   # An image asset can refer to one or more resolution-specific "variants", see

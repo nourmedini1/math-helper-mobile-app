@@ -16,17 +16,17 @@ import 'package:math_helper/core/ui/components/text_field_decoration.dart';
 import 'package:math_helper/core/ui/components/text_field_input_decoration.dart';
 import 'package:math_helper/core/ui/theme_manager.dart';
 import 'package:math_helper/features/matrix/data/models/matrix_request.dart';
-import 'package:math_helper/features/matrix/presentation/bloc/invert_matrix/invert_matrix_bloc.dart';
+import 'package:math_helper/features/matrix/presentation/bloc/determinant/determinant_bloc.dart';
 import 'package:provider/provider.dart';
 
-class InvertMatrixPage extends StatefulWidget {
-  const InvertMatrixPage({super.key});
+class DeterminantPage extends StatefulWidget {
+  const DeterminantPage({super.key});
 
   @override
-  State<InvertMatrixPage> createState() => _InvertMatrixPageState();
+  State<DeterminantPage> createState() => _DeterminantPageState();
 }
 
-class _InvertMatrixPageState extends State<InvertMatrixPage> {
+class _DeterminantPageState extends State<DeterminantPage> {
   late TextEditingController rowsController;
   late TextEditingController columnsController;
 
@@ -73,17 +73,17 @@ class _InvertMatrixPageState extends State<InvertMatrixPage> {
           hasHomeIcon: true),
       drawer: const CustomDrawer(),
       body: Center(
-        child: inversionScreen(context),
+        child: determinantScreen(context),
       ),
     );
   }
 
-  Widget inversionScreen(BuildContext context) {
+  Widget determinantScreen(BuildContext context) {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
-      child: BlocConsumer<InvertMatrixBloc, InvertMatrixState>(
+      child: BlocConsumer<DeterminantBloc, DeterminantState>(
         listener: (context, state) {
-          if (state is InvertMatrixFailure) {
+          if (state is DeterminantFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
@@ -98,17 +98,17 @@ class _InvertMatrixPageState extends State<InvertMatrixPage> {
           }
         },
         builder: (context, state) {
-          if (state is InvertMatrixInitial) {
-            return inversionInitialWidget(context);
-          } else if (state is InvertMatrixLoading) {
+          if (state is DeterminantInitial) {
+            return determinantInitialWidget(context);
+          } else if (state is DeterminantLoading) {
             return Center(
               child: loadingComponent(context),
             );
-          } else if (state is InvertMatrixSuccess) {
-            return successWidget(context, "Matrix Inversion",
-                state.response.matrix!, state.response.matrixA!);
-          } else if (state is InvertMatrixFailure) {
-            return inversionInitialWidget(context);
+          } else if (state is DeterminantSuccess) {
+            return successWidget(context, "Matrix Determinant",
+                state.response.determinant!, state.response.matrixA!);
+          } else if (state is DeterminantFailure) {
+            return determinantInitialWidget(context);
           }
           return Container();
         },
@@ -132,12 +132,12 @@ class _InvertMatrixPageState extends State<InvertMatrixPage> {
     }
   }
 
-  Widget inversionInitialWidget(BuildContext context) {
+  Widget determinantInitialWidget(BuildContext context) {
     return Column(children: [
       Align(
         alignment: Alignment.center,
         child: Text(
-          "Matrix Inversion",
+          "Matrix Determinant",
           style: TextStyle(
               color: AppColors.primaryColorTint50,
               fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
@@ -261,7 +261,7 @@ class _InvertMatrixPageState extends State<InvertMatrixPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     matrixResult(
-                        context, result, "The inverted matrix", matrix),
+                        context, result, "The matrix determinant", matrix),
                     const SizedBox(
                       height: 20,
                     )
@@ -349,32 +349,14 @@ class _InvertMatrixPageState extends State<InvertMatrixPage> {
         child: GestureDetector(
           onTap: isFieldsReady
               ? () {
-                  int rows = int.parse(rowsController.text);
-                  int columns = int.parse(columnsController.text);
-                  if (rows != columns) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        duration: Duration(seconds: 2),
-                        content: Text(
-                          "The matrix must be square",
-                          style: TextStyle(
-                            color: AppColors.customWhite,
-                          ),
-                        ),
-                        backgroundColor: AppColors.customRed,
-                      ),
-                    );
-
-                    return;
-                  }
                   MatrixRequest request = parseRequest(
                     int.parse(rowsController.text),
                     int.parse(columnsController.text),
                     matrixControllers,
                   );
 
-                  BlocProvider.of<InvertMatrixBloc>(context)
-                      .add(InvertMatrixRequested(request: request));
+                  BlocProvider.of<DeterminantBloc>(context)
+                      .add(DeterminantRequested(request: request));
                 }
               : () {},
           child: Container(
@@ -420,7 +402,7 @@ class _InvertMatrixPageState extends State<InvertMatrixPage> {
   Widget matrixResetButton(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        BlocProvider.of<InvertMatrixBloc>(context).add(InvertMatrixReset());
+        BlocProvider.of<DeterminantBloc>(context).add(const DeterminantReset());
       },
       child: resetButton(context),
     );
@@ -484,25 +466,10 @@ class _InvertMatrixPageState extends State<InvertMatrixPage> {
         child: GestureDetector(
           onTap: () {
             if (isGenerating) {
-              if (rows != columns) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    duration: Duration(seconds: 2),
-                    content: Text(
-                      "The matrix must be square",
-                      style: TextStyle(
-                        color: AppColors.customWhite,
-                      ),
-                    ),
-                    backgroundColor: AppColors.customRed,
-                  ),
-                );
-              } else {
-                controllers.clear();
-                for (var i = 0; i < columns; i++) {
-                  for (var j = 0; j < rows; j++) {
-                    controllers.add(TextEditingController());
-                  }
+              controllers.clear();
+              for (var i = 0; i < columns; i++) {
+                for (var j = 0; j < rows; j++) {
+                  controllers.add(TextEditingController());
                 }
               }
             }
@@ -513,7 +480,7 @@ class _InvertMatrixPageState extends State<InvertMatrixPage> {
                   tag: "Input Matrix",
                   rows: rows > 5 ? 5 : rows,
                   columns: columns > 5 ? 5 : columns,
-                  title: "Matrix Inversion");
+                  title: "Matrix Determinant");
             }));
           },
           child: Hero(
@@ -589,7 +556,7 @@ class _InvertMatrixPageState extends State<InvertMatrixPage> {
       child: TextField(
           onChanged: (value) {
             setState(() {
-              isMatrixGenerated = false;
+              isMatrixReady = false;
             });
             if (rowsController.text.isNotEmpty &&
                 columnsController.text.isNotEmpty) {
