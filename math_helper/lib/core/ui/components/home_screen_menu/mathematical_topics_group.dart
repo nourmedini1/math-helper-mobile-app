@@ -40,6 +40,7 @@ import 'package:math_helper/features/matrix/presentation/bloc/invert_matrix/inve
 import 'package:math_helper/features/matrix/presentation/bloc/multiply_matrix/multiply_matrix_bloc.dart';
 import 'package:math_helper/features/matrix/presentation/bloc/rank/rank_bloc.dart';
 import 'package:math_helper/features/matrix/presentation/screens/determinant_page.dart';
+import 'package:math_helper/features/matrix/presentation/screens/eigen_page.dart';
 import 'package:math_helper/features/matrix/presentation/screens/invert_matrix_page.dart';
 import 'package:math_helper/features/matrix/presentation/screens/matrix_operations_page.dart';
 import 'package:math_helper/features/matrix/presentation/screens/matrix_rank_page.dart';
@@ -560,14 +561,14 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => BlocProvider(
                             create: (context) => ic<EigenBloc>(),
-                            child: const DeterminantPage(),
+                            child: const EigenPage(),
                           ),
                         ));
                       }),
                       mathTopicListile(
                           context,
                           "Linear Equations",
-                          "Solves a linear equations by specifying the values that satisfy all the conditions",
+                          "Solves a linear equations by specifying the values that satisfy the linear system",
                           Image.asset(
                             CustomIcons.linearEquation,
                             width: 25,
