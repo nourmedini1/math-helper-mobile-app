@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:math_helper/core/ui/app_colors.dart';
-import 'package:math_helper/core/ui/app_theme_data.dart';
+
 import 'package:math_helper/core/ui/components/loading_component.dart';
 import 'package:math_helper/core/ui/components/search/search_app_bar.dart';
 import 'package:math_helper/core/ui/cubits/search/search_cubit.dart';
-import 'package:math_helper/core/ui/theme_manager.dart';
-import 'package:provider/provider.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});

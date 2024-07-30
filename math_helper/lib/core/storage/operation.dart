@@ -1,19 +1,19 @@
 import 'package:equatable/equatable.dart';
 
 class Operation extends Equatable {
-  final dynamic operationResult;
+  final List<String> results;
   final DateTime doneAt;
   final String label;
 
   const Operation({
-    required this.operationResult,
+    required this.results,
     required this.doneAt,
     required this.label,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      'operationResult': operationResult.toJson(),
+      'results': results,
       'doneAt': doneAt.toIso8601String(),
       'label': label,
     };
@@ -21,12 +21,12 @@ class Operation extends Equatable {
 
   factory Operation.fromJson(Map<String, dynamic> json) {
     return Operation(
-      operationResult: json['operationResult'],
       doneAt: DateTime.parse(json['doneAt']),
       label: json['label'],
+      results: List<String>.from(json['results']),
     );
   }
 
   @override
-  List<Object?> get props => [operationResult, doneAt, label];
+  List<Object?> get props => [results, doneAt, label];
 }
