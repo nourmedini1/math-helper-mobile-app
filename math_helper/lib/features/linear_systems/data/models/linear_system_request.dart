@@ -15,7 +15,7 @@ class LinearSystemRequest extends Equatable {
     return {
       'equations': equations,
       'variables': variables,
-      'rightHandSide': rightHandSide,
+      'righHandSide': rightHandSide,
     };
   }
 

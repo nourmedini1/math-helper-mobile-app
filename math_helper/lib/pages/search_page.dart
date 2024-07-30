@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:math_helper/core/ui/app_colors.dart';
 import 'package:math_helper/core/ui/app_theme_data.dart';
+import 'package:math_helper/core/ui/components/loading_component.dart';
 import 'package:math_helper/core/ui/components/search/search_app_bar.dart';
 import 'package:math_helper/core/ui/cubits/search/search_cubit.dart';
 import 'package:math_helper/core/ui/theme_manager.dart';
@@ -36,15 +37,7 @@ class _SearchPageState extends State<SearchPage> {
         body: BlocBuilder<SearchCubit, SearchState>(
           builder: (context, state) {
             if (state is SearchLoading) {
-              return Center(
-                child: CircularProgressIndicator(
-                  color: Provider.of<ThemeManager>(context, listen: false)
-                              .themeData ==
-                          AppThemeData.lightTheme
-                      ? AppColors.primaryColor
-                      : AppColors.customBlackTint60,
-                ),
-              );
+              return loadingComponent(context);
             }
             if (state is SearchLoaded) {
               return ListView.builder(
