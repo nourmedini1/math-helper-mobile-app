@@ -13,7 +13,7 @@ class SearchCubit extends Cubit<SearchState> {
     emit(SearchLoading());
     try {
       if (clue == '') {
-        emit(SearchLoaded(searchItems: const []));
+        emit(SearchInitial());
       } else {
         final searchItems = Functionalities.getsearchItems(context)
             .entries

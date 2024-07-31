@@ -34,11 +34,16 @@ class _SearchAppBarState extends State<SearchAppBar> {
         hasText = widget.controller.text.isNotEmpty;
       });
     });
+
     focusNode = FocusNode();
     focusNode.addListener(() {
       setState(() {
         isFocused = focusNode.hasFocus;
       });
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      focusNode.requestFocus();
     });
   }
 

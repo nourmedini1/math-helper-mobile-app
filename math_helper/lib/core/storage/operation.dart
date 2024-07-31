@@ -4,8 +4,10 @@ class Operation extends Equatable {
   final List<String> results;
   final DateTime doneAt;
   final String label;
+  final String title;
 
   const Operation({
+    required this.title,
     required this.results,
     required this.doneAt,
     required this.label,
@@ -21,6 +23,7 @@ class Operation extends Equatable {
 
   factory Operation.fromJson(Map<String, dynamic> json) {
     return Operation(
+      title: json['title'],
       doneAt: DateTime.parse(json['doneAt']),
       label: json['label'],
       results: List<String>.from(json['results']),
@@ -28,5 +31,5 @@ class Operation extends Equatable {
   }
 
   @override
-  List<Object?> get props => [results, doneAt, label];
+  List<Object?> get props => [results, doneAt, label, title];
 }

@@ -42,7 +42,7 @@ class SearchItem extends StatelessWidget {
                       AppThemeData.lightTheme
                   ? AppColors.customBlackTint90
                   : AppColors.customDarkGrey,
-          onTap: () => onTap,
+          onTap: () => onTap(context),
           leading: leadingIcon,
           title: Text(title, style: Theme.of(context).textTheme.titleSmall),
           subtitle: Text(

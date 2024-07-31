@@ -8,6 +8,7 @@ import 'package:math_helper/core/ui/app_theme_data.dart';
 
 import 'package:math_helper/core/ui/cubits/search/search_cubit.dart';
 import 'package:math_helper/core/ui/theme_manager.dart';
+import 'package:math_helper/pages/home_page.dart';
 import 'package:math_helper/pages/search_page.dart';
 import 'package:provider/provider.dart';
 
@@ -83,7 +84,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       : AppColors.customBlackTint60,
                 ),
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => const HomePage(),
+                      ),
+                      (route) => false);
                 },
               )
             : const SizedBox(

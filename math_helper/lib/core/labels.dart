@@ -16,4 +16,24 @@ class Labels {
   static const String RANK_MATRIX_LABEL = "rank-matrix";
   static const String MATRIX_OPERATIONS_LABEL = "matrix-operations";
   static const String EIGEN_LABEL = "eigen";
+
+  static const List<String> labelsList = [
+    "complex-operations",
+    "complex-polar-form",
+    "summation",
+    "product",
+    "taylor-series",
+    "integrals",
+    "indefinite-integral",
+    "definite-integral",
+    "derivative",
+    "limit",
+    "differential-equations",
+    "invert-matrix",
+    "determinant",
+    "linear-equations",
+    "rank-matrix",
+    "matrix-operations",
+    "eigen",
+  ];
 }
