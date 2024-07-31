@@ -1,6 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
+import 'package:math_helper/core/injection_container.dart';
+import 'package:math_helper/core/labels.dart';
+import 'package:math_helper/core/storage/local_storage_service.dart';
+import 'package:math_helper/core/storage/operation.dart';
 import 'package:math_helper/features/matrix/data/models/matrix_request.dart';
 import 'package:math_helper/features/matrix/data/models/matrix_response.dart';
 import 'package:math_helper/features/matrix/domain/usecases/invert_matrix_usecase.dart';
@@ -19,7 +23,14 @@ class InvertMatrixBloc extends Bloc<InvertMatrixEvent, InvertMatrixState> {
         final result = await invertMatrixUsecase(event.request);
         result.fold(
           (failure) => emit(InvertMatrixFailure(message: failure.message)),
-          (response) => emit(InvertMatrixSuccess(response: response)),
+          (response) {
+            ic<LocalStorageService>().registerOperation(Operation(
+                title: "Invert Matrix",
+                results: [response.matrixA!, response.matrix!],
+                doneAt: DateTime.now(),
+                label: Labels.INVERT_MATRIX_LABEL));
+            emit(InvertMatrixSuccess(response: response));
+          },
         );
       } else if (event is InvertMatrixReset) {
         emit(InvertMatrixInitial());

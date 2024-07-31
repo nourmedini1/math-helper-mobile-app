@@ -1,6 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
+import 'package:math_helper/core/injection_container.dart';
+import 'package:math_helper/core/labels.dart';
+import 'package:math_helper/core/storage/local_storage_service.dart';
+import 'package:math_helper/core/storage/operation.dart';
 import 'package:math_helper/features/limits/data/models/limit_request.dart';
 import 'package:math_helper/features/limits/data/models/limit_response.dart';
 import 'package:math_helper/features/limits/domain/usecases/single_limit_usecase.dart';
@@ -21,9 +25,15 @@ class SingleLimitBloc extends Bloc<SingleLimitEvent, SingleLimitState> {
         emit(SingleLimitLoading());
         final result = await singleLimitUsecase(event.request);
         result.fold(
-          (failure) => emit(SingleLimitFailure(message: failure.message)),
-          (response) => emit(SingleLimitSuccess(response: response)),
-        );
+            (failure) => emit(SingleLimitFailure(message: failure.message)),
+            (response) {
+          ic<LocalStorageService>().registerOperation(Operation(
+              title: "Single Limit",
+              results: [response.limit, response.result],
+              doneAt: DateTime.now(),
+              label: Labels.LIMIT_LABEL));
+          emit(SingleLimitSuccess(response: response));
+        });
       }
     }, transformer: droppable());
   }

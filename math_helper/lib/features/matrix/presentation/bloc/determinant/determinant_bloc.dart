@@ -1,6 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
+import 'package:math_helper/core/injection_container.dart';
+import 'package:math_helper/core/labels.dart';
+import 'package:math_helper/core/storage/local_storage_service.dart';
+import 'package:math_helper/core/storage/operation.dart';
 import 'package:math_helper/features/matrix/data/models/matrix_request.dart';
 import 'package:math_helper/features/matrix/data/models/matrix_response.dart';
 import 'package:math_helper/features/matrix/domain/usecases/get_determinant_usecase.dart';
@@ -22,7 +26,14 @@ class DeterminantBloc extends Bloc<DeterminantEvent, DeterminantState> {
         final result = await getDeterminantUsecase(event.request);
         result.fold(
             (failure) => emit(DeterminantFailure(message: failure.message)),
-            (response) => emit(DeterminantSuccess(response: response)));
+            (response) {
+          ic<LocalStorageService>().registerOperation(Operation(
+              title: "Matrix Determinant",
+              results: [response.matrixA!, response.determinant!],
+              doneAt: DateTime.now(),
+              label: Labels.DETERMINANT_LABEL));
+          emit(DeterminantSuccess(response: response));
+        });
       }
     }, transformer: droppable());
   }

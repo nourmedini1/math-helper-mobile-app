@@ -1,6 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
+import 'package:math_helper/core/injection_container.dart';
+import 'package:math_helper/core/labels.dart';
+import 'package:math_helper/core/storage/local_storage_service.dart';
+import 'package:math_helper/core/storage/operation.dart';
 import 'package:math_helper/features/derivatives/data/models/derivative_request.dart';
 import 'package:math_helper/features/derivatives/data/models/derivative_response.dart';
 import 'package:math_helper/features/derivatives/domain/usecases/numeric_derivative_usecase.dart';
@@ -21,9 +25,16 @@ class NumericDerivativeBloc
         emit(NumericDerivativeLoading());
         final result = await numericDerivativeUsecase(event.request);
         result.fold(
-          (failure) => emit(NumericDerivativeFailure(message: failure.message)),
-          (response) => emit(NumericDerivativeSuccess(response: response)),
-        );
+            (failure) =>
+                emit(NumericDerivativeFailure(message: failure.message)),
+            (response) {
+          ic<LocalStorageService>().registerOperation(Operation(
+              title: "Numeric Derivative",
+              results: [response.derivative, response.result.toString()],
+              doneAt: DateTime.now(),
+              label: Labels.DERIVATIVE_LABEL));
+          emit(NumericDerivativeSuccess(response: response));
+        });
       }
     }, transformer: droppable());
   }

@@ -1,5 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:math_helper/core/injection_container.dart';
+import 'package:math_helper/core/labels.dart';
+import 'package:math_helper/core/storage/local_storage_service.dart';
+import 'package:math_helper/core/storage/operation.dart';
 import 'package:math_helper/features/complex/data/models/complex_operations_request.dart';
 import 'package:math_helper/features/complex/data/models/complex_operations_response.dart';
 import 'package:math_helper/features/complex/domain/usecases/complex_addition_usecase.dart';
@@ -24,7 +28,21 @@ class ComplexAdditionBloc
           response.fold(
               (failure) =>
                   emit(ComplexAdditionFailure(message: failure.message)),
-              (success) => emit(ComplexAdditionSuccess(response: success)));
+              (response) {
+            ic<LocalStorageService>().registerOperation(Operation(
+                title: "Complex Addition",
+                results: [
+                  response.z1,
+                  response.polarZ1,
+                  response.z2,
+                  response.polarZ2,
+                  response.algebraicResult,
+                  response.polarResult
+                ],
+                doneAt: DateTime.now(),
+                label: Labels.COMPLEX_OPERATIONS_LABEL));
+            emit(ComplexAdditionSuccess(response: response));
+          });
         }
       }
     }, transformer: droppable());

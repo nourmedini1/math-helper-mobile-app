@@ -1,6 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
+import 'package:math_helper/core/injection_container.dart';
+import 'package:math_helper/core/labels.dart';
+import 'package:math_helper/core/storage/local_storage_service.dart';
+import 'package:math_helper/core/storage/operation.dart';
 import 'package:math_helper/features/product/data/models/product_request.dart';
 import 'package:math_helper/features/product/data/models/product_response.dart';
 import 'package:math_helper/features/product/domain/usecases/numeric_product_usecase.dart';
@@ -23,7 +27,14 @@ class NumericProductBloc
         final result = await numericProductUsecase(event.request);
         result.fold(
           (failure) => emit(NumericProductFailure(message: failure.message)),
-          (response) => emit(NumericProductSuccess(response: response)),
+          (response) {
+            ic<LocalStorageService>().registerOperation(Operation(
+                title: "Numeric Product",
+                results: [response.product, response.result],
+                doneAt: DateTime.now(),
+                label: Labels.PRODUCT_LABEL));
+            emit(NumericProductSuccess(response: response));
+          },
         );
       }
     }, transformer: droppable());
