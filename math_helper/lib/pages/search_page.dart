@@ -302,9 +302,9 @@ class _SearchPageState extends State<SearchPage> {
       case Labels.COMPLEX_POLAR_FORM_LABEL:
         return CustomIcons.polarForm;
       case Labels.DEFINITE_INTEGRAL_LABEL:
-        return CustomIcons.definiteIntegral;
+        return CustomIcons.integral;
       case Labels.INDEFINITE_INTEGRAL_LABEL:
-        return CustomIcons.singlePrimitive;
+        return CustomIcons.integral;
       case Labels.DERIVATIVE_LABEL:
         return CustomIcons.derivative;
       case Labels.DIFFERENTIAL_EQUATIONS_LABEL:

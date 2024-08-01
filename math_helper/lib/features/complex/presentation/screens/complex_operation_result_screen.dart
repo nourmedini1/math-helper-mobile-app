@@ -45,44 +45,61 @@ class _ComplexOperationsResultScreenState
     );
   }
 
-  Column complexSuccessScreen(BuildContext context, List<String> results) {
-    return Column(
-      children: [
-        Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 25,
-            ),
-            child: Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Provider.of<ThemeManager>(context, listen: false)
-                              .themeData ==
-                          AppThemeData.lightTheme
-                      ? AppColors.customBlackTint60
-                      : AppColors.customBlackTint90, // Border color
-                  width: 0.5, // Border width
-                ),
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(10.0), // Border radius
-                ),
+  SingleChildScrollView complexSuccessScreen(
+      BuildContext context, List<String> results) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Align(
+              alignment: Alignment.center,
+              child: Text(
+                widget.operation.title,
+                style: TextStyle(
+                    color: AppColors.primaryColorTint50,
+                    fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
+                    fontFamily:
+                        Theme.of(context).textTheme.titleMedium!.fontFamily),
+              )),
+          const SizedBox(
+            height: 20,
+          ),
+          Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 25,
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  complexResult(
-                      context, "First complex number", results[0], results[1]),
-                  complexResult(
-                      context, "Second complex number", results[2], results[3]),
-                  complexResult(context, "The result", results[4], results[5]),
-                  const SizedBox(
-                    height: 20,
-                  )
-                ],
-              ),
-            )),
-      ],
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Provider.of<ThemeManager>(context, listen: false)
+                                .themeData ==
+                            AppThemeData.lightTheme
+                        ? AppColors.customBlackTint60
+                        : AppColors.customBlackTint90, // Border color
+                    width: 0.5, // Border width
+                  ),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(10.0), // Border radius
+                  ),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    complexResult(context, "First complex number", results[0],
+                        results[1]),
+                    complexResult(context, "Second complex number", results[2],
+                        results[3]),
+                    complexResult(
+                        context, "The result", results[4], results[5]),
+                    const SizedBox(
+                      height: 20,
+                    )
+                  ],
+                ),
+              )),
+        ],
+      ),
     );
   }
 
