@@ -39,8 +39,10 @@ class _InvertMatrixResultScreenState extends State<InvertMatrixResultScreen> {
           ),
           hasHomeIcon: true),
       drawer: const CustomDrawer(),
-      body: successWidget(context, " Matrix Inverse",
-          widget.operation.results[0], widget.operation.results[1]),
+      body: Center(
+        child: successWidget(context, " Matrix Inverse",
+            widget.operation.results[0], widget.operation.results[1]),
+      ),
     );
   }
 

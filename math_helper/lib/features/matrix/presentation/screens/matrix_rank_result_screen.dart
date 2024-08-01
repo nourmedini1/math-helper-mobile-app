@@ -38,8 +38,10 @@ class _RankResultScreenState extends State<RankResultScreen> {
           ),
           hasHomeIcon: true),
       drawer: const CustomDrawer(),
-      body: successWidget(context, " Matrix Rank", widget.operation.results[0],
-          widget.operation.results[1]),
+      body: Center(
+        child: successWidget(context, " Matrix Rank",
+            widget.operation.results[0], widget.operation.results[1]),
+      ),
     );
   }
 

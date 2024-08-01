@@ -38,8 +38,10 @@ class _LimitsResultScreenState extends State<LimitsResultScreen> {
             ),
             hasHomeIcon: true),
         drawer: const CustomDrawer(),
-        body: successWidget(context, "Limit", widget.operation.results[0],
-            widget.operation.results[1]));
+        body: Center(
+          child: successWidget(context, "Limit", widget.operation.results[0],
+              widget.operation.results[1]),
+        ));
   }
 
   Widget successWidget(

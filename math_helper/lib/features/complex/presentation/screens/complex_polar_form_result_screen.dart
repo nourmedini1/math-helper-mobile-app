@@ -40,8 +40,10 @@ class _ComplexPolarFormResultScreenState
           ),
           hasHomeIcon: true),
       drawer: const CustomDrawer(),
-      body: successComponent(
-          context, widget.operation.results[0], widget.operation.results[1]),
+      body: Center(
+        child: successComponent(
+            context, widget.operation.results[0], widget.operation.results[1]),
+      ),
     );
   }
 

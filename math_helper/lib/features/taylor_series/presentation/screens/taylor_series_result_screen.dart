@@ -40,8 +40,10 @@ class _TaylorSeriesResultScreenState extends State<TaylorSeriesResultScreen> {
           ),
           hasHomeIcon: true),
       drawer: const CustomDrawer(),
-      body: successWidget(context, "Taylor Series", widget.operation.results[0],
-          widget.operation.results[1]),
+      body: Center(
+        child: successWidget(context, "Taylor Series",
+            widget.operation.results[0], widget.operation.results[1]),
+      ),
     );
   }
 

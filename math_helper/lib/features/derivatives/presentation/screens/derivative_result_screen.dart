@@ -38,8 +38,10 @@ class _DerivativeResultScreenState extends State<DerivativeResultScreen> {
           ),
           hasHomeIcon: true),
       drawer: const CustomDrawer(),
-      body: successWidget(context, "Derivative Result",
-          widget.operation.results[0], widget.operation.results[1]),
+      body: Center(
+        child: successWidget(context, "Derivative Result",
+            widget.operation.results[0], widget.operation.results[1]),
+      ),
     );
   }
 

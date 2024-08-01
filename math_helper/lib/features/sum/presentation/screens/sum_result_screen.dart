@@ -39,8 +39,10 @@ class _SumResultScreenState extends State<SumResultScreen> {
           ),
           hasHomeIcon: true),
       drawer: const CustomDrawer(),
-      body: successWidget(context, "Sum Series", widget.operation.results[0],
-          widget.operation.results[1]),
+      body: Center(
+        child: successWidget(context, "Sum Series", widget.operation.results[0],
+            widget.operation.results[1]),
+      ),
     );
   }
 

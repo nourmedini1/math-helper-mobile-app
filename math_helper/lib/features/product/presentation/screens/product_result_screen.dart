@@ -39,8 +39,10 @@ class _ProductResultScreenState extends State<ProductResultScreen> {
           ),
           hasHomeIcon: true),
       drawer: const CustomDrawer(),
-      body: successWidget(context, "Product Series",
-          widget.operation.results[0], widget.operation.results[1]),
+      body: Center(
+        child: successWidget(context, "Product Series",
+            widget.operation.results[0], widget.operation.results[1]),
+      ),
     );
   }
 

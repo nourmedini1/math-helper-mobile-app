@@ -40,12 +40,14 @@ class _MatrixOperationResultScreenState
           ),
           hasHomeIcon: true),
       drawer: const CustomDrawer(),
-      body: successWidget(
-        context,
-        "Matrix Operations",
-        widget.operation.results[0],
-        widget.operation.results[1],
-        widget.operation.results[2],
+      body: Center(
+        child: successWidget(
+          context,
+          "Matrix Operations",
+          widget.operation.results[0],
+          widget.operation.results[1],
+          widget.operation.results[2],
+        ),
       ),
     );
   }

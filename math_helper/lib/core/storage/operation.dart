@@ -15,6 +15,7 @@ class Operation extends Equatable {
 
   Map<String, dynamic> toJson() {
     return {
+      'title': title,
       'results': results,
       'doneAt': doneAt.toIso8601String(),
       'label': label,
@@ -22,6 +23,7 @@ class Operation extends Equatable {
   }
 
   factory Operation.fromJson(Map<String, dynamic> json) {
+    print(json);
     return Operation(
       title: json['title'],
       doneAt: DateTime.parse(json['doneAt']),

@@ -38,8 +38,10 @@ class _IntegralsResultScreenState extends State<IntegralsResultScreen> {
           ),
           hasHomeIcon: true),
       drawer: const CustomDrawer(),
-      body: successWidget(context, "Integral", widget.operation.results[0],
-          widget.operation.results[1]),
+      body: Center(
+        child: successWidget(context, "Integral", widget.operation.results[0],
+            widget.operation.results[1]),
+      ),
     );
   }
 

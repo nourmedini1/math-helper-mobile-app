@@ -39,8 +39,10 @@ class _DeterminantResultScreenState extends State<DeterminantResultScreen> {
           ),
           hasHomeIcon: true),
       drawer: const CustomDrawer(),
-      body: successWidget(context, "Determinant", widget.operation.results[0],
-          widget.operation.results[1]),
+      body: Center(
+        child: successWidget(context, "Determinant",
+            widget.operation.results[0], widget.operation.results[1]),
+      ),
     );
   }
 

@@ -40,8 +40,10 @@ class _LinearEquationsResultScreenState
             ),
             hasHomeIcon: true),
         drawer: const CustomDrawer(),
-        body: successWidget(context, "Linear Equations",
-            widget.operation.results[0], widget.operation.results[1]));
+        body: Center(
+          child: successWidget(context, "Linear Equations",
+              widget.operation.results[0], widget.operation.results[1]),
+        ));
   }
 
   Widget successWidget(

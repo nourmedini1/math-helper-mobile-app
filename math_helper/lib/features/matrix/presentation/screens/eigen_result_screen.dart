@@ -38,12 +38,14 @@ class _EigenResultScreenState extends State<EigenResultScreen> {
           ),
           hasHomeIcon: true),
       drawer: const CustomDrawer(),
-      body: successWidget(
-        context,
-        "Eigen Values and Vectors",
-        widget.operation.results[0],
-        widget.operation.results[1],
-        widget.operation.results[2],
+      body: Center(
+        child: successWidget(
+          context,
+          "Eigen Values and Vectors",
+          widget.operation.results[0],
+          widget.operation.results[1],
+          widget.operation.results[2],
+        ),
       ),
     );
   }
