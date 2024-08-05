@@ -155,7 +155,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
-  List<Operation> getOperations() => ic<LocalStorageService>().getOperations();
+  List<Operation> getOperations() =>
+      ic<LocalStorageService>().getOperations().reversed.toList();
 
   dynamic mapOperationToScreen(Operation operation) {
     switch (operation.label) {

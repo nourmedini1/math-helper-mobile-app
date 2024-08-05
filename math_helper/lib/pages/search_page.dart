@@ -121,7 +121,7 @@ class _SearchPageState extends State<SearchPage> {
 
   Widget initialSearchWidget(BuildContext context) {
     final List<Operation> operations =
-        ic<LocalStorageService>().getOperations();
+        ic<LocalStorageService>().getOperations().reversed.toList();
 
     if (operations.isEmpty) {
       final List<String> randomLabels =
