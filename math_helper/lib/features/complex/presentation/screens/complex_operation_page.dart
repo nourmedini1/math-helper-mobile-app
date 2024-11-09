@@ -766,7 +766,7 @@ class _ComplexOperationPageState extends State<ComplexOperationPage>
                 }
               }
             },
-            keyboardType: TextInputType.number,
+            keyboardType: TextInputType.text,
             textInputAction: TextInputAction.next,
             maxLines: 1,
             cursorColor:

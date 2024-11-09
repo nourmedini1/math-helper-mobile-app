@@ -386,7 +386,7 @@ class _ComplexPolarFormPageState extends State<ComplexPolarFormPage> {
             }
           },
           controller: controller,
-          keyboardType: TextInputType.number,
+          keyboardType: TextInputType.text,
           textInputAction: TextInputAction.next,
           maxLines: 1,
           cursorColor:
