@@ -1,3 +1,4 @@
+import 'package:archive/archive.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
@@ -31,6 +32,11 @@ import 'package:math_helper/features/differential_equations/domain/usecases/thir
 import 'package:math_helper/features/differential_equations/presentation/bloc/first_order_differential_equation/first_order_differential_equation_bloc.dart';
 import 'package:math_helper/features/differential_equations/presentation/bloc/second_order_differential_equation/second_order_differential_equation_bloc.dart';
 import 'package:math_helper/features/differential_equations/presentation/bloc/third_order_differential_equation/third_order_differential_equation_bloc.dart';
+import 'package:math_helper/features/function_plotting/data/api/function_plotting_api.dart';
+import 'package:math_helper/features/function_plotting/data/repository/function_plotting_repository.dart';
+import 'package:math_helper/features/function_plotting/domain/repository/function_plotting_repository.dart';
+import 'package:math_helper/features/function_plotting/domain/usecases/function_plotting_usecase.dart';
+import 'package:math_helper/features/function_plotting/presentation/function_plotting_bloc/function_plotting_bloc.dart';
 import 'package:math_helper/features/integrals/data/api/integrals_api.dart';
 import 'package:math_helper/features/integrals/data/repository/integrals_repository_impl.dart';
 import 'package:math_helper/features/integrals/domain/repository/integrals_repository.dart';
@@ -102,6 +108,7 @@ Future<void> init() async {
   //!core
   ic.registerLazySingleton(() => Connectivity());
   ic.registerLazySingleton(() => http.Client());
+  ic.registerLazySingleton(() => const ZLibDecoder());
   final SharedPreferences sharedPreferences =
       await SharedPreferences.getInstance();
   ic.registerLazySingleton(() => sharedPreferences);
@@ -261,4 +268,13 @@ Future<void> init() async {
   ic.registerFactory(() => DeterminantBloc(getDeterminantUsecase: ic()));
   ic.registerFactory(() => RankBloc(getRankUsecase: ic()));
   ic.registerFactory(() => InvertMatrixBloc(invertMatrixUsecase: ic()));
+
+  // function plotting 
+  ic.registerLazySingleton(() => FunctionPlottingApi(client: ic(), zlibDecoder: ic()));
+
+  ic.registerLazySingleton<FunctionPlottingRepository>(
+    () => FunctionPlottingRepositoryImpl(connectivity: ic(), functionPlottingApi: ic()));
+  ic.registerLazySingleton(() => FunctionPlottingUsecase(functionPlottingRepository: ic()));
+
+  ic.registerFactory(() => FunctionPlottingBloc(functionPlottingUsecase: ic()));
 }

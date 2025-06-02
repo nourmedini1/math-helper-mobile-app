@@ -549,10 +549,10 @@ class _ComplexOperationPageState extends State<ComplexOperationPage>
               ? () {
                   final ComplexOperationsRequest request =
                       ComplexOperationsRequest(
-                          real1: parseNumber(controllers[0].text),
-                          imaginary1: parseNumber(controllers[2].text),
-                          real2: parseNumber(controllers[1].text),
-                          imaginary2: parseNumber(controllers[2].text));
+                          real1: controllers[0].text,
+                          imaginary1: controllers[2].text,
+                          real2: controllers[1].text,
+                          imaginary2: controllers[2].text);
                   switch (operation) {
                     case "Complex Addition":
                       BlocProvider.of<ComplexAdditionBloc>(context).add(
@@ -788,14 +788,5 @@ class _ComplexOperationPageState extends State<ComplexOperationPage>
             decoration: textFieldInputDecoration(context, hint)),
       ),
     );
-  }
-
-  dynamic parseNumber(dynamic number) {
-    try {
-      int parsedInt = int.parse(number.toString());
-      return parsedInt;
-    } on FormatException {
-      return double.parse(number.toString());
-    }
   }
 }

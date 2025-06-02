@@ -305,8 +305,8 @@ class _ComplexPolarFormPageState extends State<ComplexPolarFormPage> {
           onTap: isFieldsReady
               ? () {
                   final PolarFormRequest request = PolarFormRequest(
-                    real: parseNumber(realController.text),
-                    imaginary: parseNumber(imaginaryController.text),
+                    real: realController.text,
+                    imaginary: imaginaryController.text,
                   );
 
                   BlocProvider.of<PolarFormBloc>(context).add(
@@ -355,15 +355,6 @@ class _ComplexPolarFormPageState extends State<ComplexPolarFormPage> {
             ),
           ),
         )));
-  }
-
-  dynamic parseNumber(dynamic number) {
-    try {
-      int parsedInt = int.parse(number.toString());
-      return parsedInt;
-    } on FormatException {
-      return double.parse(number.toString());
-    }
   }
 
   Widget textField(

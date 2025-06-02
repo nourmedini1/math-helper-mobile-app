@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 
 class PolarFormRequest extends Equatable {
-  final num real;
-  final num imaginary;
+  final String real;
+  final String imaginary;
 
   const PolarFormRequest({
     required this.real,

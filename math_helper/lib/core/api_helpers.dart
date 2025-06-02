@@ -26,6 +26,8 @@ class ApiHelpers {
       const String message = "Invalid input in the request";
       throw BadRequestException(message: message);
     } else {
+      print(response.body);
+      print(response.statusCode);
       throw UnexpectedException(message: unexpectedErrorMessage);
     }
   }

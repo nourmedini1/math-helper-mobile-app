@@ -2,7 +2,7 @@
 class Endpoints {
   Endpoints._();
 
-  static const BASE_URL = "http://192.168.1.18:3775/api/";
+  static const BASE_URL = "http://192.168.1.11:3775/api/";
   static const PUBLIC_BASE_URL = "https://math-helper-api-v1.onrender.com/api/";
   static const API_VERSION = "v1";
 
@@ -77,4 +77,6 @@ class Endpoints {
       "$BASE_URL$API_VERSION/matrix-operations/add";
   static const MULTIPLY_MATRIX_ENDPOINT =
       "$BASE_URL$API_VERSION/matrix-operations/multiply";
+  static const PLOT_FUCTION_ENDPOINT =
+      "$BASE_URL$API_VERSION/function-plotting/plot";
 }

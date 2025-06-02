@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 
 class ComplexOperationsRequest extends Equatable {
-  final num real1;
-  final num imaginary1;
-  final num real2;
-  final num imaginary2;
+  final String real1;
+  final String imaginary1;
+  final String real2;
+  final String imaginary2;
 
   const ComplexOperationsRequest({
     required this.real1,
