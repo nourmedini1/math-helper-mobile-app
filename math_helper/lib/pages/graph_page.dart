@@ -15,7 +15,6 @@ import 'package:math_helper/core/ui/components/custom_graph.dart';
 import 'package:math_helper/features/function_plotting/data/models/plot_request.dart';
 import 'package:math_helper/features/function_plotting/data/models/plot_response.dart';
 import 'package:math_helper/features/function_plotting/presentation/function_plotting_bloc/function_plotting_bloc.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'dart:math';
 
@@ -36,10 +35,26 @@ class _GraphPageState extends State<GraphPage> {
   Color firstSelectedColor = AppColors.primaryColorShade40;
   Color secondSelectedColor = AppColors.secondaryColorShade40;
 
-  double xMin = 0;
-  double xMax = 20;
+  double xMin = -10;
+  double xMax = 10;
   double yMin = -2;
   double yMax = 2;
+
+  final sinVariationTable = const VariationTable(
+    intervals: [[0, "pi/2"], ["pi/2", 0]],
+    values: [[0, 1], [1, 0]],
+    directions: ["increasing", "decreasing"],
+    firstDerivativeSign: ["+", "-"],
+    secondDerivativeSign: ["-", "+"],
+  );
+
+  final cosVariationTable = const VariationTable(
+    intervals: [[0, "pi/2"], ["pi/2", 0]],
+    values: [[0, 1], [1, 0]],
+    directions: ["decreasing", "increasing"],
+    firstDerivativeSign: ["-", "+"],
+    secondDerivativeSign: ["+", "-"],
+  );
 
   late TextEditingController xMinController;
   late TextEditingController xMaxController;
@@ -53,39 +68,29 @@ class _GraphPageState extends State<GraphPage> {
     secondPlot = _initializePlot(false);
 
     // Example data for demonstration
-    List<double> xVals = List.generate(100, (i) => i * 20 / 99);
-    List<double> yVals = xVals.map((x) => sin(x)).toList();
-    firstPlot["plotData"] = Plot(
-      function: 'sin(x)',
-      xValues: xVals,
-      yValues: yVals,
-      color: AppColors.primaryColorShade10,
-      label: 'sin(x)',
-      variationTable:const  VariationTable(
-        intervals:  [[0,"pi/2"],["pi/2",0]], 
-        values: [[0,1],[1,0]], 
-        directions: ["increasing","decreasing"], 
-        firstDerivativeSign: ["+","-"], 
-        secondDerivativeSign: ["-","+"],)
-    );
+List<double> xVals = List.generate(100, (i) => -10 + i * 20 / 99);
+List<double> yVals = xVals.map((x) => sin(x)).toList();
+firstPlot["plotData"] = Plot(
+  function: 'sin(x)',
+  xValues: xVals,
+  yValues: yVals,
+  color: AppColors.primaryColorShade10,
+  label: 'sin(x)',
+  variationTable: sinVariationTable,
+  
+);
 
-    List<double> xVals2 = List.generate(100, (i) => i * 20 / 99);
-    List<double> yVals2 = xVals2.map((x) => cos(x)).toList();
-    secondPlot["plotData"] = Plot(
-      function: 'cos(x)',
-      xValues: xVals2,
-      yValues: yVals2,
-      color: AppColors.secondaryColorShade30,
-      label: 'cos(x)',
-      isVisible: false,
-      variationTable: const VariationTable(
-        intervals: [[0, "pi/2"], ["pi/2", 0]],
-        values: [[0, 1], [1, 0]],
-        directions: ["decreasing", "increasing"],
-        firstDerivativeSign: ["-", "+"],
-        secondDerivativeSign: ["+", "-"],
-      ),
-    );
+List<double> xVals2 = List.generate(100, (i) => -10 + i * 20 / 99);
+List<double> yVals2 = xVals2.map((x) => cos(x)).toList();
+secondPlot["plotData"] = Plot(
+  function: 'cos(x)',
+  xValues: xVals2,
+  yValues: yVals2,
+  color: AppColors.secondaryColorShade30,
+  label: 'cos(x)',
+  isVisible: false,
+  variationTable: cosVariationTable,
+);
 
     xMinController = TextEditingController(text: xMin.toString());
     xMaxController = TextEditingController(text: xMax.toString());
@@ -104,6 +109,7 @@ class _GraphPageState extends State<GraphPage> {
 
   Map<String, dynamic> _initializePlot(bool isFirstPlot) {
     return {
+      "strokeWidth": 2.0,
       "functionController": isFirstPlot
           ? TextEditingController(text: "sin(x)")
           : TextEditingController(text: "cos(x)"),
@@ -173,8 +179,10 @@ class _GraphPageState extends State<GraphPage> {
           topTitle: oldPlot.topTitle,
           leftTitle: oldPlot.leftTitle,
           rightTitle: oldPlot.rightTitle,
+          variationTable: response.variationTable,
         );
       });
+      
     });
   } else {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -197,8 +205,10 @@ class _GraphPageState extends State<GraphPage> {
           topTitle: oldPlot.topTitle,
           leftTitle: oldPlot.leftTitle,
           rightTitle: oldPlot.rightTitle,
+          variationTable: response.variationTable,
         );
       });
+      
     });
   }
 }
@@ -392,12 +402,17 @@ class _GraphPageState extends State<GraphPage> {
           
         ),
         ListTile(
+          tileColor: Provider.of<ThemeManager>(context, listen: false)
+                  .themeData ==
+              AppThemeData.lightTheme
+          ? AppColors.customBlackTint80.withOpacity(0.2)
+          : AppColors.customBlackTint20,
   title: Padding(
     padding: const EdgeInsets.symmetric(vertical: 8.0),
     child: Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: AppColors.primaryColor,
+        color: AppColors.secondaryColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: TextButton(
@@ -413,16 +428,12 @@ class _GraphPageState extends State<GraphPage> {
                 table.directions!.length > 1 &&
                 table.firstDerivativeSign!.length > 1 &&
                 table.secondDerivativeSign!.length > 1) {
-              final periodTable = VariationTable(
-                intervals: table.intervals!.sublist(0, 2),
-                values: table.values!.sublist(0, 2),
-                directions: table.directions!.sublist(0, 2),
-                firstDerivativeSign: table.firstDerivativeSign!.sublist(0, 2),
-                secondDerivativeSign: table.secondDerivativeSign!.sublist(0, 2),
-              );
-              showVariationTableModal(context, periodTable);
+              final periodTable = plot["functionController"].text.contains('sin')
+                  ? sinVariationTable
+                  : cosVariationTable;
+            showVariationTableModal(context, periodTable);
             } else {
-              showVariationTableModal(context, table);
+             showVariationTableModal(context, table);
             }
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -749,39 +760,40 @@ ListTile(
   }
 
   void showVariationTableModal(BuildContext context, VariationTable table) {
-  showMaterialModalBottomSheet(
+  showModalBottomSheet(
     context: context,
     backgroundColor: Provider.of<ThemeManager>(context, listen: false)
-        .themeData
-        .scaffoldBackgroundColor,
+        .themeData == AppThemeData.lightTheme
+        ? AppColors.customWhite
+        : AppColors.customBlackTint20,
+        
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
     ),
     builder: (context) => Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(10.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          const SizedBox(height: 16,),
           inputTitle(context, "Variation Table"),
-          const SizedBox(height: 16),
           SizedBox(
-            height: 220,
+            height: 400,
             width: double.infinity,
             child: CustomPaint(
-              painter: VariationTablePainter(table),
+              painter: VariationTablePainter(table, context),
             ),
           ),
-          const SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text("Close"),
-          ),
+         
         ],
       ),
     ),
   );
 }
 
+
+
+  
 
   
 
@@ -879,7 +891,7 @@ class Plot {
     this.color = AppColors.primaryColorShade40,
     this.label = '',
     this.isVisible = true,
-    this.strokeWidth = 2.0,
+    this.strokeWidth = 3.0,
     this.dotSize = 4.0,
     this.showDots = false,
     this.isCurved = true,

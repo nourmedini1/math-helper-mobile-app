@@ -238,8 +238,8 @@ class GraphPainter extends CustomPainter {
     final xScale = (size.width - 2 * pad) / xRange;
     final yScale = (size.height - 2 * pad) / yRange;
 
-    // Y-axis in the middle
-    final xAxisData = (xMin + xMax) / 2;
+    // Y-axis at x = 0
+    const  xAxisData = 0.0;
     // X-axis at y=0 if in range, else at yMin
     final yAxisData = (yMin <= 0 && yMax >= 0) ? 0.0 : yMin;
 
@@ -527,7 +527,11 @@ void _drawCatmullRomSpline(
   ) {
     final gridPaint = Paint()
       ..color = gridColor
-      ..strokeWidth = 1.0;
+      ..strokeWidth = 1;
+
+    final verticalGridPaint = Paint()
+      ..color = gridColor
+      ..strokeWidth = 1; // Thinner vertical lines
 
     int xDiv = 8;
     int yDiv = 16;
@@ -535,19 +539,22 @@ void _drawCatmullRomSpline(
     double yStep = (maxY - minY) / yDiv;
 
     // Axis positions
-    final xAxisScreen = dataToScreenX((minX + maxX) / 2);
-    final yAxisScreen = dataToScreenY((minY <= 0 && maxY >= 0) ? 0.0 : minY);
+    final yAxisScreen = dataToScreenX(0.0);
 
     // Vertical grid lines and labels (x)
     for (int i = 0; i <= xDiv; i++) {
       double x = minX + i * xStep;
       double px = dataToScreenX(x);
-      canvas.drawLine(Offset(px, pad), Offset(px, size.height - pad), gridPaint);
-      // Place label just below the x-axis line, centered horizontally
+      canvas.drawLine(Offset(px, pad), Offset(px, size.height - pad), verticalGridPaint);
+      // Place label just below the x-axis (y=0), centered horizontally
+      final xAxisScreen = dataToScreenY(0.0);
+      double labelY = (yMin <= 0 && yMax >= 0)
+          ? xAxisScreen + 8 // 8px below the x-axis if y=0 is visible
+          : size.height - pad + 8; // else below the bottom grid line
       _drawLabel(
         canvas,
         px,
-        yAxisScreen + 6, // 6px below the x-axis line
+        labelY,
         _formatNumber(x),
         align: Alignment.topCenter,
         color: axisColor,
@@ -559,16 +566,19 @@ void _drawCatmullRomSpline(
       double y = minY + i * yStep;
       double py = dataToScreenY(y);
       canvas.drawLine(Offset(pad, py), Offset(size.width - pad, py), gridPaint);
-      // Place label just left of the y-axis line, centered vertically
+      // Place label just left of the y-axis (x=0), centered vertically
       _drawLabel(
         canvas,
-        xAxisScreen - 8, // 8px left of the y-axis line
+        yAxisScreen - 8, // 8px left of the y-axis line at x=0
         py,
         _formatNumber(y),
         align: Alignment.centerRight,
         color: axisColor,
       );
     }
+    
+
+   
   }
 
   // --- UPDATED LABEL DRAWING ---

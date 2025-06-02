@@ -116,7 +116,7 @@ class Functionalities {
               : AppColors.customWhite,
         ),
         onTap: (context) {
-          print('pressed');
+        
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => MultiBlocProvider(providers: [
               BlocProvider(

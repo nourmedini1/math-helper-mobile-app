@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 class Labels {
   static const String COMPLEX_OPERATIONS_LABEL = "complex-operations";
   static const String COMPLEX_POLAR_FORM_LABEL = "complex-polar-form";

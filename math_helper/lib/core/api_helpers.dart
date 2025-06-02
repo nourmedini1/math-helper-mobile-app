@@ -16,7 +16,7 @@ class ApiHelpers {
             jsonDecode(response.body)['violations'][0]['message'];
         throw ConstraintViolationException(message: message);
       } else {
-        print(response.body);
+     
         final String message = jsonDecode(response.body)['detail'];
         throw BadRequestException(message: message);
       }
@@ -26,8 +26,7 @@ class ApiHelpers {
       const String message = "Invalid input in the request";
       throw BadRequestException(message: message);
     } else {
-      print(response.body);
-      print(response.statusCode);
+     
       throw UnexpectedException(message: unexpectedErrorMessage);
     }
   }
