@@ -1,32 +1,35 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:math_helper/core/ui/app_colors.dart';
 
-// ignore: must_be_immutable
-class ResetButton extends StatefulWidget {
+class ClearButton extends StatefulWidget {
   String? text;
   IconData? icon;
   Color? color;
   void Function()? onPressed;
-  ResetButton({super.key, this.text, this.icon, this.color, this.onPressed});
+
+  ClearButton({super.key, this.text, this.icon, this.color, this.onPressed});
 
   @override
-  State<ResetButton> createState() => _ResetButtonState();
+  State<ClearButton> createState() => _ClearButtonState();
 }
 
-class _ResetButtonState extends State<ResetButton> {
+class _ClearButtonState extends State<ClearButton> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: widget.onPressed,
-      child: resetButtonDecoration(context),
+      child: clearButtonDecoration(context),
     );
   }
-  Container resetButtonDecoration(BuildContext context) {
+
+  Container clearButtonDecoration(BuildContext context) {
   return Container(
     width: double.infinity,
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: widget.color ?? AppColors.primaryColorTint50),
+        color: AppColors.secondaryColor),
     child: Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       child: Row(
@@ -40,12 +43,12 @@ class _ResetButtonState extends State<ResetButton> {
           const Padding(
             padding: EdgeInsets.only(right: 5),
             child: Icon(
-              Icons.arrow_back,
+              Icons.clear,
               color: AppColors.customWhite,
             ),
           ),
           Text(
-            widget.text ?? 'Go Back',
+            widget.text ?? 'Clear',
             style: TextStyle(
               color: AppColors.customWhite,
               fontSize: 14,
@@ -57,11 +60,5 @@ class _ResetButtonState extends State<ResetButton> {
       ),
     ),
   );
-  }
-
 }
-
-
-
-
-
+}

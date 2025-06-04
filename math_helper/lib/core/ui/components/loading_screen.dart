@@ -4,8 +4,12 @@ import 'package:math_helper/core/ui/app_theme_data.dart';
 import 'package:math_helper/core/ui/theme_manager.dart';
 import 'package:provider/provider.dart';
 
-Widget loadingComponent(BuildContext context) {
-  return Align(
+class LoadingScreen extends StatelessWidget {
+  const LoadingScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
     alignment: Alignment.center,
     child: CircularProgressIndicator(
       color: Provider.of<ThemeManager>(context, listen: false).themeData ==
@@ -14,4 +18,5 @@ Widget loadingComponent(BuildContext context) {
           : AppColors.customBlackTint60,
     ),
   );
+  }
 }

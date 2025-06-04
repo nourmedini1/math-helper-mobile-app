@@ -11,7 +11,7 @@ import 'package:math_helper/core/ui/components/custom_rect_tween.dart';
 import 'package:math_helper/core/ui/components/drawer/custom_drawer.dart';
 import 'package:math_helper/core/ui/components/hero_dialog_route.dart';
 import 'package:math_helper/core/ui/components/input_title.dart';
-import 'package:math_helper/core/ui/components/loading_component.dart';
+import 'package:math_helper/core/ui/components/loading_screen.dart';
 import 'package:math_helper/core/ui/components/reset_button.dart';
 import 'package:math_helper/core/ui/components/tex_view_widget.dart';
 import 'package:math_helper/core/ui/components/text_field_decoration.dart';

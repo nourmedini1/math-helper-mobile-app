@@ -11,11 +11,11 @@ import 'package:math_helper/features/complex/presentation/bloc/complex_addition/
 import 'package:math_helper/features/complex/presentation/bloc/complex_multiplication/complex_multiplication_bloc.dart';
 import 'package:math_helper/features/complex/presentation/bloc/complex_substraction/complex_substraction_bloc.dart';
 import 'package:math_helper/features/complex/presentation/bloc/polar_form/polar_form_bloc.dart';
-import 'package:math_helper/features/complex/presentation/screens/complex_operation_page.dart';
-import 'package:math_helper/features/complex/presentation/screens/complex_polar_form_page.dart';
+import 'package:math_helper/features/complex/presentation/pages/complex_operation_page.dart';
+import 'package:math_helper/features/complex/presentation/pages/complex_polar_form_page.dart';
 import 'package:math_helper/features/derivatives/presentation/bloc/numeric_derivative/numeric_derivative_bloc.dart';
 import 'package:math_helper/features/derivatives/presentation/bloc/symbolic_derivative/symbolic_derivative_bloc.dart';
-import 'package:math_helper/features/derivatives/presentation/screens/derivatives_page.dart';
+import 'package:math_helper/features/derivatives/presentation/pages/derivatives_page.dart';
 import 'package:math_helper/features/differential_equations/presentation/bloc/first_order_differential_equation/first_order_differential_equation_bloc.dart';
 import 'package:math_helper/features/differential_equations/presentation/bloc/second_order_differential_equation/second_order_differential_equation_bloc.dart';
 import 'package:math_helper/features/differential_equations/presentation/bloc/third_order_differential_equation/third_order_differential_equation_bloc.dart';

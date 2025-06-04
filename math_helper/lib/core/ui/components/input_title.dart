@@ -4,9 +4,16 @@ import 'package:math_helper/core/ui/app_theme_data.dart';
 import 'package:math_helper/core/ui/theme_manager.dart';
 import 'package:provider/provider.dart';
 
-Widget inputTitle(BuildContext context, String title) {
-  return Text(
-    title,
+
+
+class TextFieldLabel extends StatelessWidget {
+  final String label;
+  const TextFieldLabel({super.key, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+    label,
     style: TextStyle(
       fontFamily: Theme.of(context).textTheme.titleSmall!.fontFamily,
       fontSize: Theme.of(context).textTheme.titleSmall!.fontSize,
@@ -16,4 +23,6 @@ Widget inputTitle(BuildContext context, String title) {
           : AppColors.customBlackTint80,
     ),
   );
+  }
 }
+
