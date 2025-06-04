@@ -7,7 +7,7 @@ import 'package:math_helper/core/ui/app_theme_data.dart';
 import 'package:math_helper/core/ui/components/app_bar/custom_app_bar.dart';
 import 'package:math_helper/core/ui/components/clear_button_decoration.dart';
 import 'package:math_helper/core/ui/components/drawer/custom_drawer.dart';
-import 'package:math_helper/core/ui/components/input_title.dart';
+import 'package:math_helper/core/ui/components/textfield_label.dart';
 import 'package:math_helper/core/ui/components/loading_screen.dart';
 import 'package:math_helper/core/ui/components/reset_button.dart';
 import 'package:math_helper/core/ui/components/tex_view_widget.dart';

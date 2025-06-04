@@ -3,21 +3,21 @@
 import 'package:flutter/material.dart';
 import 'package:math_helper/core/ui/app_colors.dart';
 import 'package:math_helper/core/ui/app_theme_data.dart';
-import 'package:math_helper/core/ui/components/input_title.dart';
+import 'package:math_helper/core/ui/components/textfield_label.dart';
 import 'package:math_helper/core/ui/theme_manager.dart';
 import 'package:provider/provider.dart';
 
 class CustomTextField extends StatefulWidget {
   final String hint;
   final String? label;
-  final TextEditingController? controller;
+  final TextEditingController controller;
   final TextInputType? keyboardType;
   void Function(String) onChanged;
 
   CustomTextField({super.key,
     required this.hint,
     this.label,
-    this.controller,
+    required this.controller,
     this.keyboardType,
     required this.onChanged,
   });

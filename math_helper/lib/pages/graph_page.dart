@@ -5,7 +5,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:math_helper/core/injection_container.dart';
 import 'package:math_helper/core/ui/app_colors.dart';
 import 'package:math_helper/core/ui/app_theme_data.dart';
-import 'package:math_helper/core/ui/components/input_title.dart';
+import 'package:math_helper/core/ui/components/textfield_label.dart';
 import 'package:math_helper/core/ui/components/loading_screen.dart';
 import 'package:math_helper/core/ui/components/text_field_decoration.dart';
 import 'package:math_helper/core/ui/components/text_field_input_decoration.dart';

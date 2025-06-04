@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:math_helper/core/ui/components/custom_text_field.dart';
-import 'package:math_helper/core/ui/components/input_title.dart';
+import 'package:math_helper/core/ui/components/textfield_label.dart';
 
 class ComplexNumberTextFieldsGroupement extends StatefulWidget {
   final String label;
