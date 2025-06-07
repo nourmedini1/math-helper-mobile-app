@@ -29,23 +29,28 @@ class CustomTextField extends StatefulWidget {
 class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        widget.label != null
-            ? Padding(
-                padding: const EdgeInsets.only(left: 15, bottom: 5),
-                child: TextFieldLabel(label: widget.label!),
-              )
-            : const SizedBox.shrink(),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Container(
-            height: 50,
-            decoration: textFieldDecoration(context),
-            child: textField(context),)
-        
-          ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          widget.label != null
+              ? Padding(
+                  padding: const EdgeInsets.only(left: 32, bottom: 5),
+                  child: TextFieldLabel(label: widget.label!),
+                )
+              : const SizedBox.shrink(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Container(
+              height: 50,
+              decoration: textFieldDecoration(context),
+              child: textField(context),)
+          
+            ),
+        ],
+      ),
     );
   }
 

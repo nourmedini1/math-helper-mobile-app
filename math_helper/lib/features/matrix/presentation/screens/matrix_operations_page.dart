@@ -1225,6 +1225,12 @@ class _MatrixOperationsPageState extends State<MatrixOperationsPage>
       ),
     );
   }
+  
+  loadingComponent(BuildContext context) {}
+  
+  resetButton(BuildContext context) {}
+  
+  inputTitle(BuildContext context, String s) {}
 }
 
 class MatrixInputPopup extends StatefulWidget {
@@ -1414,4 +1420,6 @@ class _MatrixInputPopupState extends State<MatrixInputPopup> {
       ),
     );
   }
+  
+  inputTitle(BuildContext context, String tag) {}
 }

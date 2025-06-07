@@ -1096,6 +1096,12 @@ class _LimitsPageState extends State<LimitsPage> with TickerProviderStateMixin {
       ),
     );
   }
+  
+  loadingComponent(BuildContext context) {}
+  
+  inputTitle(BuildContext context, String s) {}
+  
+  resetButton(BuildContext context) {}
 }
 
 class SingleLimitPopup extends StatefulWidget {
@@ -1257,6 +1263,8 @@ class _SingleLimitPopupState extends State<SingleLimitPopup> {
           decoration: textFieldInputDecoration(context, hint)),
     );
   }
+  
+  inputTitle(BuildContext context, String s) {}
 }
 
 class DoubleLimitPopup extends StatefulWidget {
@@ -1436,6 +1444,8 @@ class _DoubleLimitPopupState extends State<DoubleLimitPopup> {
           decoration: textFieldInputDecoration(context, hint)),
     );
   }
+  
+  inputTitle(BuildContext context, String s) {}
 }
 
 class TripleLimitPopup extends StatefulWidget {
@@ -1638,4 +1648,6 @@ class _TripleLimitPopupState extends State<TripleLimitPopup> {
           decoration: textFieldInputDecoration(context, hint)),
     );
   }
+  
+  inputTitle(BuildContext context, String s) {}
 }

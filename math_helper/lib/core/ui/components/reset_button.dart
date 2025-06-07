@@ -16,9 +16,12 @@ class ResetButton extends StatefulWidget {
 class _ResetButtonState extends State<ResetButton> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: widget.onPressed,
-      child: resetButtonDecoration(context),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 10),
+      child: GestureDetector(
+        onTap: widget.onPressed,
+        child: resetButtonDecoration(context),
+      ),
     );
   }
   Container resetButtonDecoration(BuildContext context) {

@@ -21,6 +21,7 @@ class AppThemeData {
               fontStyle: FontStyle.normal,
               color: AppColors.primaryColor)),
       colorScheme: const ColorScheme.light(
+        surfaceTint: Colors.transparent,
         background: AppColors.customBlackTint90,
       ),
       textTheme: const TextTheme(
@@ -90,7 +91,9 @@ class AppThemeData {
               fontSize: 24,
               fontStyle: FontStyle.normal,
               color: AppColors.customWhite)),
-      colorScheme: const ColorScheme.dark(background: AppColors.customDarkGrey),
+      colorScheme: const ColorScheme.dark(
+        surfaceTint: Colors.transparent,
+        background: AppColors.customDarkGrey),
       cardColor: AppColors.customDarkGrey,
       textTheme: const TextTheme(
         displayLarge: TextStyle(

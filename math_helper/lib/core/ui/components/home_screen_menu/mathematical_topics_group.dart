@@ -11,15 +11,29 @@ import 'package:math_helper/features/complex/presentation/bloc/complex_addition/
 import 'package:math_helper/features/complex/presentation/bloc/complex_multiplication/complex_multiplication_bloc.dart';
 import 'package:math_helper/features/complex/presentation/bloc/complex_substraction/complex_substraction_bloc.dart';
 import 'package:math_helper/features/complex/presentation/bloc/polar_form/polar_form_bloc.dart';
+import 'package:math_helper/features/complex/presentation/cubit/addition_cubit/addition_cubit.dart';
+import 'package:math_helper/features/complex/presentation/cubit/multiplication_cubit/multiplication_cubit.dart';
+import 'package:math_helper/features/complex/presentation/cubit/polar_form_cubit/polar_form_cubit.dart';
+import 'package:math_helper/features/complex/presentation/cubit/substraction_cubit/substraction_cubit.dart';
 import 'package:math_helper/features/complex/presentation/pages/complex_operation_page.dart';
 import 'package:math_helper/features/complex/presentation/pages/complex_polar_form_page.dart';
 import 'package:math_helper/features/derivatives/presentation/bloc/numeric_derivative/numeric_derivative_bloc.dart';
 import 'package:math_helper/features/derivatives/presentation/bloc/symbolic_derivative/symbolic_derivative_bloc.dart';
+import 'package:math_helper/features/derivatives/presentation/cubit/numeric_derivative_fields/numeric_derivative_fields_cubit.dart';
+import 'package:math_helper/features/derivatives/presentation/cubit/numeric_partial_derivative/numeric_partial_derivative_cubit.dart';
+import 'package:math_helper/features/derivatives/presentation/cubit/symbolic_derivative_fields/symbolic_derivative_fields_cubit.dart';
+import 'package:math_helper/features/derivatives/presentation/cubit/symbolic_partial_derivative/symbolic_partial_derivative_cubit.dart';
 import 'package:math_helper/features/derivatives/presentation/pages/derivatives_page.dart';
 import 'package:math_helper/features/differential_equations/presentation/bloc/first_order_differential_equation/first_order_differential_equation_bloc.dart';
 import 'package:math_helper/features/differential_equations/presentation/bloc/second_order_differential_equation/second_order_differential_equation_bloc.dart';
 import 'package:math_helper/features/differential_equations/presentation/bloc/third_order_differential_equation/third_order_differential_equation_bloc.dart';
-import 'package:math_helper/features/differential_equations/presentation/screens/differential_equations_page.dart';
+import 'package:math_helper/features/differential_equations/presentation/cubit/first_order_coefficients/first_order_coefficients_cubit.dart';
+import 'package:math_helper/features/differential_equations/presentation/cubit/first_order_constraints/first_order_constraints_text_cubit.dart';
+import 'package:math_helper/features/differential_equations/presentation/cubit/second_order_coefficients/second_order_coefficients_cubit.dart';
+import 'package:math_helper/features/differential_equations/presentation/cubit/second_order_constraints/second_order_constraints_cubit.dart';
+import 'package:math_helper/features/differential_equations/presentation/cubit/third_order_coefficents/third_order_coefficients_cubit.dart';
+import 'package:math_helper/features/differential_equations/presentation/cubit/third_order_constraints/third_order_constraints_cubit.dart';
+import 'package:math_helper/features/differential_equations/presentation/pages/differential_equations_page.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/double_integral/double_integral_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/double_primitive/double_primitive_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/single_integral/single_integral_bloc.dart';
@@ -52,7 +66,8 @@ import 'package:math_helper/features/sum/presentation/bloc/numeric_sum/numeric_s
 import 'package:math_helper/features/sum/presentation/bloc/symbolic_sum/symbolic_sum_bloc.dart';
 import 'package:math_helper/features/sum/presentation/screens/sum_page.dart';
 import 'package:math_helper/features/taylor_series/presentation/bloc/expand_taylor_series/expand_taylor_series_bloc.dart';
-import 'package:math_helper/features/taylor_series/presentation/screens/taylor_series_page.dart';
+import 'package:math_helper/features/taylor_series/presentation/cubit/taylor_series/taylor_series_fields_cubit.dart';
+import 'package:math_helper/features/taylor_series/presentation/pages/taylor_series_page.dart';
 import 'package:math_helper/pages/about_page.dart';
 import 'package:provider/provider.dart';
 
@@ -178,6 +193,22 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => MultiBlocProvider(providers: [
                             BlocProvider(
+                              create: (context) =>
+                                  ic<SymbolicDerivativeFieldsCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<NumericDerivativeFieldsCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<SymbolicPartialDerivativeCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<NumericPartialDerivativeCubit>(),
+                            ),
+                            BlocProvider(
                               create: (context) => ic<SymbolicDerivativeBloc>(),
                             ),
                             BlocProvider(
@@ -214,6 +245,30 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                             BlocProvider(
                               create: (context) =>
                                   ic<ThirdOrderDifferentialEquationBloc>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<FirstOrderCoefficientsCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<SecondOrderCoefficientsCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<ThirdOrderCoefficientsCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<FirstOrderConstraintsTextCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<SecondOrderConstraintsCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<ThirdOrderConstraintsCubit>(),
                             ),
                           ], child: const DifferentialEquationsPage()),
                         ));
@@ -255,6 +310,15 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => MultiBlocProvider(providers: [
                             BlocProvider(
+                              create: (context) => ic<AdditionCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) => ic<SubstractionCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) => ic<MultiplicationCubit>(),
+                            ),
+                            BlocProvider(
                               create: (context) => ic<ComplexAdditionBloc>(),
                             ),
                             BlocProvider(
@@ -284,10 +348,17 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                                 : AppColors.customWhite,
                           ), (context) {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => BlocProvider(
-                            create: (context) {
-                              return ic<PolarFormBloc>();
-                            },
+                          builder: (context) => MultiBlocProvider(
+                            providers: [
+                              BlocProvider(
+                                create: (context) {
+                                  return ic<PolarFormBloc>();
+                                },
+                              ),
+                              BlocProvider(
+                                create: (context) => ic<PolarFormCubit>(),
+                              ),
+                            ],
                             child: const ComplexPolarFormPage(),
                           ),
                         ));
@@ -379,8 +450,16 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                                 : AppColors.customWhite,
                           ), (context) {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => BlocProvider(
-                            create: (context) => ic<ExpandTaylorSeriesBloc>(),
+                          builder: (context) => MultiBlocProvider(
+                            providers: [
+                              BlocProvider(
+                                create: (context) =>
+                                    ic<ExpandTaylorSeriesBloc>(),
+                              ),
+                              BlocProvider(
+                                create: (context) => TaylorSeriesFieldsCubit(),
+                              ),
+                            ],
                             child: const TaylorSeriesPage(),
                           ),
                         ));

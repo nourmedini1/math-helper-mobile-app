@@ -37,7 +37,8 @@ class _NumericDerivativeScreenState extends State<NumericDerivativeScreen> {
         builder: (context, state) {
           if (state is NumericDerivativeInitial) {
             return DerivativeInitialScreen(
-              isNumeric: false, 
+              isNumeric: true, 
+              derivingPointController: widget.derivingPointController,
               expressionController: widget.expressionController, 
               variableController: widget.variableController, 
               orderController: widget.orderController);
@@ -48,10 +49,10 @@ class _NumericDerivativeScreenState extends State<NumericDerivativeScreen> {
               title: "Numeric Derivative", 
               expression: state.response.derivative, 
               result: state.response.result.toString(), 
-              isNumeric: false);
+              isNumeric: true);
           } else if (state is NumericDerivativeFailure) {
             return DerivativeInitialScreen(
-              isNumeric: false, 
+              isNumeric: true, 
               expressionController: widget.expressionController, 
               variableController: widget.variableController, 
               orderController: widget.orderController,

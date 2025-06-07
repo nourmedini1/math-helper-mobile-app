@@ -132,9 +132,13 @@ class _DerivativesPageState extends State<DerivativesPage>
                   controller: tabController,
                   indicatorSize: TabBarIndicatorSize.tab,
                   dividerColor: Colors.transparent,
-                  indicator: const BoxDecoration(
-                    color: AppColors.primaryColorTint50,
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  indicator:  BoxDecoration(
+                    color: Provider.of<ThemeManager>(context, listen: false)
+                                .themeData ==
+                            AppThemeData.lightTheme
+                        ? AppColors.primaryColorTint50
+                        : AppColors.primaryColor,
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
                   ),
                   labelColor: AppColors.customWhite,
                   unselectedLabelColor:

@@ -38,7 +38,7 @@ class _ComplexOperationSubmitButtonState extends State<ComplexOperationSubmitBut
       : AppColors.primaryColor;
 
   Widget buildButton(bool enabled) => SubmitButton(
-        color: enabled ? activeColor : AppColors.customBlackTint60,
+        color: enabled ? activeColor : AppColors.customBlackTint80,
         onPressed: enabled
             ? widget.onSubmitButtonPressed
             : () {},

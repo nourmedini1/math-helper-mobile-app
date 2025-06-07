@@ -26,29 +26,7 @@ class _ComplexOperationInitialScreenState extends State<ComplexOperationInitialS
   Widget build(BuildContext context) {
     return InputContainer(
       title: widget.operation, 
-      body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ComplexNumberTextFieldsGroupement(
-                  label: 'First complex number',
-                  realNumberHintText: 'Enter the real component',
-                  imaginaryNumberHintText: 'Enter the imaginary component',
-                  realController: widget.controllers[0],
-                  imaginaryController: widget.controllers[1],
-                  onChanged: (value) => handleInputChange(
-                      widget.controllers, widget.operation)),
-             
-              ComplexNumberTextFieldsGroupement(
-                label: 'Second complex number',
-                realNumberHintText: 'Enter the real component',
-                imaginaryNumberHintText: 'Enter the imaginary component',
-                realController: widget.controllers[2],
-                imaginaryController: widget.controllers[3],
-                onChanged: (value) => handleInputChange(
-                    widget.controllers, widget.operation)),
-            ],
-          ), 
+      body: buildBody(), 
       submitButton: ComplexOperationSubmitButton(
         operation: widget.operation,
         controllers: widget.controllers,
@@ -65,6 +43,32 @@ class _ComplexOperationInitialScreenState extends State<ComplexOperationInitialS
         ),
       ),
     );
+  }
+
+  Column buildBody() {
+    return Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ComplexNumberTextFieldsGroupement(
+                label: 'First complex number',
+                realNumberHintText: 'Enter the real component',
+                imaginaryNumberHintText: 'Enter the imaginary component',
+                realController: widget.controllers[0],
+                imaginaryController: widget.controllers[1],
+                onChanged: (value) => handleInputChange(
+                    widget.controllers, widget.operation)),
+           
+            ComplexNumberTextFieldsGroupement(
+              label: 'Second complex number',
+              realNumberHintText: 'Enter the real component',
+              imaginaryNumberHintText: 'Enter the imaginary component',
+              realController: widget.controllers[2],
+              imaginaryController: widget.controllers[3],
+              onChanged: (value) => handleInputChange(
+                  widget.controllers, widget.operation)),
+          ],
+        );
   }
 
   

@@ -3,6 +3,7 @@ import 'package:flutter_tex/flutter_tex.dart';
 import 'package:math_helper/core/ui/app_colors.dart';
 import 'package:math_helper/core/ui/app_theme_data.dart';
 import 'package:math_helper/core/ui/components/tex_view_widget.dart';
+import 'package:math_helper/core/ui/components/textfield_label.dart';
 import 'package:math_helper/core/ui/theme_manager.dart';
 import 'package:provider/provider.dart';
 
@@ -26,7 +27,10 @@ class DerivativeSuccessWidget extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       child: Column(
         children: [
-          _buildTitle(context),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: _buildTitle(context),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: _buildResultContainer(context, isLight),
@@ -87,19 +91,15 @@ class _DerivativeResult extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeManager>(context).themeData;
     final isLight = theme == AppThemeData.lightTheme;
-    final labelColor = isLight ? AppColors.customBlack : AppColors.customWhite;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Align(
+        const Align(
           alignment: Alignment.topLeft,
           child: Padding(
-            padding: const EdgeInsets.only(left: 30, top: 20),
-            child: Text(
-              "The derivative result",
-              style: Theme.of(context).textTheme.titleSmall?.copyWith(color: labelColor),
-            ),
+            padding: EdgeInsets.only(left: 30, top: 20, bottom: 8),
+            child: TextFieldLabel(label: "The derivative result")
           ),
         ),
         Padding(

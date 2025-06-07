@@ -19,7 +19,7 @@ import 'package:math_helper/features/derivatives/presentation/pages/derivatives_
 import 'package:math_helper/features/differential_equations/presentation/bloc/first_order_differential_equation/first_order_differential_equation_bloc.dart';
 import 'package:math_helper/features/differential_equations/presentation/bloc/second_order_differential_equation/second_order_differential_equation_bloc.dart';
 import 'package:math_helper/features/differential_equations/presentation/bloc/third_order_differential_equation/third_order_differential_equation_bloc.dart';
-import 'package:math_helper/features/differential_equations/presentation/screens/differential_equations_page.dart';
+import 'package:math_helper/features/differential_equations/presentation/pages/differential_equations_page.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/double_integral/double_integral_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/double_primitive/double_primitive_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/single_integral/single_integral_bloc.dart';
@@ -49,7 +49,7 @@ import 'package:math_helper/features/sum/presentation/bloc/numeric_sum/numeric_s
 import 'package:math_helper/features/sum/presentation/bloc/symbolic_sum/symbolic_sum_bloc.dart';
 import 'package:math_helper/features/sum/presentation/screens/sum_page.dart';
 import 'package:math_helper/features/taylor_series/presentation/bloc/expand_taylor_series/expand_taylor_series_bloc.dart';
-import 'package:math_helper/features/taylor_series/presentation/screens/taylor_series_page.dart';
+import 'package:math_helper/features/taylor_series/presentation/pages/taylor_series_page.dart';
 import 'package:provider/provider.dart';
 
 class Functionalities {

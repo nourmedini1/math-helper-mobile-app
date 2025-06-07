@@ -125,7 +125,7 @@ class _ComplexOperationPageState extends State<ComplexOperationPage>
           Divider(
             height: 1,
             color:
-                Provider.of<ThemeManager>(context, listen: false).themeData ==
+                Provider.of<ThemeManager>(context).themeData ==
                         AppThemeData.lightTheme
                     ? AppColors.primaryColorTint50
                     : AppColors.customBlackTint60,
@@ -139,7 +139,7 @@ class _ComplexOperationPageState extends State<ComplexOperationPage>
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  color: Provider.of<ThemeManager>(context, listen: false)
+                  color: Provider.of<ThemeManager>(context)
                               .themeData ==
                           AppThemeData.lightTheme
                       ? AppColors.customBlackTint90
@@ -149,13 +149,17 @@ class _ComplexOperationPageState extends State<ComplexOperationPage>
                   controller: tabController,
                   indicatorSize: TabBarIndicatorSize.tab,
                   dividerColor: Colors.transparent,
-                  indicator: const BoxDecoration(
-                    color: AppColors.primaryColorTint50,
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  indicator:  BoxDecoration(
+                    color: Provider.of<ThemeManager>(context)
+                                .themeData ==
+                            AppThemeData.lightTheme
+                        ? AppColors.primaryColorTint50
+                        : AppColors.primaryColor,
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
                   ),
                   labelColor: AppColors.customWhite,
                   unselectedLabelColor:
-                      Provider.of<ThemeManager>(context, listen: false)
+                      Provider.of<ThemeManager>(context)
                                   .themeData ==
                               AppThemeData.lightTheme
                           ? AppColors.customBlack

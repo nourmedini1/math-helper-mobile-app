@@ -48,52 +48,76 @@ class _DerivativeInitialScreenState extends State<DerivativeInitialScreen> {
     return InputContainer(
       title: widget.isNumeric ? "Numeric Derivative" : "Symbolic Derivative",
       body: widgetBody(controllers),
-      submitButton: SubmitButton(
-        color: Provider.of<ThemeManager>(context, listen: false).themeData == AppThemeData.lightTheme
-            ? AppColors.primaryColorTint50
-            : AppColors.primaryColor,
-        onPressed: () => handleSubmitButtonPressed(context),
-      ),
+      submitButton: buildSubmitButton(),
       clearButton: ClearButton(
         onPressed: () => handleClearButtonPressed(controllers),
       ),
       );
   }
 
-  Column widgetBody(List<TextEditingController> controllers) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CustomTextField(
-          label: "The expression",
-          controller: widget.expressionController,
-          hint: "Example: cos(x)/(1 + sin(x))", 
-          onChanged: (value) => handleInputChange(controllers)),
-        CustomTextField(
-          label: "The variable",
-          controller: widget.variableController,
-          hint: "The variable used, example: x",
-          onChanged: (value) => handleInputChange(
-            controllers)),
-        CustomTextField(
-          label: "The order of the differentiation",
-          controller: widget.orderController,
-          hint: "Must be 1 or greater",
-          keyboardType: TextInputType.number,
-          onChanged: (value) => handleInputChange(controllers)),
-        if (widget.derivingPointController != null)
-        CustomTextField(
-          label: "The deriving point",
-          controller: widget.derivingPointController!,
-          hint: "Example: 2.5",
-          keyboardType: TextInputType.number,
-          onChanged: (value) => handleInputChange(controllers),
-        ),
-        buildPartialDerivativeSwitch(widget.isNumeric),
-        const SizedBox(height: 10),
+  BlocBuilder buildSubmitButton() {
+    final themeManager = Provider.of<ThemeManager>(context, listen: false);
+    final activeColor = themeManager.themeData == AppThemeData.lightTheme
+        ? AppColors.primaryColorTint50
+        : AppColors.primaryColor;
+    if (widget.isNumeric) {
+      return BlocBuilder<NumericDerivativeFieldsCubit, NumericDerivativeFieldsState>(
+        builder: (context, state) {
+          final isEnabled = state is NumericDerivativeFieldsReady;
+          return SubmitButton(
+            color: isEnabled ? activeColor : AppColors.customBlackTint80,
+            onPressed: isEnabled ? () => handleSubmitButtonPressed(context) : () {},
+          );
+        },
+      );
+    } else {
+      return BlocBuilder<SymbolicDerivativeFieldsCubit, SymbolicDerivativeFieldsState>(
+        builder: (context, state) {
+          final isEnabled = state is SymbolicDerivativeFieldsReady;
+          return SubmitButton(
+            color: isEnabled ? activeColor : AppColors.customBlackTint80,
+            onPressed: isEnabled ? () => handleSubmitButtonPressed(context) : () {},
+          );
+        },
+      );
+    }
+  }
 
-      ]
+  Widget widgetBody(List<TextEditingController> controllers) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CustomTextField(
+            label: "The expression",
+            controller: widget.expressionController,
+            hint: "Example: cos(x)/(1 + sin(x))", 
+            onChanged: (value) => handleInputChange(controllers)),
+          CustomTextField(
+            label: "The variable",
+            controller: widget.variableController,
+            hint: "The variable used, example: x",
+            onChanged: (value) => handleInputChange(
+              controllers)),
+          CustomTextField(
+            label: "The order of the differentiation",
+            controller: widget.orderController,
+            hint: "Must be 1 or greater",
+            keyboardType: TextInputType.number,
+            onChanged: (value) => handleInputChange(controllers)),
+          widget.isNumeric
+              ? CustomTextField(
+                  label: "The deriving point",
+                  controller: widget.derivingPointController!,
+                  hint: "Example: 2.5",
+                  onChanged: (value) => handleInputChange(controllers),
+                )
+              : const SizedBox.shrink(),
+          buildPartialDerivativeSwitch(widget.isNumeric),
+        ]
+      ),
     );
   }
 

@@ -761,6 +761,7 @@ ListTile(
 
   void showVariationTableModal(BuildContext context, VariationTable table) {
   showModalBottomSheet(
+
     context: context,
     backgroundColor: Provider.of<ThemeManager>(context, listen: false)
         .themeData == AppThemeData.lightTheme
@@ -859,6 +860,24 @@ ListTile(
         ),
       ),
     ),
+    );
+  }
+  
+  inputTitle(BuildContext context, String s) {}
+  
+  Widget loadingComponent(BuildContext context) {
+    return Center(
+      child: SizedBox(
+        height: 50,
+        width: 50,
+        child: CircularProgressIndicator(
+          color: Provider.of<ThemeManager>(context, listen: false).themeData ==
+                  AppThemeData.lightTheme
+              ? AppColors.primaryColor
+              : AppColors.customWhite,
+          strokeWidth: 2.0,
+        ),
+      ),
     );
   }
   

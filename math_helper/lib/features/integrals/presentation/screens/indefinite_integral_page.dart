@@ -858,4 +858,10 @@ class _IndefinitePrimitivePageState extends State<IndefinitePrimitivePage>
       ),
     );
   }
+  
+  loadingComponent(BuildContext context) {}
+  
+  resetButton(BuildContext context) {}
+  
+  inputTitle(BuildContext context, String s) {}
 }

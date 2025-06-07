@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:math_helper/core/ui/app_colors.dart';
+import 'package:math_helper/core/ui/app_theme_data.dart';
 import 'package:math_helper/core/ui/components/reset_button.dart';
+import 'package:math_helper/core/ui/theme_manager.dart';
 import 'package:math_helper/features/derivatives/presentation/bloc/numeric_derivative/numeric_derivative_bloc.dart';
 import 'package:math_helper/features/derivatives/presentation/bloc/symbolic_derivative/symbolic_derivative_bloc.dart';
 import 'package:math_helper/features/derivatives/presentation/widgets/derivative_success_widget.dart';
+import 'package:provider/provider.dart';
 
 class DerivativeSuccessScreen extends StatelessWidget {
   final String title;
@@ -25,6 +29,9 @@ class DerivativeSuccessScreen extends StatelessWidget {
         ),
         const SizedBox(height: 20),
       ResetButton(
+        color: Provider.of<ThemeManager>(context, listen: false).themeData == AppThemeData.lightTheme
+            ? AppColors.primaryColorTint50
+            : AppColors.primaryColor,
         onPressed: () => handleResetButtonPressed(context, isNumeric),
         ),
     ]

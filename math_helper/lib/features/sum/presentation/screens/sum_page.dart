@@ -710,4 +710,10 @@ class _SumPageState extends State<SumPage> with TickerProviderStateMixin {
       ),
     );
   }
+  
+  inputTitle(BuildContext context, String s) {}
+  
+  resetButton(BuildContext context) {}
+  
+  loadingComponent(BuildContext context) {}
 }

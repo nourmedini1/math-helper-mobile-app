@@ -712,4 +712,10 @@ class _ProductPageState extends State<ProductPage>
       ),
     );
   }
+  
+  loadingComponent(BuildContext context) {}
+  
+  resetButton(BuildContext context) {}
+  
+  inputTitle(BuildContext context, String s) {}
 }

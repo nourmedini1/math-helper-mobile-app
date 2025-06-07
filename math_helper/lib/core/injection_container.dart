@@ -16,6 +16,10 @@ import 'package:math_helper/features/complex/presentation/bloc/complex_addition/
 import 'package:math_helper/features/complex/presentation/bloc/complex_multiplication/complex_multiplication_bloc.dart';
 import 'package:math_helper/features/complex/presentation/bloc/complex_substraction/complex_substraction_bloc.dart';
 import 'package:math_helper/features/complex/presentation/bloc/polar_form/polar_form_bloc.dart';
+import 'package:math_helper/features/complex/presentation/cubit/addition_cubit/addition_cubit.dart';
+import 'package:math_helper/features/complex/presentation/cubit/multiplication_cubit/multiplication_cubit.dart';
+import 'package:math_helper/features/complex/presentation/cubit/polar_form_cubit/polar_form_cubit.dart';
+import 'package:math_helper/features/complex/presentation/cubit/substraction_cubit/substraction_cubit.dart';
 import 'package:math_helper/features/derivatives/data/api/derivatives_api.dart';
 import 'package:math_helper/features/derivatives/data/repository/derivatives_repository_impl.dart';
 import 'package:math_helper/features/derivatives/domain/repository/derivatives_repository.dart';
@@ -23,6 +27,10 @@ import 'package:math_helper/features/derivatives/domain/usecases/numeric_derivat
 import 'package:math_helper/features/derivatives/domain/usecases/symbolic_derivative_usecase.dart';
 import 'package:math_helper/features/derivatives/presentation/bloc/numeric_derivative/numeric_derivative_bloc.dart';
 import 'package:math_helper/features/derivatives/presentation/bloc/symbolic_derivative/symbolic_derivative_bloc.dart';
+import 'package:math_helper/features/derivatives/presentation/cubit/numeric_derivative_fields/numeric_derivative_fields_cubit.dart';
+import 'package:math_helper/features/derivatives/presentation/cubit/numeric_partial_derivative/numeric_partial_derivative_cubit.dart';
+import 'package:math_helper/features/derivatives/presentation/cubit/symbolic_derivative_fields/symbolic_derivative_fields_cubit.dart';
+import 'package:math_helper/features/derivatives/presentation/cubit/symbolic_partial_derivative/symbolic_partial_derivative_cubit.dart';
 import 'package:math_helper/features/differential_equations/data/api/differential_equations_api.dart';
 import 'package:math_helper/features/differential_equations/data/repository/differential_equations_repository_impl.dart';
 import 'package:math_helper/features/differential_equations/domain/repository/differential_equations_repository.dart';
@@ -32,6 +40,12 @@ import 'package:math_helper/features/differential_equations/domain/usecases/thir
 import 'package:math_helper/features/differential_equations/presentation/bloc/first_order_differential_equation/first_order_differential_equation_bloc.dart';
 import 'package:math_helper/features/differential_equations/presentation/bloc/second_order_differential_equation/second_order_differential_equation_bloc.dart';
 import 'package:math_helper/features/differential_equations/presentation/bloc/third_order_differential_equation/third_order_differential_equation_bloc.dart';
+import 'package:math_helper/features/differential_equations/presentation/cubit/first_order_coefficients/first_order_coefficients_cubit.dart';
+import 'package:math_helper/features/differential_equations/presentation/cubit/first_order_constraints/first_order_constraints_text_cubit.dart';
+import 'package:math_helper/features/differential_equations/presentation/cubit/second_order_coefficients/second_order_coefficients_cubit.dart';
+import 'package:math_helper/features/differential_equations/presentation/cubit/second_order_constraints/second_order_constraints_cubit.dart';
+import 'package:math_helper/features/differential_equations/presentation/cubit/third_order_coefficents/third_order_coefficients_cubit.dart';
+import 'package:math_helper/features/differential_equations/presentation/cubit/third_order_constraints/third_order_constraints_cubit.dart';
 import 'package:math_helper/features/function_plotting/data/api/function_plotting_api.dart';
 import 'package:math_helper/features/function_plotting/data/repository/function_plotting_repository.dart';
 import 'package:math_helper/features/function_plotting/domain/repository/function_plotting_repository.dart';
@@ -100,6 +114,7 @@ import 'package:math_helper/features/taylor_series/data/repository/taylor_series
 import 'package:math_helper/features/taylor_series/domain/repository/taylor_series_repository.dart';
 import 'package:math_helper/features/taylor_series/domain/usecases/expand_taylor_series_usecase.dart';
 import 'package:math_helper/features/taylor_series/presentation/bloc/expand_taylor_series/expand_taylor_series_bloc.dart';
+import 'package:math_helper/features/taylor_series/presentation/cubit/taylor_series/taylor_series_fields_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final ic = GetIt.instance;
@@ -138,6 +153,13 @@ Future<void> init() async {
       () => ComplexMultiplicationBloc(complexMultiplicationUsecase: ic()));
   ic.registerFactory(() => PolarFormBloc(polarFormUsecase: ic()));
 
+  ic.registerFactory(() => AdditionCubit());
+  ic.registerFactory(() => SubstractionCubit());
+  ic.registerFactory(() => MultiplicationCubit());
+  ic.registerFactory(() => PolarFormCubit());
+
+
+
   // derivatives
   ic.registerLazySingleton(() => DerivativesApi(client: ic()));
   ic.registerLazySingleton<DerivativesRepository>(() =>
@@ -152,6 +174,10 @@ Future<void> init() async {
       () => SymbolicDerivativeBloc(symbolicDerivativeUsecase: ic()));
   ic.registerFactory(
       () => NumericDerivativeBloc(numericDerivativeUsecase: ic()));
+  ic.registerFactory(() => SymbolicDerivativeFieldsCubit());
+  ic.registerFactory(() => NumericDerivativeFieldsCubit());
+  ic.registerFactory(() => SymbolicPartialDerivativeCubit());
+  ic.registerFactory(() => NumericPartialDerivativeCubit());
 
   // integrals
   ic.registerLazySingleton(() => IntegralsApi(client: ic()));
@@ -197,6 +223,12 @@ Future<void> init() async {
       secondOrderDifferentialEquationUsecase: ic()));
   ic.registerFactory(() => ThirdOrderDifferentialEquationBloc(
       thirdOrderDifferentialEquationUsecase: ic()));
+  ic.registerFactory(() => FirstOrderCoefficientsCubit());
+  ic.registerFactory(() => ThirdOrderCoefficientsCubit());
+  ic.registerFactory(() => SecondOrderCoefficientsCubit());
+  ic.registerFactory(() => FirstOrderConstraintsTextCubit());
+  ic.registerFactory(() => SecondOrderConstraintsCubit());
+  ic.registerFactory(() => ThirdOrderConstraintsCubit());
 
   // limits
   ic.registerLazySingleton(() => LimitsApi(client: ic()));
@@ -240,6 +272,7 @@ Future<void> init() async {
   ic.registerLazySingleton(
       () => ExpandTaylorSeriesUsecase(taylorSeriesRepository: ic()));
   ic.registerFactory(() => ExpandTaylorSeriesBloc(taylorSeriesUsecase: ic()));
+  ic.registerFactory(() => TaylorSeriesFieldsCubit());
 
   // linear systems
   ic.registerLazySingleton(() => LinearSystemsApi(client: ic()));

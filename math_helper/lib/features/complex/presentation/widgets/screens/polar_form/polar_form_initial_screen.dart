@@ -28,48 +28,57 @@ class _PolarFormInitialScreenState extends State<PolarFormInitialScreen> {
   Widget build(BuildContext context) {
     return InputContainer(
       title: "Polar Form", 
-      body:  Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ComplexNumberTextFieldsGroupement(
-            label: "The complex number", 
-            realNumberHintText: "Enter the real component",
-            imaginaryNumberHintText: "Enter the imaginary component", 
-            realController: widget.realController, 
-            imaginaryController: widget.imaginaryController, 
-            onChanged: (value) => handleInputChange(
-              [widget.realController, widget.imaginaryController])),
-        ],
-      ),
-      submitButton: BlocBuilder<PolarFormCubit, PolarFormCubitState>(
-        builder: (context, state) {
-          if (state is PolarFormFieldsMissing) {
-            return SubmitButton(
-              color : AppColors.customBlackTint60,
-              onPressed: () {},
-            );
-          } else if (state is PolarFormFieldsReady) {
-            return SubmitButton(
-              color: Provider.of<ThemeManager>(context, listen: false).themeData == AppThemeData.lightTheme
-                  ? AppColors.primaryColorTint50
-                  : AppColors.primaryColor,
-              onPressed: () => handleSubmitButtonPressed(
-                context, 
-                widget.realController, 
-                widget.imaginaryController),
-            );
-          } else {
-            return const SizedBox.shrink();
-          }
-        },
-      ),
+      body:  buildBody(),
+      submitButton: buildSubmitButton(),
       clearButton: ClearButton(
         onPressed: () => handleClearButtonPressed(
           widget.realController, 
           widget.imaginaryController),
       ),
       );
+  }
+
+  BlocBuilder<PolarFormCubit, PolarFormCubitState> buildSubmitButton() {
+    return BlocBuilder<PolarFormCubit, PolarFormCubitState>(
+      builder: (context, state) {
+        if (state is PolarFormFieldsMissing) {
+          return SubmitButton(
+            color : AppColors.customBlackTint80,
+            onPressed: () {},
+          );
+        } else if (state is PolarFormFieldsReady) {
+          return SubmitButton(
+            color: Provider.of<ThemeManager>(context, listen: false).themeData == AppThemeData.lightTheme
+                ? AppColors.primaryColorTint50
+                : AppColors.primaryColor,
+            onPressed: () => handleSubmitButtonPressed(
+              context, 
+              widget.realController, 
+              widget.imaginaryController),
+          );
+        } else {
+          return const SizedBox.shrink();
+        }
+      },
+    );
+  }
+
+  Widget buildBody() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        ComplexNumberTextFieldsGroupement(
+          label: "The complex number", 
+          realNumberHintText: "Enter the real component",
+          imaginaryNumberHintText: "Enter the imaginary component", 
+          realController: widget.realController, 
+          imaginaryController: widget.imaginaryController, 
+          onChanged: (value) => handleInputChange(
+            [widget.realController, widget.imaginaryController])),
+      ],
+    );
   }
 
    

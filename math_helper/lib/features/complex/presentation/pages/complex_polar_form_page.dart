@@ -58,25 +58,29 @@ class _ComplexPolarFormPageState extends State<ComplexPolarFormPage> {
             hasHomeIcon: true),
         drawer: const CustomDrawer(),
         body: Center(
-          child: BlocConsumer<PolarFormBloc, PolarFormState>(
-            listener: (context, state) {
-              if (state is PolarFormFailure) {
-                showToast(context, state.message);
-              }
-            },
-            builder: (context, state) {
-              if (state is PolarFormInitial) {
-                return PolarFormInitialScreen(
-                    realController : realController,imaginaryController :  imaginaryController);
-              } else if (state is PolarFormLoading) {
-                return const LoadingScreen();
-              } else if (state is PolarFormOperationSuccess) {
-                return PolarFormSuccessScreen(response: state.response,);
-              } else {
-                return PolarFormInitialScreen(
-                    realController : realController,imaginaryController :  imaginaryController);
-              }
-            },
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            physics: const BouncingScrollPhysics(),
+            child: BlocConsumer<PolarFormBloc, PolarFormState>(
+              listener: (context, state) {
+                if (state is PolarFormFailure) {
+                  showToast(context, state.message);
+                }
+              },
+              builder: (context, state) {
+                if (state is PolarFormInitial) {
+                  return PolarFormInitialScreen(
+                      realController : realController,imaginaryController :  imaginaryController);
+                } else if (state is PolarFormLoading) {
+                  return const LoadingScreen();
+                } else if (state is PolarFormOperationSuccess) {
+                  return PolarFormSuccessScreen(response: state.response,);
+                } else {
+                  return PolarFormInitialScreen(
+                      realController : realController,imaginaryController :  imaginaryController);
+                }
+              },
+            ),
           ),
         ));
   }

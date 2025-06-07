@@ -8,11 +8,10 @@ import 'package:provider/provider.dart';
 
 class InputContainer extends StatelessWidget {
   String title;
-  Color? titleColor;
   Widget body;
   Widget submitButton;
   Widget? clearButton;
-  InputContainer({super.key, required this.title, required this.body, required this.submitButton, this.clearButton, this.titleColor});
+  InputContainer({super.key, required this.title, required this.body, required this.submitButton, this.clearButton,});
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +27,14 @@ class InputContainer extends StatelessWidget {
 
   Padding inputContainerClearButton() {
     return Padding(
-          padding:  const EdgeInsets.only(top: 10),
+          padding:  const EdgeInsets.symmetric(horizontal: 64, vertical: 10),
           child: clearButton ?? const SizedBox.shrink(),
         );
   }
 
   Padding inputContainerSubmitButton() {
     return Padding(
-        padding: const EdgeInsets.only(top: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 0),
         child: submitButton,
         );
   }
@@ -69,7 +68,9 @@ class InputContainer extends StatelessWidget {
           child: Text(
             title,
             style: TextStyle(
-                color: titleColor ?? AppColors.primaryColorTint50,
+                color: Provider.of<ThemeManager>(context, listen: false).themeData == AppThemeData.lightTheme
+          ? AppColors.primaryColorTint50
+          : AppColors.primaryColor,
                 fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
                 fontFamily:
                     Theme.of(context).textTheme.titleMedium!.fontFamily),

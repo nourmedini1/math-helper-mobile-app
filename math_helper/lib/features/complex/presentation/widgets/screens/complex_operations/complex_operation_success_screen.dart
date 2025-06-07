@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:math_helper/core/ui/app_colors.dart';
+import 'package:math_helper/core/ui/app_theme_data.dart';
 import 'package:math_helper/core/ui/components/reset_button.dart';
+import 'package:math_helper/core/ui/theme_manager.dart';
 import 'package:math_helper/features/complex/data/models/complex_operations_response.dart';
 import 'package:math_helper/features/complex/presentation/bloc/complex_addition/complex_addition_bloc.dart';
 import 'package:math_helper/features/complex/presentation/bloc/complex_multiplication/complex_multiplication_bloc.dart';
 import 'package:math_helper/features/complex/presentation/bloc/complex_substraction/complex_substraction_bloc.dart';
-import 'package:math_helper/features/complex/presentation/cubit/addition_cubit/addition_cubit.dart';
-import 'package:math_helper/features/complex/presentation/cubit/multiplication_cubit/multiplication_cubit.dart';
-import 'package:math_helper/features/complex/presentation/cubit/substraction_cubit/substraction_cubit.dart';
 import 'package:math_helper/features/complex/presentation/widgets/screens/complex_operations/complex_operation_success_widget.dart';
+import 'package:provider/provider.dart';
 
 class ComplexOperationSuccessScreen extends StatefulWidget {
   final String operation;
@@ -36,6 +37,9 @@ class _ComplexOperationSuccessScreenState extends State<ComplexOperationSuccessS
         resultComplexNumberPolarForm: widget.response.polarResult),
         const SizedBox(height: 20),
       ResetButton(
+        color: Provider.of<ThemeManager>(context, listen: false).themeData == AppThemeData.lightTheme
+            ? AppColors.primaryColorTint50
+            : AppColors.primaryColor,
         onPressed: () => handleResetButtonPressed(widget.operation),
         ),
     ]
@@ -47,15 +51,12 @@ class _ComplexOperationSuccessScreenState extends State<ComplexOperationSuccessS
     switch (operation) {
       case "Complex Addition":
         BlocProvider.of<ComplexAdditionBloc>(context).add(const ComplexAdditionReset());
-        context.read<AdditionCubit>().checkFieldsReady(false);
         break;
       case "Complex Substraction":
         BlocProvider.of<ComplexSubstractionBloc>(context).add(const ComplexSubstractionReset());
-        context.read<SubstractionCubit>().checkFieldsReady(false);
         break;
       case "Complex Multiplication":
         BlocProvider.of<ComplexMultiplicationBloc>(context).add(const ComplexMultiplicationReset());
-        context.read<MultiplicationCubit>().checkFieldsReady(false);
         break;
     }
 

@@ -635,6 +635,12 @@ class _LinearEquationsPageState extends State<LinearEquationsPage> {
           decoration: textFieldInputDecoration(context, hint)),
     );
   }
+  
+  loadingComponent(BuildContext context) {}
+  
+  resetButton(BuildContext context) {}
+  
+  inputTitle(BuildContext context, String s) {}
 }
 
 class LinearSystemPopup extends StatefulWidget {
@@ -856,4 +862,6 @@ class _LinearSystemPopupState extends State<LinearSystemPopup> {
           decoration: textFieldInputDecoration(context, hint)),
     );
   }
+  
+  inputTitle(BuildContext context, String s) {}
 }

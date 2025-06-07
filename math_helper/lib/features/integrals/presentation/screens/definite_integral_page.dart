@@ -1113,6 +1113,12 @@ class _DefiniteIntegralPageState extends State<DefiniteIntegralPage>
       ),
     );
   }
+  
+  loadingComponent(BuildContext context) {}
+  
+  resetButton(BuildContext context) {}
+  
+  inputTitle(BuildContext context, String s) {}
 }
 
 class SingleIntegralPopup extends StatefulWidget {
@@ -1283,6 +1289,8 @@ class _SingleIntegralPopupState extends State<SingleIntegralPopup> {
           decoration: textFieldInputDecoration(context, hint)),
     );
   }
+  
+  inputTitle(BuildContext context, String s) {}
 }
 
 class DoubleIntegralPopup extends StatefulWidget {
@@ -1462,6 +1470,8 @@ class _DoubleIntegralPopupState extends State<DoubleIntegralPopup> {
           decoration: textFieldInputDecoration(context, hint)),
     );
   }
+  
+  inputTitle(BuildContext context, String s) {}
 }
 
 class TripleIntegralPopup extends StatefulWidget {
@@ -1664,4 +1674,6 @@ class _TripleIntegralPopupState extends State<TripleIntegralPopup> {
           decoration: textFieldInputDecoration(context, hint)),
     );
   }
+  
+  inputTitle(BuildContext context, String s) {}
 }

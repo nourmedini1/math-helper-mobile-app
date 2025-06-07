@@ -3,6 +3,7 @@ import 'package:flutter_tex/flutter_tex.dart';
 import 'package:math_helper/core/ui/app_colors.dart';
 import 'package:math_helper/core/ui/app_theme_data.dart';
 import 'package:math_helper/core/ui/components/tex_view_widget.dart';
+import 'package:math_helper/core/ui/components/textfield_label.dart';
 import 'package:math_helper/core/ui/theme_manager.dart';
 import 'package:provider/provider.dart';
 
@@ -26,6 +27,7 @@ class ComplexPolarFormSuccessWidget extends StatelessWidget {
       child: Column(
         children: [
           _buildTitle(context),
+          const SizedBox(height: 16),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: _buildResultContainer(context, isLight),
@@ -80,29 +82,24 @@ class ComplexPolarFormSuccessWidget extends StatelessWidget {
     String polarForm,
     bool isLight,
   ) {
-    final labelColor = isLight ? AppColors.customBlack : AppColors.customWhite;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _resultLabel(context, title, labelColor),
+        _resultLabel(),
         _texViewBox(context, algebraicForm, isLight, showLoading: true),
         _texViewBox(context, polarForm, isLight),
       ],
     );
   }
 
-  Widget _resultLabel(BuildContext context, String label, Color color) {
-    return Align(
-      alignment: Alignment.topLeft,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 30, top: 20),
-        child: Text(
-          label,
-          style: Theme.of(context).textTheme.titleSmall?.copyWith(color: color),
-        ),
-      ),
-    );
+  Padding _resultLabel() {
+    return const Padding(
+        padding:  EdgeInsets.only(left: 30, top: 10, bottom: 10),
+        child:  TextFieldLabel(label: "Converted complex number"),
+      );
   }
+
+  
 
   Widget _texViewBox(BuildContext context, String expression, bool isLight, {bool showLoading = false}) {
     return Padding(

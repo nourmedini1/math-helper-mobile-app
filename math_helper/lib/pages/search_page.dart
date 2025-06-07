@@ -31,8 +31,8 @@ import 'package:math_helper/features/derivatives/presentation/pages/derivatives_
 import 'package:math_helper/features/differential_equations/presentation/bloc/first_order_differential_equation/first_order_differential_equation_bloc.dart';
 import 'package:math_helper/features/differential_equations/presentation/bloc/second_order_differential_equation/second_order_differential_equation_bloc.dart';
 import 'package:math_helper/features/differential_equations/presentation/bloc/third_order_differential_equation/third_order_differential_equation_bloc.dart';
-import 'package:math_helper/features/differential_equations/presentation/screens/differential_equations_page.dart';
-import 'package:math_helper/features/differential_equations/presentation/screens/differential_equations_result_screen.dart';
+import 'package:math_helper/features/differential_equations/presentation/pages/differential_equations_page.dart';
+import 'package:math_helper/features/differential_equations/presentation/pages/differential_equations_result_screen.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/double_integral/double_integral_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/single_integral/single_integral_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/triple_integral/triple_integral_bloc.dart';
@@ -71,8 +71,8 @@ import 'package:math_helper/features/sum/presentation/bloc/symbolic_sum/symbolic
 import 'package:math_helper/features/sum/presentation/screens/sum_page.dart';
 import 'package:math_helper/features/sum/presentation/screens/sum_result_screen.dart';
 import 'package:math_helper/features/taylor_series/presentation/bloc/expand_taylor_series/expand_taylor_series_bloc.dart';
-import 'package:math_helper/features/taylor_series/presentation/screens/taylor_series_page.dart';
-import 'package:math_helper/features/taylor_series/presentation/screens/taylor_series_result_screen.dart';
+import 'package:math_helper/features/taylor_series/presentation/pages/taylor_series_page.dart';
+import 'package:math_helper/features/taylor_series/presentation/pages/taylor_series_result_screen.dart';
 import 'package:provider/provider.dart';
 
 class SearchPage extends StatefulWidget {
@@ -756,5 +756,15 @@ class _SearchPageState extends State<SearchPage> {
     return sortedOperations.length >= 5
         ? sortedOperations.sublist(0, 5)
         : sortedOperations;
+  }
+  
+  Widget loadingComponent(BuildContext context) {
+    return Center(
+      child: CircularProgressIndicator(
+        color: Provider.of<ThemeManager>(context, listen: false)
+            .themeData
+            .primaryColor,
+      ),
+    );
   }
 }
