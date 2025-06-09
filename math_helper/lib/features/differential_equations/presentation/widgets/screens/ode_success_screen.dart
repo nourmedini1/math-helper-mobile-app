@@ -5,6 +5,8 @@ import 'package:math_helper/core/ui/app_theme_data.dart';
 import 'package:math_helper/core/ui/components/reset_button.dart';
 import 'package:math_helper/core/ui/theme_manager.dart';
 import 'package:math_helper/features/differential_equations/presentation/bloc/first_order_differential_equation/first_order_differential_equation_bloc.dart';
+import 'package:math_helper/features/differential_equations/presentation/bloc/second_order_differential_equation/second_order_differential_equation_bloc.dart';
+import 'package:math_helper/features/differential_equations/presentation/bloc/third_order_differential_equation/third_order_differential_equation_bloc.dart';
 import 'package:math_helper/features/differential_equations/presentation/widgets/ode_success_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -42,8 +44,15 @@ class OdeSuccessScreen extends StatelessWidget {
   }
 
   void handleResetButtonPressed(BuildContext context) {
-    BlocProvider.of<FirstOrderDifferentialEquationBloc>(context, listen: false).add(
-      const FirstOrderDifferentialEquationReset(),
-    );
+   switch (title) {
+      case "First Order ODE":
+        context.read<FirstOrderDifferentialEquationBloc>().add(const FirstOrderDifferentialEquationReset());
+        break;
+      case "Second Order ODE":
+        context.read<SecondOrderDifferentialEquationBloc>().add(const SecondOrderDifferentialEquationReset());
+        break;
+      default:
+        context.read<ThirdOrderDifferentialEquationBloc>().add(const ThirdOrderDifferentialEquationReset());
+    }
   }
 }

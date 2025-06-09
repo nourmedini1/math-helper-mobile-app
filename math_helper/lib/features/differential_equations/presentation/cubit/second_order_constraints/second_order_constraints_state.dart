@@ -16,4 +16,18 @@ final class SecondOrderConstraintsInitial extends SecondOrderConstraintsState {
     this.thirdConstraints = const ['0', '0'],
     this.text = 'Initial Conditions : {(0,0), (0,0), (0,0)}',
   });
+
+  SecondOrderConstraintsInitial copyWith({
+    List<String>? firstConstraints,
+    List<String>? secondConstraints,
+    List<String>? thirdConstraints,
+    String? text,
+  }) {
+    return SecondOrderConstraintsInitial(
+      firstConstraints: firstConstraints ?? this.firstConstraints,
+      secondConstraints: secondConstraints ?? this.secondConstraints,
+      thirdConstraints: thirdConstraints ?? this.thirdConstraints,
+      text: text ?? this.text,
+    );
+  }
 }

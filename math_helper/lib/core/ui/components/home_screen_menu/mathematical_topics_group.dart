@@ -40,8 +40,17 @@ import 'package:math_helper/features/integrals/presentation/bloc/single_integral
 import 'package:math_helper/features/integrals/presentation/bloc/single_primitive/single_primitive_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/triple_integral/triple_integral_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/triple_primitive/triple_primitive_bloc.dart';
-import 'package:math_helper/features/integrals/presentation/screens/definite_integral_page.dart';
-import 'package:math_helper/features/integrals/presentation/screens/indefinite_integral_page.dart';
+import 'package:math_helper/features/integrals/presentation/cubit/definite_integral/double_fields/double_fields_cubit.dart';
+import 'package:math_helper/features/integrals/presentation/cubit/definite_integral/double_limits_text/double_definite_integral_limits_text_cubit.dart';
+import 'package:math_helper/features/integrals/presentation/cubit/definite_integral/single_fields/single_fields_cubit.dart';
+import 'package:math_helper/features/integrals/presentation/cubit/definite_integral/single_limits_text/single_definite_integral_limits_text_cubit.dart';
+import 'package:math_helper/features/integrals/presentation/cubit/definite_integral/triple_fields/triple_fields_cubit.dart';
+import 'package:math_helper/features/integrals/presentation/cubit/definite_integral/triple_limits_text/triple_definite_integral_limit_text_cubit.dart';
+import 'package:math_helper/features/integrals/presentation/cubit/indefinite_integral/indefinite_double_fields/indefinite_double_fields_cubit.dart';
+import 'package:math_helper/features/integrals/presentation/cubit/indefinite_integral/indefinite_single_fields/indefinite_single_fields_cubit.dart';
+import 'package:math_helper/features/integrals/presentation/cubit/indefinite_integral/indefinite_triple_fields/indefinite_triple_fields_cubit.dart';
+import 'package:math_helper/features/integrals/presentation/pages/definite_integral_page.dart';
+import 'package:math_helper/features/integrals/presentation/pages/indefinite_integral_page.dart';
 import 'package:math_helper/features/limits/presentation/bloc/double_limit/double_limit_bloc.dart';
 import 'package:math_helper/features/limits/presentation/bloc/single_limit/single_limit_bloc.dart';
 import 'package:math_helper/features/limits/presentation/bloc/triple_limit/triple_limit_bloc.dart';
@@ -125,6 +134,28 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                             BlocProvider(
                               create: (context) => ic<TripleIntegralBloc>(),
                             ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<SingleFieldsCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<DoubleFieldsCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<TripleFieldsCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) => ic<SingleDefiniteIntegralLimitsTextCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) => ic<DoubleDefiniteIntegralLimitsTextCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) => ic<TripleDefiniteIntegralLimitTextCubit>(),
+                            ),
+                            
                           ], child: const DefiniteIntegralPage()),
                         ));
                       }),
@@ -153,6 +184,18 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                             ),
                             BlocProvider(
                               create: (context) => ic<TriplePrimitiveBloc>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<IndefiniteDoubleFieldsCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<IndefiniteTripleFieldsCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<IndefiniteSingleFieldsCubit>(),
                             ),
                           ], child: const IndefinitePrimitivePage()),
                         ));

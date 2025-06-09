@@ -66,6 +66,15 @@ import 'package:math_helper/features/integrals/presentation/bloc/single_integral
 import 'package:math_helper/features/integrals/presentation/bloc/single_primitive/single_primitive_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/triple_integral/triple_integral_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/triple_primitive/triple_primitive_bloc.dart';
+import 'package:math_helper/features/integrals/presentation/cubit/definite_integral/double_fields/double_fields_cubit.dart';
+import 'package:math_helper/features/integrals/presentation/cubit/definite_integral/double_limits_text/double_definite_integral_limits_text_cubit.dart';
+import 'package:math_helper/features/integrals/presentation/cubit/definite_integral/single_fields/single_fields_cubit.dart';
+import 'package:math_helper/features/integrals/presentation/cubit/definite_integral/single_limits_text/single_definite_integral_limits_text_cubit.dart';
+import 'package:math_helper/features/integrals/presentation/cubit/definite_integral/triple_fields/triple_fields_cubit.dart';
+import 'package:math_helper/features/integrals/presentation/cubit/definite_integral/triple_limits_text/triple_definite_integral_limit_text_cubit.dart';
+import 'package:math_helper/features/integrals/presentation/cubit/indefinite_integral/indefinite_double_fields/indefinite_double_fields_cubit.dart';
+import 'package:math_helper/features/integrals/presentation/cubit/indefinite_integral/indefinite_single_fields/indefinite_single_fields_cubit.dart';
+import 'package:math_helper/features/integrals/presentation/cubit/indefinite_integral/indefinite_triple_fields/indefinite_triple_fields_cubit.dart';
 import 'package:math_helper/features/limits/data/api/limits_api.dart';
 import 'package:math_helper/features/limits/data/repository/limits_repository_impl.dart';
 import 'package:math_helper/features/limits/domain/repository/limits_repository.dart';
@@ -203,6 +212,16 @@ Future<void> init() async {
   ic.registerFactory(() => SinglePrimitiveBloc(singlePrimitiveUsecase: ic()));
   ic.registerFactory(() => DoublePrimitiveBloc(doublePrimitiveUsecase: ic()));
   ic.registerFactory(() => TriplePrimitiveBloc(triplePrimitiveUsecase: ic()));
+  ic.registerFactory(() => SingleDefiniteIntegralLimitsTextCubit());
+  ic.registerFactory(() =>DoubleDefiniteIntegralLimitsTextCubit());
+  ic.registerFactory(() => TripleDefiniteIntegralLimitTextCubit());
+  ic.registerFactory(() => SingleFieldsCubit());
+  ic.registerFactory(() => DoubleFieldsCubit());
+  ic.registerFactory(() => TripleFieldsCubit());
+  ic.registerFactory(() => IndefiniteSingleFieldsCubit());
+  ic.registerFactory(() => IndefiniteDoubleFieldsCubit());
+  ic.registerFactory(() => IndefiniteTripleFieldsCubit());
+
 
   //  differential equations
   ic.registerLazySingleton(() => DifferentialEquationsApi(client: ic()));

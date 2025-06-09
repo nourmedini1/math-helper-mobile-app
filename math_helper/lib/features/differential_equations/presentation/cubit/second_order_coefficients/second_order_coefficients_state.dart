@@ -17,4 +17,18 @@ final class SecondOrderCoefficientsInitial extends SecondOrderCoefficientsState 
     this.text = 'Coefficients : {0, 0, 0}',
    
   });
+
+  SecondOrderCoefficientsInitial copyWith({
+    String? firstCoefficients,
+    String? secondCoefficients,
+    String? thirdCoefficients,
+    String? text,
+  }) {
+    return SecondOrderCoefficientsInitial(
+      firstCoefficients: firstCoefficients ?? this.firstCoefficients,
+      secondCoefficients: secondCoefficients ?? this.secondCoefficients,
+      thirdCoefficients: thirdCoefficients ?? this.thirdCoefficients,
+      text: text ?? this.text,
+    );
+  }
 }

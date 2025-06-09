@@ -36,8 +36,8 @@ import 'package:math_helper/features/differential_equations/presentation/pages/d
 import 'package:math_helper/features/integrals/presentation/bloc/double_integral/double_integral_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/single_integral/single_integral_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/triple_integral/triple_integral_bloc.dart';
-import 'package:math_helper/features/integrals/presentation/screens/definite_integral_page.dart';
-import 'package:math_helper/features/integrals/presentation/screens/integrals_result_screen.dart';
+import 'package:math_helper/features/integrals/presentation/pages/definite_integral_page.dart';
+import 'package:math_helper/features/integrals/presentation/pages/integrals_result_screen.dart';
 import 'package:math_helper/features/limits/presentation/bloc/double_limit/double_limit_bloc.dart';
 import 'package:math_helper/features/limits/presentation/bloc/single_limit/single_limit_bloc.dart';
 import 'package:math_helper/features/limits/presentation/bloc/triple_limit/triple_limit_bloc.dart';

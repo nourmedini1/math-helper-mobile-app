@@ -18,4 +18,20 @@ final class ThirdOrderCoefficientsInitial extends ThirdOrderCoefficientsState {
     this.fourthCoefficients = "0",
     this.text = 'Coefficients : {0, 0, 0, 0}',
   });
+
+  ThirdOrderCoefficientsInitial copyWith({
+    String? firstCoefficients,
+    String? secondCoefficients,
+    String? thirdCoefficients,
+    String? fourthCoefficients,
+    String? text,
+  }) {
+    return ThirdOrderCoefficientsInitial(
+      firstCoefficients: firstCoefficients ?? this.firstCoefficients,
+      secondCoefficients: secondCoefficients ?? this.secondCoefficients,
+      thirdCoefficients: thirdCoefficients ?? this.thirdCoefficients,
+      fourthCoefficients: fourthCoefficients ?? this.fourthCoefficients,
+      text: text ?? this.text,
+    );
+  }
 }

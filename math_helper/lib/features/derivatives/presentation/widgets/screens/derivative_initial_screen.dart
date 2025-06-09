@@ -94,25 +94,25 @@ class _DerivativeInitialScreenState extends State<DerivativeInitialScreen> {
             label: "The expression",
             controller: widget.expressionController,
             hint: "Example: cos(x)/(1 + sin(x))", 
-            onChanged: (value) => handleInputChange(controllers)),
+            onChanged: (value) => handleInputChange(widget.isNumeric),),
           CustomTextField(
             label: "The variable",
             controller: widget.variableController,
-            hint: "The variable used, example: x",
+            hint: "The variable used, default is x",
             onChanged: (value) => handleInputChange(
-              controllers)),
+              widget.isNumeric)),
           CustomTextField(
             label: "The order of the differentiation",
             controller: widget.orderController,
-            hint: "Must be 1 or greater",
+            hint: "Must be 1 or greater, default is 1",
             keyboardType: TextInputType.number,
-            onChanged: (value) => handleInputChange(controllers)),
+            onChanged: (value) => handleInputChange(widget.isNumeric)),
           widget.isNumeric
               ? CustomTextField(
                   label: "The deriving point",
                   controller: widget.derivingPointController!,
                   hint: "Example: 2.5",
-                  onChanged: (value) => handleInputChange(controllers),
+                  onChanged: (value) => handleInputChange(widget.isNumeric),
                 )
               : const SizedBox.shrink(),
           buildPartialDerivativeSwitch(widget.isNumeric),
@@ -150,12 +150,17 @@ Widget _partialSwitch({required bool value, required VoidCallback onToggle, requ
   );
 }
 
-  void handleInputChange(List<TextEditingController> controllers) {
-    final allFieldsFilled = controllers.every((controller) => controller.text.isNotEmpty);
+  void handleInputChange(bool isNumeric) {
     if (widget.isNumeric) {
-      context.read<NumericDerivativeFieldsCubit>().checkFieldsReady(allFieldsFilled);
+      context.read<NumericDerivativeFieldsCubit>().checkFieldsReady(
+        widget.expressionController.text.isNotEmpty &&
+        widget.derivingPointController!.text.isNotEmpty,
+      );
     } else {
-      context.read<SymbolicDerivativeFieldsCubit>().checkFieldsReady(allFieldsFilled);
+      context.read<SymbolicDerivativeFieldsCubit>().checkFieldsReady(
+        widget.expressionController.text.isNotEmpty 
+       
+      );
     }
   }
 
@@ -164,8 +169,12 @@ Widget _partialSwitch({required bool value, required VoidCallback onToggle, requ
       final isPartialNumeric = context.read<NumericPartialDerivativeCubit>().isOn();
       final request = DerivativeRequest(
               expression: widget.expressionController.text,
-              variable: widget.variableController.text,
-              order: int.parse(widget.orderController.text),
+              variable: widget.variableController.text.isEmpty
+                  ? "x" // Default variable if not provided
+                  : widget.variableController.text,
+              order: int.parse(widget.orderController.text) > 0
+                  ? int.parse(widget.orderController.text)
+                  : 1, // Default order if not provided or invalid
               derivingPoint: widget.derivingPointController?.text,
               partial: isPartialNumeric);
         BlocProvider.of<NumericDerivativeBloc>(context)
@@ -174,8 +183,14 @@ Widget _partialSwitch({required bool value, required VoidCallback onToggle, requ
       final isPartialSymbolic = context.read<SymbolicPartialDerivativeCubit>().isOn();
       final request = DerivativeRequest(
               expression: widget.expressionController.text,
-              variable: widget.variableController.text,
-              order: int.parse(widget.orderController.text),
+              variable: widget.variableController.text.isEmpty
+                  ? "x" // Default variable if not provided
+                  : widget.variableController.text,
+              order: widget.orderController.text.isNotEmpty &&
+                      int.tryParse(widget.orderController.text) != null &&
+                      int.parse(widget.orderController.text) > 0
+                  ? int.parse(widget.orderController.text)
+                  : 1, // Default order if not provided or invalid
               partial: isPartialSymbolic);
         BlocProvider.of<SymbolicDerivativeBloc>(context)
             .add(SymbolicDerivativeRequested(request: request));

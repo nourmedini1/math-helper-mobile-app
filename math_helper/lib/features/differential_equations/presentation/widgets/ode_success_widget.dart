@@ -26,6 +26,7 @@ class OdeSuccessWidget extends StatelessWidget {
       child: Column(
         children: [
           _buildTitle(context),
+          const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: _buildResultContainer(context, isLight),
@@ -41,7 +42,9 @@ class OdeSuccessWidget extends StatelessWidget {
       child: Text(
         title,
         style: TextStyle(
-          color: AppColors.primaryColorTint50,
+          color: Provider.of<ThemeManager>(context).themeData == AppThemeData.lightTheme
+              ? AppColors.primaryColorTint50
+              : AppColors.primaryColor,
           fontSize: Theme.of(context).textTheme.titleMedium?.fontSize,
           fontFamily: Theme.of(context).textTheme.titleMedium?.fontFamily,
         ),
@@ -117,6 +120,7 @@ class _OdeResult extends StatelessWidget {
             ),
           ),
         ),
+        const SizedBox(height: 10),
         Padding(
           padding: const EdgeInsets.only(left: 10, right: 10),
           child: TeXView(

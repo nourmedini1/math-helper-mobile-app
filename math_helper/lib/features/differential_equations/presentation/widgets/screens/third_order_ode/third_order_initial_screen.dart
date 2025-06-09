@@ -379,16 +379,20 @@ List<String> _validateAndSplit(String input) {
     for (TextEditingController initialConditionController
         in initialConditionControllers) {
       initialConditions.add(initialConditionController.text == ''
-          ? null
+          ? const InitialCondition(x: "0", y: "0")
           : InitialCondition(
               x: initialConditionController.text.split(",").first,
               y: initialConditionController.text.split(",").last));
     }
-    return DifferentialEquationRequest(
+    constant = constant == '' ? "0" : constant;
+    rightHandSide = rightHandSide == '' ? "0" : rightHandSide;
+    DifferentialEquationRequest request = DifferentialEquationRequest(
         variable: "x",
         coefficients: coefficients,
         initialConditions: initialConditions,
         constant: constant,
         rightHandSide: rightHandSide);
+    debugPrint(request.toJson().toString());
+    return request;
   }
 }

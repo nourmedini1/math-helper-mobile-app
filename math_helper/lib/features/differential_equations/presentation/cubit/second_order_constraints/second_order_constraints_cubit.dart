@@ -8,29 +8,23 @@ class SecondOrderConstraintsCubit extends Cubit<SecondOrderConstraintsState> {
 
   void updateFirstConstraints(List<String> firstConstraints) {
     final currentState = state as SecondOrderConstraintsInitial;
-    emit(SecondOrderConstraintsInitial(
+    emit(currentState.copyWith(
       firstConstraints: firstConstraints,
-      secondConstraints: currentState.secondConstraints,
-      thirdConstraints: currentState.thirdConstraints,
       text: 'Initial Conditions : {(${firstConstraints[0]},${firstConstraints[1]}), (${currentState.secondConstraints[0]},${currentState.secondConstraints[1]}), (${currentState.thirdConstraints[0]},${currentState.thirdConstraints[1]})}',
     ));
   }
 
   void updateSecondConstraints(List<String> secondConstraints) {
     final currentState = state as SecondOrderConstraintsInitial;
-    emit(SecondOrderConstraintsInitial(
-      firstConstraints: currentState.firstConstraints,
+    emit(currentState.copyWith(
       secondConstraints: secondConstraints,
-      thirdConstraints: currentState.thirdConstraints,
       text: 'Initial Conditions : {(${currentState.firstConstraints[0]},${currentState.firstConstraints[1]}), (${secondConstraints[0]},${secondConstraints[1]}), (${currentState.thirdConstraints[0]},${currentState.thirdConstraints[1]})}',
     ));
   }
 
   void updateThirdConstraints(List<String> thirdConstraints) {
     final currentState = state as SecondOrderConstraintsInitial;
-    emit(SecondOrderConstraintsInitial(
-      firstConstraints: currentState.firstConstraints,
-      secondConstraints: currentState.secondConstraints,
+    emit(currentState.copyWith(
       thirdConstraints: thirdConstraints,
       text: 'Initial Conditions : {(${currentState.firstConstraints[0]},${currentState.firstConstraints[1]}), (${currentState.secondConstraints[0]},${currentState.secondConstraints[1]}), (${thirdConstraints[0]},${thirdConstraints[1]})}',
     ));

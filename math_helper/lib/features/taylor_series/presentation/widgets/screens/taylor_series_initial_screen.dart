@@ -36,7 +36,7 @@ class _TaylorSeriesInitialScreenState extends State<TaylorSeriesInitialScreen> {
       widget.expressionController,
       widget.variableController,
       widget.orderController,
-      widget.nearController
+      widget.nearController,
     ];
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
@@ -87,29 +87,29 @@ class _TaylorSeriesInitialScreenState extends State<TaylorSeriesInitialScreen> {
             hint: "Example: cos(x)", 
             controller: widget.expressionController, 
             onChanged: (value) => handleInputChange(
-            controllers)),
+            )),
           CustomTextField(
             label: "The variable",
-            hint: "The variable used, example: x",
+            hint: "The variable used, default is x",
             controller: widget.variableController,
             onChanged: (value) => handleInputChange(
-             controllers),
+             ),
           ),
           CustomTextField(
             label: "The order of the expansion",
-            hint: "Must be 1 or greater",
+            hint: "Must be 1 or greater, default is 1",
             keyboardType: TextInputType.number,
             controller: widget.orderController,
             onChanged: (value) => handleInputChange(
-             controllers),
+             ),
           ),
           CustomTextField(
             label: "The point of expansion",
-            hint: "Expand the expression near...",
+            hint: "Must be a number, default is 0.0",
             keyboardType: TextInputType.number,
             controller: widget.nearController,
             onChanged: (value) => handleInputChange(
-             controllers),
+             ),
           ),
         ],
       
@@ -121,9 +121,15 @@ class _TaylorSeriesInitialScreenState extends State<TaylorSeriesInitialScreen> {
   void handleSubmitButtonPressed() {
     final TaylorSeriesRequest request = TaylorSeriesRequest(
       expression: widget.expressionController.text,
-      variable: widget.variableController.text,
-      order: int.tryParse(widget.orderController.text) ?? 1,
-      near: double.tryParse(widget.nearController.text) ?? 0.0,
+      variable: widget.variableController.text.isNotEmpty
+          ? widget.variableController.text
+          : 'x', // Default variable is 'x'
+      order: widget.orderController.text.isNotEmpty
+          ? int.tryParse(widget.orderController.text) ?? 1 // Default order is 1
+          : 1,
+      near: widget.nearController.text.isNotEmpty
+          ? double.tryParse(widget.nearController.text) ?? 0.0 // Default near is 0.0
+          : 0.0,
     );
     BlocProvider.of<ExpandTaylorSeriesBloc>(context).add(ExpandTaylorSeriesRequested(request: request));
   }
@@ -135,9 +141,8 @@ class _TaylorSeriesInitialScreenState extends State<TaylorSeriesInitialScreen> {
     context.read<TaylorSeriesFieldsCubit>().checkFieldsReady(false);
   }
 
-  void handleInputChange(List<TextEditingController> controllers) {
-    final allFilled = controllers.every((c) => c.text.isNotEmpty);
-    context.read<TaylorSeriesFieldsCubit>().checkFieldsReady(allFilled);
+  void handleInputChange() {
+    context.read<TaylorSeriesFieldsCubit>().checkFieldsReady(widget.expressionController.text.isNotEmpty);
   }
 
 

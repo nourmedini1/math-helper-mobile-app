@@ -1,0 +1,312 @@
+// ignore_for_file: non_constant_identifier_names
+
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:math_helper/core/ui/app_colors.dart';
+import 'package:math_helper/core/ui/app_theme_data.dart';
+import 'package:math_helper/core/ui/components/clear_button.dart';
+import 'package:math_helper/core/ui/components/custom_popup_invoker.dart';
+import 'package:math_helper/core/ui/components/custom_text_field.dart';
+import 'package:math_helper/core/ui/components/input_container.dart';
+import 'package:math_helper/core/ui/components/submit_button.dart';
+import 'package:math_helper/core/ui/components/textfield_label.dart';
+import 'package:math_helper/core/ui/theme_manager.dart';
+import 'package:math_helper/features/integrals/data/models/integral_request.dart';
+import 'package:math_helper/features/integrals/presentation/bloc/double_integral/double_integral_bloc.dart';
+import 'package:math_helper/features/integrals/presentation/cubit/definite_integral/double_fields/double_fields_cubit.dart';
+import 'package:math_helper/features/integrals/presentation/cubit/definite_integral/double_limits_text/double_definite_integral_limits_text_cubit.dart';
+import 'package:provider/provider.dart';
+
+class DoubleDefiniteIntegralInitialScreen extends StatefulWidget {
+  final TextEditingController expressionController;
+  final List<TextEditingController> limitControllers;
+  final TextEditingController variableController;
+  const DoubleDefiniteIntegralInitialScreen(
+      {super.key,
+      required this.expressionController,
+      required this.limitControllers,
+      required this.variableController,
+      });
+
+  @override
+  State<DoubleDefiniteIntegralInitialScreen> createState() => _DoubleDefiniteIntegralInitialScreenState();
+}
+
+class _DoubleDefiniteIntegralInitialScreenState extends State<DoubleDefiniteIntegralInitialScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return InputContainer(
+      title: "Double Integral",
+      body: buildBody(),
+      submitButton: SubmitButton(
+        color: Provider.of<ThemeManager>(context).themeData ==
+                AppThemeData.lightTheme
+            ? AppColors.primaryColorTint50
+            : AppColors.primaryColor,
+        onPressed: () => handleSubmitButtonPressed(),
+      ),
+      clearButton: ClearButton(
+        onPressed: () => handleClearButtonPressed(),
+      ),
+    );
+  }
+
+  
+
+  Widget buildBody() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CustomTextField(
+            label: "The expression",
+            hint: "The expression to integrate",
+            controller: widget.expressionController,
+            onChanged: (value) => handleInputChange(),
+          ),
+          CustomTextField(
+            label: "The variable",
+            hint: "The variable of integration, default is x,y",
+            controller: widget.variableController,
+            onChanged: (value) => () {},
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding:  EdgeInsets.only(left: 32, bottom: 5),
+                  child: TextFieldLabel(label: "The limits"),
+                ),
+                BlocBuilder<DoubleDefiniteIntegralLimitsTextCubit, DoubleDefiniteIntegralLimitsTextState>(
+                  builder: (context, state) {
+                    if (state is DoubleDefiniteIntegralLimitsTextInitial) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: CustomPopupInvoker(
+                          onTap: () => limitsPopup(context),
+                          text: state.text,
+                        ),
+                      );
+                    } else {
+                      return const SizedBox.shrink();
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
+          
+      
+          
+        ],
+      ),
+    );
+  }
+
+  void limitsPopup(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Theme.of(context).colorScheme.background,
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(32),
+          ),
+          content: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text(
+                      "Double Integral",
+                      style: TextStyle(
+                        color: Provider.of<ThemeManager>(context, listen: false)
+                                .themeData ==
+                            AppThemeData.lightTheme
+                            ? AppColors.primaryColorTint50
+                            : AppColors.primaryColor,
+                        fontSize:
+                            Theme.of(context).textTheme.titleMedium!.fontSize,
+                        fontFamily:
+                            Theme.of(context).textTheme.titleMedium!.fontFamily,
+                      ),
+                    ),
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20, bottom: 8),
+                      child: TextFieldLabel(
+                        label: "The x limits of integration",
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(
+                          width: 140,
+                          child: CustomTextField(
+                            hint: "The lower x",
+                            controller: widget.limitControllers[0],
+                            onChanged: (value) => handlePopupInputChange(),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 140,
+                          child: CustomTextField(
+                            hint: "The upper x",
+                            controller: widget.limitControllers[1],
+                            onChanged: (value) => handlePopupInputChange(),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20, bottom: 8),
+                      child: TextFieldLabel(
+                        label: "The y limits of integration",
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(
+                          width: 140,
+                          child: CustomTextField(
+                            hint: "The lower y",
+                            controller: widget.limitControllers[2],
+                            onChanged: (value) => handlePopupInputChange(),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 140,
+                          child: CustomTextField(
+                            hint: "The upper y",
+                            controller: widget.limitControllers[3],
+                            onChanged: (value) => handlePopupInputChange(),
+                          ),
+                        ),
+                      ],
+                    ),
+                    
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 8),
+                  child: SubmitButton(
+                    text: "Confirm",
+                    icon: Icons.check,
+                    color: Provider.of<ThemeManager>(context).themeData ==
+                            AppThemeData.lightTheme
+                        ? AppColors.primaryColorTint50
+                        : AppColors.primaryColor,
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  
+  
+
+void handlePopupInputChange() {
+  if(widget.limitControllers[0].text.isNotEmpty) {
+context.read<DoubleDefiniteIntegralLimitsTextCubit>().updateLowerLimitXText(
+          widget.limitControllers[0].text,
+        );
+  }
+  if(widget.limitControllers[1].text.isNotEmpty) {
+context.read<DoubleDefiniteIntegralLimitsTextCubit>().updateUpperLimitXText(
+          widget.limitControllers[1].text,
+        );
+  }
+  if(widget.limitControllers[2].text.isNotEmpty) {
+    context.read<DoubleDefiniteIntegralLimitsTextCubit>().updateLowerLimitYText(
+          widget.limitControllers[2].text,
+        );
+
+  }
+if(widget.limitControllers[3].text.isNotEmpty) {
+  context.read<DoubleDefiniteIntegralLimitsTextCubit>().updateUpperLimitYText(
+          widget.limitControllers[3].text,
+        );
+}
+}
+ 
+
+  void handleClearButtonPressed() {
+    for (var controller in widget.limitControllers) {
+      controller.clear();
+    }
+    widget.expressionController.clear();
+    widget.variableController.clear();
+   
+    context.read<DoubleDefiniteIntegralLimitsTextCubit>().resetText();   
+  }
+
+  
+
+  
+
+ void handleInputChange() {
+  context.read<DoubleFieldsCubit>().checkFieldsReady(
+    widget.expressionController.text.isNotEmpty
+      );
+}
+
+
+
+  void handleSubmitButtonPressed() {
+    IntegralRequest request = IntegralRequest(
+      limits: [
+        IntegralLimits(
+          lowerLimit: widget.limitControllers[0].text.isNotEmpty
+              ? widget.limitControllers[0].text
+              : "0", // Default lower limit if not provided
+          upperLimit: widget.limitControllers[1].text.isNotEmpty
+              ? widget.limitControllers[1].text
+              : "10", // Default upper limit if not provided
+        ),
+        IntegralLimits(
+          lowerLimit: widget.limitControllers[2].text.isNotEmpty
+              ? widget.limitControllers[2].text
+              : "0", // Default lower limit if not provided
+          upperLimit: widget.limitControllers[3].text.isNotEmpty
+              ? widget.limitControllers[3].text
+              : "10", // Default upper limit if not provided
+        ),
+      ],
+      expression: widget.expressionController.text,
+       variables: widget.variableController.text.isNotEmpty
+          ? widget.variableController.text.split(",").map((e) => e.trim()).toList()
+          : ["x","y"], // Default variable if not provided
+          );
+    BlocProvider.of<DoubleIntegralBloc>(context)
+        .add(DoubleIntegralRequested(request: request));
+    
+  }
+
+
+    
+    
+  
+}
+

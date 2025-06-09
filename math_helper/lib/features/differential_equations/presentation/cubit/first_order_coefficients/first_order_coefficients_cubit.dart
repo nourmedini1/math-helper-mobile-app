@@ -8,20 +8,17 @@ class FirstOrderCoefficientsCubit extends Cubit<FirstOrderCoefficientsState> {
 
   void updateFirstCoefficients(String firstCoefficients) {
     final currentState = state as FirstOrderCoefficientsInitial;
-    emit(FirstOrderCoefficientsInitial(
+    emit(currentState.copyWith(
       firstCoefficients: firstCoefficients,
-      secondCoefficients: currentState.secondCoefficients,
       text: "Coefficients : {$firstCoefficients, ${currentState.secondCoefficients}}",
-      ));
+    ));
   }
-
   void updateSecondCoefficients(String secondCoefficients) {
     final currentState = state as FirstOrderCoefficientsInitial;
-    emit(FirstOrderCoefficientsInitial(
-      firstCoefficients: currentState.firstCoefficients,
+    emit(currentState.copyWith(
       secondCoefficients: secondCoefficients,
       text: "Coefficients : {${currentState.firstCoefficients}, $secondCoefficients}",
-     ));
+    ));
   }
   void resetText() {
     emit(FirstOrderCoefficientsInitial());

@@ -26,8 +26,8 @@ import 'package:math_helper/features/integrals/presentation/bloc/single_integral
 import 'package:math_helper/features/integrals/presentation/bloc/single_primitive/single_primitive_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/triple_integral/triple_integral_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/triple_primitive/triple_primitive_bloc.dart';
-import 'package:math_helper/features/integrals/presentation/screens/definite_integral_page.dart';
-import 'package:math_helper/features/integrals/presentation/screens/indefinite_integral_page.dart';
+import 'package:math_helper/features/integrals/presentation/pages/definite_integral_page.dart';
+import 'package:math_helper/features/integrals/presentation/pages/indefinite_integral_page.dart';
 import 'package:math_helper/features/limits/presentation/bloc/double_limit/double_limit_bloc.dart';
 import 'package:math_helper/features/limits/presentation/bloc/single_limit/single_limit_bloc.dart';
 import 'package:math_helper/features/limits/presentation/bloc/triple_limit/triple_limit_bloc.dart';

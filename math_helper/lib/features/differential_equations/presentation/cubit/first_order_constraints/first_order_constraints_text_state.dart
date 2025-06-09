@@ -12,4 +12,16 @@ final class FirstOrderConstraintsTextInitial extends FirstOrderConstraintsTextSt
     this.secondContraints = const ['0','0'],
     this.text = 'Initial Conditions : {(0,0), (0,0)}',
   });
+
+  FirstOrderConstraintsTextInitial copyWith({
+    List<String>? firstContraints,
+    List<String>? secondContraints,
+    String? text,
+  }) {
+    return FirstOrderConstraintsTextInitial(
+      firstContraints: firstContraints ?? this.firstContraints,
+      secondContraints: secondContraints ?? this.secondContraints,
+      text: text ?? this.text,
+    );
+  }
 }

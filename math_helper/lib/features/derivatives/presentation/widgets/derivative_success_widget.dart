@@ -123,6 +123,7 @@ class _DerivativeResult extends StatelessWidget {
             ),
           ),
         ),
+        const SizedBox(height: 10),
         Padding(
           padding: const EdgeInsets.only(left: 20, right: 10),
           child: TeXView(
