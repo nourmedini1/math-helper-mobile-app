@@ -11,32 +11,34 @@ import 'package:math_helper/core/ui/components/input_container.dart';
 import 'package:math_helper/core/ui/components/submit_button.dart';
 import 'package:math_helper/core/ui/components/textfield_label.dart';
 import 'package:math_helper/core/ui/theme_manager.dart';
-import 'package:math_helper/features/integrals/data/models/integral_request.dart';
-import 'package:math_helper/features/integrals/presentation/bloc/single_integral/single_integral_bloc.dart';
-import 'package:math_helper/features/integrals/presentation/cubit/definite_integral/single_fields/single_fields_cubit.dart';
-import 'package:math_helper/features/integrals/presentation/cubit/definite_integral/single_limits_text/single_definite_integral_limits_text_cubit.dart';
+import 'package:math_helper/features/limits/data/models/limit_request.dart';
+import 'package:math_helper/features/limits/presentation/bloc/single_limit/single_limit_bloc.dart';
+import 'package:math_helper/features/limits/presentation/cubit/single/single_limit_fields/single_limit_fields_cubit.dart';
+import 'package:math_helper/features/limits/presentation/cubit/single/single_limit_text/single_limit_text_cubit.dart';
 import 'package:provider/provider.dart';
 
-class SingleDefiniteIntegralInitialScreen extends StatefulWidget {
+class SingleLimitInitialScreen extends StatefulWidget {
   final TextEditingController expressionController;
-  final List<TextEditingController> limitsControllers;
+  final List<TextEditingController> boundControllers;
+  final List<TextEditingController> signControllers;
   final TextEditingController variableController;
-  const SingleDefiniteIntegralInitialScreen(
+  const SingleLimitInitialScreen(
       {super.key,
       required this.expressionController,
-      required this.limitsControllers,
       required this.variableController,
+      required this.boundControllers,
+      required this.signControllers,
       });
 
   @override
-  State<SingleDefiniteIntegralInitialScreen> createState() => _SingleDefiniteIntegralInitialScreenState();
+  State<SingleLimitInitialScreen> createState() => _SingleLimitInitialScreenState();
 }
 
-class _SingleDefiniteIntegralInitialScreenState extends State<SingleDefiniteIntegralInitialScreen> {
+class _SingleLimitInitialScreenState extends State<SingleLimitInitialScreen> {
   @override
   Widget build(BuildContext context) {
     return InputContainer(
-      title: "Single Integral",
+      title: "Single Limit",
       body: buildBody(),
       submitButton: SubmitButton(
         color: Provider.of<ThemeManager>(context).themeData ==
@@ -62,13 +64,13 @@ class _SingleDefiniteIntegralInitialScreenState extends State<SingleDefiniteInte
         children: [
           CustomTextField(
             label: "The expression",
-            hint: "The expression to integrate",
+            hint: "The expression to evaluate the limit for",
             controller: widget.expressionController,
             onChanged: (value) => handleInputChange(),
           ),
           CustomTextField(
             label: "The variable",
-            hint: "The variable of integration, default is x",
+            hint: "The variable, default is x",
             controller: widget.variableController,
             onChanged: (value) => () {},
           ),
@@ -79,11 +81,11 @@ class _SingleDefiniteIntegralInitialScreenState extends State<SingleDefiniteInte
               children: [
                 const Padding(
                   padding:  EdgeInsets.only(left: 32, bottom: 5),
-                  child: TextFieldLabel(label: "The limits"),
+                  child: TextFieldLabel(label: "The limit bounds"),
                 ),
-                BlocBuilder<SingleDefiniteIntegralLimitsTextCubit, SingleDefiniteIntegralLimitsTextState>(
+                BlocBuilder<SingleLimitTextCubit, SingleLimitTextState>(
                   builder: (context, state) {
-                    if (state is SingleDefiniteIntegralLimitsTextInitial) {
+                    if (state is SingleLimitTextInitial) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: CustomPopupInvoker(
@@ -129,7 +131,7 @@ class _SingleDefiniteIntegralInitialScreenState extends State<SingleDefiniteInte
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: Text(
-                      "Single Integral",
+                      "Single Limit",
                       style: TextStyle(
                         color:
                             Provider.of<ThemeManager>(context, listen: false)
@@ -146,14 +148,14 @@ class _SingleDefiniteIntegralInitialScreenState extends State<SingleDefiniteInte
                   ),
                 ),
                 CustomTextField(
-                  hint: "The lower limit of the integral",
-                  controller: widget.limitsControllers[0],
+                  hint: "The x bound of the limit",
+                  controller: widget.boundControllers[0],
                   onChanged: (value) => handlePopupInputChange(),
                 ),
                 const SizedBox(height: 10),
                 CustomTextField(
-                  hint: "The upper limit of the integral",
-                  controller: widget.limitsControllers[1],
+                  hint: "The sign of the bound (+/-)",
+                  controller: widget.signControllers[0],
                   onChanged: (value) => handlePopupInputChange(),
                 ),
                 const SizedBox(height: 10),
@@ -179,24 +181,27 @@ class _SingleDefiniteIntegralInitialScreenState extends State<SingleDefiniteInte
   }
 
 void handlePopupInputChange() {
- context.read<SingleDefiniteIntegralLimitsTextCubit>().updateLowerLimitText(
-          widget.limitsControllers[0].text.isEmpty ? "0" : widget.limitsControllers[0].text,
+ context.read<SingleLimitTextCubit>().updateXValue(
+          widget.boundControllers[0].text.isEmpty ? "0" : widget.boundControllers[0].text,
         );
   
-     context.read<SingleDefiniteIntegralLimitsTextCubit>().updateUpperLimitText(
-          widget.limitsControllers[1].text.isEmpty ? "10" : widget.limitsControllers[1].text,
+     context.read<SingleLimitTextCubit>().updateSign(
+          widget.signControllers[0].text.isEmpty ? "+" : widget.signControllers[0].text,
         );
 }
  
 
   void handleClearButtonPressed() {
-    for (var controller in widget.limitsControllers) {
+    for (var controller in widget.boundControllers) {
+      controller.clear();
+    }
+    for (var controller in widget.signControllers) {
       controller.clear();
     }
     widget.expressionController.clear();
     widget.variableController.clear();
    
-    context.read<SingleDefiniteIntegralLimitsTextCubit>().resetText();   
+    context.read<SingleLimitTextCubit>().reset();   
   }
 
   
@@ -204,7 +209,7 @@ void handlePopupInputChange() {
   
 
  void handleInputChange() {
-  context.read<SingleFieldsCubit>().checkFieldsReady(
+  context.read<SingleLimitFieldsCubit>().checkAllFieldsReady(
     widget.expressionController.text.isNotEmpty
       );
 }
@@ -212,25 +217,16 @@ void handlePopupInputChange() {
 
 
   void handleSubmitButtonPressed() {
-    IntegralRequest request = IntegralRequest(
-      limits: [
-        IntegralLimits(
-          lowerLimit: widget.limitsControllers[0].text.isNotEmpty
-              ? widget.limitsControllers[0].text
-              : "0", // Default lower limit if not provided
-          upperLimit: widget.limitsControllers[1].text.isNotEmpty
-              ? widget.limitsControllers[1].text
-              : "10", // Default upper limit if not provided
-        ),
-      ],
+    LimitRequest request = LimitRequest(
       expression: widget.expressionController.text,
-       variables: widget.variableController.text.isNotEmpty
-          ? [widget.variableController.text]
-          : ["x"], // Default variable if not provided
-          );
-    BlocProvider.of<SingleIntegralBloc>(context)
-        .add(SingleIntegralRequested(request: request));
-    
+      variables: widget.variableController.text.isEmpty ? ["x"] : [widget.variableController.text],
+      bounds: [
+        Bound(
+          value: widget.boundControllers[0].text.isEmpty ? "0" : widget.boundControllers[0].text,
+          sign: widget.signControllers[0].text.isEmpty ? "+" : widget.signControllers[0].text,)
+      ]
+    );
+    context.read<SingleLimitBloc>().add(SingleLimitRequested(request: request));
   }
 
 

@@ -11,32 +11,34 @@ import 'package:math_helper/core/ui/components/input_container.dart';
 import 'package:math_helper/core/ui/components/submit_button.dart';
 import 'package:math_helper/core/ui/components/textfield_label.dart';
 import 'package:math_helper/core/ui/theme_manager.dart';
-import 'package:math_helper/features/integrals/data/models/integral_request.dart';
-import 'package:math_helper/features/integrals/presentation/bloc/triple_integral/triple_integral_bloc.dart';
-import 'package:math_helper/features/integrals/presentation/cubit/definite_integral/triple_fields/triple_fields_cubit.dart';
-import 'package:math_helper/features/integrals/presentation/cubit/definite_integral/triple_limits_text/triple_definite_integral_limit_text_cubit.dart';
+import 'package:math_helper/features/limits/data/models/limit_request.dart';
+import 'package:math_helper/features/limits/presentation/bloc/triple_limit/triple_limit_bloc.dart';
+import 'package:math_helper/features/limits/presentation/cubit/triple/triple_limit_fields/triple_limit_fields_cubit.dart';
+import 'package:math_helper/features/limits/presentation/cubit/triple/triple_limit_text/triple_limit_text_cubit.dart';
 import 'package:provider/provider.dart';
 
-class TripleDefiniteIntegralInitialScreen extends StatefulWidget {
+class TripleLimitInitialScreen extends StatefulWidget {
   final TextEditingController expressionController;
-  final List<TextEditingController> limitsControllers;
+  final List<TextEditingController> boundControllers;
+  final List<TextEditingController> signControllers;
   final TextEditingController variableController;
-  const TripleDefiniteIntegralInitialScreen(
+  const TripleLimitInitialScreen(
       {super.key,
       required this.expressionController,
-      required this.limitsControllers,
       required this.variableController,
+      required this.boundControllers,
+      required this.signControllers,
       });
 
   @override
-  State<TripleDefiniteIntegralInitialScreen> createState() => _TripleDefiniteIntegralInitialScreenState();
+  State<TripleLimitInitialScreen> createState() => _TripleLimitInitialScreenState();
 }
 
-class _TripleDefiniteIntegralInitialScreenState extends State<TripleDefiniteIntegralInitialScreen> {
+class _TripleLimitInitialScreenState extends State<TripleLimitInitialScreen> {
   @override
   Widget build(BuildContext context) {
     return InputContainer(
-      title: "Triple Integral",
+      title: "Triple Limit",
       body: buildBody(),
       submitButton: SubmitButton(
         color: Provider.of<ThemeManager>(context).themeData ==
@@ -62,13 +64,13 @@ class _TripleDefiniteIntegralInitialScreenState extends State<TripleDefiniteInte
         children: [
           CustomTextField(
             label: "The expression",
-            hint: "The expression to integrate",
+            hint: "The expression to evaluate the limit for",
             controller: widget.expressionController,
             onChanged: (value) => handleInputChange(),
           ),
           CustomTextField(
             label: "The variable",
-            hint: "The variable of integration, default is x,y,z",
+            hint: "The variable, default is x,y,z",
             controller: widget.variableController,
             onChanged: (value) => () {},
           ),
@@ -79,11 +81,11 @@ class _TripleDefiniteIntegralInitialScreenState extends State<TripleDefiniteInte
               children: [
                 const Padding(
                   padding:  EdgeInsets.only(left: 32, bottom: 5),
-                  child: TextFieldLabel(label: "The limits"),
+                  child: TextFieldLabel(label: "The limit bounds"),
                 ),
-                BlocBuilder<TripleDefiniteIntegralLimitTextCubit, TripleDefiniteIntegralLimitTextState>(
+                BlocBuilder<TripleLimitTextCubit, TripleLimitTextState>(
                   builder: (context, state) {
-                    if (state is TripleDefiniteIntegralLimitTextInitial) {
+                    if (state is TripleLimitTextInitial) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: CustomPopupInvoker(
@@ -129,7 +131,7 @@ class _TripleDefiniteIntegralInitialScreenState extends State<TripleDefiniteInte
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: Text(
-                      "Triple Integral",
+                      "Triple Limit",
                       style: TextStyle(
                         color: Provider.of<ThemeManager>(context, listen: false)
                                 .themeData ==
@@ -150,7 +152,7 @@ class _TripleDefiniteIntegralInitialScreenState extends State<TripleDefiniteInte
                     const Padding(
                       padding: EdgeInsets.only(left: 20, bottom: 8),
                       child: TextFieldLabel(
-                        label: "The x limits of integration",
+                        label: "The x bound",
                       ),
                     ),
                     Row(
@@ -159,16 +161,16 @@ class _TripleDefiniteIntegralInitialScreenState extends State<TripleDefiniteInte
                         SizedBox(
                           width: 140,
                           child: CustomTextField(
-                            hint: "The lower x",
-                            controller: widget.limitsControllers[0],
+                            hint: "The x bound value",
+                            controller: widget.boundControllers[0],
                             onChanged: (value) => handlePopupInputChange(),
                           ),
                         ),
                         SizedBox(
                           width: 140,
                           child: CustomTextField(
-                            hint: "The upper x",
-                            controller: widget.limitsControllers[1],
+                            hint: "The sign of x",
+                            controller: widget.signControllers[0],
                             onChanged: (value) => handlePopupInputChange(),
                           ),
                         ),
@@ -178,7 +180,7 @@ class _TripleDefiniteIntegralInitialScreenState extends State<TripleDefiniteInte
                     const Padding(
                       padding: EdgeInsets.only(left: 20, bottom: 8),
                       child: TextFieldLabel(
-                        label: "The y limits of integration",
+                        label: "The y bound",
                       ),
                     ),
                     Row(
@@ -187,16 +189,16 @@ class _TripleDefiniteIntegralInitialScreenState extends State<TripleDefiniteInte
                         SizedBox(
                           width: 140,
                           child: CustomTextField(
-                            hint: "The lower y",
-                            controller: widget.limitsControllers[2],
+                            hint: "The y bound value",
+                            controller: widget.boundControllers[1],
                             onChanged: (value) => handlePopupInputChange(),
                           ),
                         ),
                         SizedBox(
                           width: 140,
                           child: CustomTextField(
-                            hint: "The upper y",
-                            controller: widget.limitsControllers[3],
+                            hint: "The sign of y",
+                            controller: widget.signControllers[1],
                             onChanged: (value) => handlePopupInputChange(),
                           ),
                         ),
@@ -206,7 +208,7 @@ class _TripleDefiniteIntegralInitialScreenState extends State<TripleDefiniteInte
                     const Padding(
                       padding: EdgeInsets.only(left: 20, bottom: 8),
                       child: TextFieldLabel(
-                        label: "The z limits of integration",
+                        label: "The z bound",
                       ),
                     ),
                     Row(
@@ -215,21 +217,23 @@ class _TripleDefiniteIntegralInitialScreenState extends State<TripleDefiniteInte
                         SizedBox(
                           width: 140,
                           child: CustomTextField(
-                            hint: "The lower z",
-                            controller: widget.limitsControllers[4],
+                            hint: "The z bound value",
+                            controller: widget.boundControllers[2],
                             onChanged: (value) => handlePopupInputChange(),
                           ),
                         ),
                         SizedBox(
                           width: 140,
                           child: CustomTextField(
-                            hint: "The upper z",
-                            controller: widget.limitsControllers[5],
+                            hint: "The sign of z",
+                            controller: widget.signControllers[2],
                             onChanged: (value) => handlePopupInputChange(),
                           ),
                         ),
                       ],
                     ),
+                    
+                    
                   ],
                 ),
                 const SizedBox(height: 10),
@@ -252,49 +256,41 @@ class _TripleDefiniteIntegralInitialScreenState extends State<TripleDefiniteInte
       },
     );
   }
-
 void handlePopupInputChange() {
-  
-     context.read<TripleDefiniteIntegralLimitTextCubit>().updateLowerLimitXText(
-          widget.limitsControllers[0].text.isEmpty ? "0" : widget.limitsControllers[0].text,
+    context.read<TripleLimitTextCubit>().updateXValue(
+          widget.boundControllers[0].text.isEmpty ? "0" : widget.boundControllers[0].text,
         );
-  
 
-     context.read<TripleDefiniteIntegralLimitTextCubit>().updateUpperLimitXText(
-          widget.limitsControllers[1].text.isEmpty ? "10" : widget.limitsControllers[1].text,
+    context.read<TripleLimitTextCubit>().updateSignY(
+          widget.boundControllers[1].text.isEmpty ? "0" : widget.boundControllers[1].text,
         );
   
-
-     context.read<TripleDefiniteIntegralLimitTextCubit>().updateLowerLimitYText(
-          widget.limitsControllers[2].text.isEmpty ? "0" : widget.limitsControllers[2].text,
+    context.read<TripleLimitTextCubit>().updateSignX(
+          widget.signControllers[1].text.isEmpty ? "+" : widget.signControllers[1].text,
         );
-  
-
-     context.read<TripleDefiniteIntegralLimitTextCubit>().updateUpperLimitYText(
-          widget.limitsControllers[3].text.isEmpty ? "10" : widget.limitsControllers[3].text,
+    context.read<TripleLimitTextCubit>().updateSignY(
+          widget.signControllers[1].text.isEmpty ? "+" : widget.signControllers[1].text,
         );
-  
-
-     context.read<TripleDefiniteIntegralLimitTextCubit>().updateLowerLimitZText(
-          widget.limitsControllers[4].text.isEmpty ? "0" : widget.limitsControllers[4].text,
+    context.read<TripleLimitTextCubit>().updateZValue(
+          widget.boundControllers[2].text.isEmpty ? "0" : widget.boundControllers[2].text,
         );
-  
-
-     context.read<TripleDefiniteIntegralLimitTextCubit>().updateUpperLimitZText(
-          widget.limitsControllers[5].text.isEmpty ? "10" : widget.limitsControllers[5].text,
+    context.read<TripleLimitTextCubit>().updateSignZ(
+          widget.signControllers[2].text.isEmpty ? "+" : widget.signControllers[2].text,
         );
-  
 }
  
 
   void handleClearButtonPressed() {
-    for (var controller in widget.limitsControllers) {
+    for (var controller in widget.boundControllers) {
+      controller.clear();
+    }
+    for (var controller in widget.signControllers) {
       controller.clear();
     }
     widget.expressionController.clear();
     widget.variableController.clear();
    
-    context.read<TripleDefiniteIntegralLimitTextCubit>().resetText();   
+    context.read<TripleLimitTextCubit>().reset();   
   }
 
   
@@ -302,7 +298,7 @@ void handlePopupInputChange() {
   
 
  void handleInputChange() {
-  context.read<TripleFieldsCubit>().checkFieldsReady(
+  context.read<TripleLimitFieldsCubit>().checkAllFieldsReady(
     widget.expressionController.text.isNotEmpty
       );
 }
@@ -310,30 +306,22 @@ void handlePopupInputChange() {
 
 
   void handleSubmitButtonPressed() {
-    IntegralRequest request = IntegralRequest(
-      limits: [
-        IntegralLimits(
-          lowerLimit: widget.limitsControllers[0].text.isEmpty ? "0" : widget.limitsControllers[0].text,
-          upperLimit: widget.limitsControllers[1].text.isEmpty ? "10" : widget.limitsControllers[1].text,
-        ),
-        IntegralLimits(
-          lowerLimit: widget.limitsControllers[2].text.isEmpty ? "0" : widget.limitsControllers[2].text,
-          upperLimit: widget.limitsControllers[3].text.isEmpty ? "10" : widget.limitsControllers[3].text,
-        ),
-        IntegralLimits(
-          lowerLimit: widget.limitsControllers[4].text.isEmpty ? "0" : widget.limitsControllers[4].text,
-          upperLimit: widget.limitsControllers[5].text.isEmpty ? "10" : widget.limitsControllers[5].text,
-        ),
-      ],
-       
+    LimitRequest request = LimitRequest(
       expression: widget.expressionController.text,
-       variables: widget.variableController.text.isNotEmpty
-          ? widget.variableController.text.split(",").map((e) => e.trim()).toList()
-          : ["x","y","z"], // Default variable if not provided
-          );
-    BlocProvider.of<TripleIntegralBloc>(context)
-        .add(TripleIntegralRequested(request: request));
-    
+      variables: widget.variableController.text.isEmpty ? ["x","y","z"] : [widget.variableController.text],
+      bounds: [
+        Bound(
+          value: widget.boundControllers[0].text.isEmpty ? "0" : widget.boundControllers[0].text,
+          sign: widget.signControllers[0].text.isEmpty ? "+" : widget.signControllers[0].text,),
+        Bound(
+          value: widget.boundControllers[1].text.isEmpty ? "0" : widget.boundControllers[1].text,
+          sign: widget.signControllers[1].text.isEmpty ? "+" : widget.signControllers[1].text,),
+          Bound(
+          value: widget.boundControllers[2].text.isEmpty ? "0" : widget.boundControllers[2].text,
+          sign: widget.signControllers[2].text.isEmpty ? "+" : widget.signControllers[2].text,),
+      ]
+    );
+    context.read<TripleLimitBloc>().add(TripleLimitRequested(request: request));
   }
 
 

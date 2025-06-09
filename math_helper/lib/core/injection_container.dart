@@ -84,6 +84,12 @@ import 'package:math_helper/features/limits/domain/usecases/triple_limit_usecase
 import 'package:math_helper/features/limits/presentation/bloc/double_limit/double_limit_bloc.dart';
 import 'package:math_helper/features/limits/presentation/bloc/single_limit/single_limit_bloc.dart';
 import 'package:math_helper/features/limits/presentation/bloc/triple_limit/triple_limit_bloc.dart';
+import 'package:math_helper/features/limits/presentation/cubit/double/double_limit_fields/double_limit_fields_cubit.dart';
+import 'package:math_helper/features/limits/presentation/cubit/double/double_limit_text/double_limit_text_cubit.dart';
+import 'package:math_helper/features/limits/presentation/cubit/single/single_limit_fields/single_limit_fields_cubit.dart';
+import 'package:math_helper/features/limits/presentation/cubit/single/single_limit_text/single_limit_text_cubit.dart';
+import 'package:math_helper/features/limits/presentation/cubit/triple/triple_limit_fields/triple_limit_fields_cubit.dart';
+import 'package:math_helper/features/limits/presentation/cubit/triple/triple_limit_text/triple_limit_text_cubit.dart';
 import 'package:math_helper/features/linear_systems/data/api/linear_systems_api.dart';
 import 'package:math_helper/features/linear_systems/data/repository/linear_systems_repository_impl.dart';
 import 'package:math_helper/features/linear_systems/domain/repository/linear_systems_repository.dart';
@@ -260,6 +266,12 @@ Future<void> init() async {
   ic.registerFactory(() => SingleLimitBloc(singleLimitUsecase: ic()));
   ic.registerFactory(() => DoubleLimitBloc(doubleLimitUsecase: ic()));
   ic.registerFactory(() => TripleLimitBloc(tripleLimitUsecase: ic()));
+  ic.registerFactory(() => SingleLimitFieldsCubit());
+  ic.registerFactory(() => DoubleLimitFieldsCubit());
+  ic.registerFactory(() => TripleLimitFieldsCubit());
+  ic.registerFactory(() => SingleLimitTextCubit());
+  ic.registerFactory(() => DoubleLimitTextCubit());
+  ic.registerFactory(() => TripleLimitTextCubit());
 
   // products
   ic.registerLazySingleton(() => ProductApi(client: ic()));

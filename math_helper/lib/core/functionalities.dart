@@ -31,7 +31,7 @@ import 'package:math_helper/features/integrals/presentation/pages/indefinite_int
 import 'package:math_helper/features/limits/presentation/bloc/double_limit/double_limit_bloc.dart';
 import 'package:math_helper/features/limits/presentation/bloc/single_limit/single_limit_bloc.dart';
 import 'package:math_helper/features/limits/presentation/bloc/triple_limit/triple_limit_bloc.dart';
-import 'package:math_helper/features/limits/presentation/screens/limits_page.dart';
+import 'package:math_helper/features/limits/presentation/pages/limits_page.dart';
 import 'package:math_helper/features/linear_systems/presentation/bloc/solve_linear_system/solve_linear_system_bloc.dart';
 import 'package:math_helper/features/linear_systems/presentation/screens/linear_equations_page.dart';
 import 'package:math_helper/features/matrix/presentation/bloc/determinant/determinant_bloc.dart';

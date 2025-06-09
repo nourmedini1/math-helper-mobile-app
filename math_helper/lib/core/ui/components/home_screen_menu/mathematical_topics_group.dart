@@ -54,7 +54,13 @@ import 'package:math_helper/features/integrals/presentation/pages/indefinite_int
 import 'package:math_helper/features/limits/presentation/bloc/double_limit/double_limit_bloc.dart';
 import 'package:math_helper/features/limits/presentation/bloc/single_limit/single_limit_bloc.dart';
 import 'package:math_helper/features/limits/presentation/bloc/triple_limit/triple_limit_bloc.dart';
-import 'package:math_helper/features/limits/presentation/screens/limits_page.dart';
+import 'package:math_helper/features/limits/presentation/cubit/double/double_limit_fields/double_limit_fields_cubit.dart';
+import 'package:math_helper/features/limits/presentation/cubit/double/double_limit_text/double_limit_text_cubit.dart';
+import 'package:math_helper/features/limits/presentation/cubit/single/single_limit_fields/single_limit_fields_cubit.dart';
+import 'package:math_helper/features/limits/presentation/cubit/single/single_limit_text/single_limit_text_cubit.dart';
+import 'package:math_helper/features/limits/presentation/cubit/triple/triple_limit_fields/triple_limit_fields_cubit.dart';
+import 'package:math_helper/features/limits/presentation/cubit/triple/triple_limit_text/triple_limit_text_cubit.dart';
+import 'package:math_helper/features/limits/presentation/pages/limits_page.dart';
 import 'package:math_helper/features/linear_systems/presentation/bloc/solve_linear_system/solve_linear_system_bloc.dart';
 import 'package:math_helper/features/linear_systems/presentation/screens/linear_equations_page.dart';
 import 'package:math_helper/features/matrix/presentation/bloc/add_matrix/add_matrix_bloc.dart';
@@ -551,6 +557,27 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                             ),
                             BlocProvider(
                               create: (context) => ic<TripleLimitBloc>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<SingleLimitTextCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<DoubleLimitTextCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<TripleLimitTextCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) => ic<SingleLimitFieldsCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) => ic<DoubleLimitFieldsCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) => ic<TripleLimitFieldsCubit>(),
                             ),
                           ], child: const LimitsPage()),
                         ));

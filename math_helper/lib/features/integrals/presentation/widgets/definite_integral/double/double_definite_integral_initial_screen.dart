@@ -228,27 +228,25 @@ class _DoubleDefiniteIntegralInitialScreenState extends State<DoubleDefiniteInte
   
 
 void handlePopupInputChange() {
-  if(widget.limitControllers[0].text.isNotEmpty) {
-context.read<DoubleDefiniteIntegralLimitsTextCubit>().updateLowerLimitXText(
-          widget.limitControllers[0].text,
+  context.read<DoubleDefiniteIntegralLimitsTextCubit>().updateLowerLimitXText(
+          widget.limitControllers[0].text.isEmpty ? "0" : widget.limitControllers[0].text,
         );
-  }
-  if(widget.limitControllers[1].text.isNotEmpty) {
-context.read<DoubleDefiniteIntegralLimitsTextCubit>().updateUpperLimitXText(
-          widget.limitControllers[1].text,
-        );
-  }
-  if(widget.limitControllers[2].text.isNotEmpty) {
-    context.read<DoubleDefiniteIntegralLimitsTextCubit>().updateLowerLimitYText(
-          widget.limitControllers[2].text,
-        );
+  
 
-  }
-if(widget.limitControllers[3].text.isNotEmpty) {
-  context.read<DoubleDefiniteIntegralLimitsTextCubit>().updateUpperLimitYText(
-          widget.limitControllers[3].text,
+     context.read<DoubleDefiniteIntegralLimitsTextCubit>().updateUpperLimitXText(
+          widget.limitControllers[1].text.isEmpty ? "10" : widget.limitControllers[1].text,
         );
-}
+  
+
+     context.read<DoubleDefiniteIntegralLimitsTextCubit>().updateLowerLimitYText(
+          widget.limitControllers[2].text.isEmpty ? "0" : widget.limitControllers[2].text,
+        );
+  
+
+     context.read<DoubleDefiniteIntegralLimitsTextCubit>().updateUpperLimitYText(
+          widget.limitControllers[3].text.isEmpty ? "10" : widget.limitControllers[3].text,
+        );
+  
 }
  
 
