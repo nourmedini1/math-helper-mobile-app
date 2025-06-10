@@ -44,10 +44,10 @@ import 'package:math_helper/features/matrix/presentation/screens/invert_matrix_p
 import 'package:math_helper/features/matrix/presentation/screens/matrix_rank_page.dart';
 import 'package:math_helper/features/product/presentation/bloc/numeric_product/numeric_product_bloc.dart';
 import 'package:math_helper/features/product/presentation/bloc/symbolic_product/symbolic_product_bloc.dart';
-import 'package:math_helper/features/product/presentation/screens/product_page.dart';
+import 'package:math_helper/features/product/presentation/pages/product_page.dart';
 import 'package:math_helper/features/sum/presentation/bloc/numeric_sum/numeric_sum_bloc.dart';
 import 'package:math_helper/features/sum/presentation/bloc/symbolic_sum/symbolic_sum_bloc.dart';
-import 'package:math_helper/features/sum/presentation/screens/sum_page.dart';
+import 'package:math_helper/features/sum/presentation/pages/sum_page.dart';
 import 'package:math_helper/features/taylor_series/presentation/bloc/expand_taylor_series/expand_taylor_series_bloc.dart';
 import 'package:math_helper/features/taylor_series/presentation/pages/taylor_series_page.dart';
 import 'package:provider/provider.dart';

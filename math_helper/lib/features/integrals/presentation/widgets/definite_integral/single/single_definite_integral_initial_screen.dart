@@ -38,13 +38,24 @@ class _SingleDefiniteIntegralInitialScreenState extends State<SingleDefiniteInte
     return InputContainer(
       title: "Single Integral",
       body: buildBody(),
-      submitButton: SubmitButton(
-        color: Provider.of<ThemeManager>(context).themeData ==
-                AppThemeData.lightTheme
-            ? AppColors.primaryColorTint50
-            : AppColors.primaryColor,
-        onPressed: () => handleSubmitButtonPressed(),
-      ),
+      submitButton: BlocBuilder<SingleFieldsCubit, SingleFieldsState>(
+                    builder: (context, state) {
+                      if (state is SingleFieldsReady) {
+                        return SubmitButton(
+                          color: Provider.of<ThemeManager>(context).themeData ==
+                                  AppThemeData.lightTheme
+                              ? AppColors.primaryColorTint50
+                              : AppColors.primaryColor,
+                          onPressed: () => handleSubmitButtonPressed(),
+                        );
+                      } else {
+                        return SubmitButton(
+                          color: AppColors.customBlackTint80,
+                          onPressed: () {}, // Disable button if not ready
+                        );
+                      }
+                    },
+                  ),
       clearButton: ClearButton(
         onPressed: () => handleClearButtonPressed(),
       ),
@@ -196,7 +207,9 @@ void handlePopupInputChange() {
     widget.expressionController.clear();
     widget.variableController.clear();
    
-    context.read<SingleDefiniteIntegralLimitsTextCubit>().resetText();   
+    context.read<SingleDefiniteIntegralLimitsTextCubit>().resetText();  
+        context.read<SingleFieldsCubit>().reset();
+ 
   }
 
   

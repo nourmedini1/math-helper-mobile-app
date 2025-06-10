@@ -21,8 +21,8 @@ import 'package:math_helper/features/matrix/presentation/screens/invert_matrix_r
 import 'package:math_helper/features/matrix/presentation/screens/matrix_operation_result_screen.dart';
 import 'package:math_helper/features/matrix/presentation/screens/matrix_rank_result_screen.dart';
 import 'package:math_helper/features/matrix/presentation/screens/determinant_result_screen.dart';
-import 'package:math_helper/features/product/presentation/screens/product_result_screen.dart';
-import 'package:math_helper/features/sum/presentation/screens/sum_result_screen.dart';
+import 'package:math_helper/features/product/presentation/pages/product_result_screen.dart';
+import 'package:math_helper/features/sum/presentation/pages/sum_result_screen.dart';
 import 'package:math_helper/features/taylor_series/presentation/pages/taylor_series_result_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:timeline_tile/timeline_tile.dart';

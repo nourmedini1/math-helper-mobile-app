@@ -33,13 +33,24 @@ class _DoubleIndefiniteIntegralInitialScreenState extends State<DoubleIndefinite
     return InputContainer(
       title: "Double Primitive",
       body: buildBody(),
-      submitButton: SubmitButton(
-        color: Provider.of<ThemeManager>(context).themeData ==
-                AppThemeData.lightTheme
-            ? AppColors.primaryColorTint50
-            : AppColors.primaryColor,
-        onPressed: () => handleSubmitButtonPressed(),
-      ),
+      submitButton: BlocBuilder<IndefiniteDoubleFieldsCubit, IndefiniteDoubleFieldsState>(
+                    builder: (context, state) {
+                      if (state is IndefiniteDoubleFieldsReady) {
+                        return SubmitButton(
+                          color: Provider.of<ThemeManager>(context).themeData ==
+                                  AppThemeData.lightTheme
+                              ? AppColors.primaryColorTint50
+                              : AppColors.primaryColor,
+                          onPressed: () => handleSubmitButtonPressed(),
+                        );
+                      } else {
+                        return SubmitButton(
+                          color: AppColors.customBlackTint80,
+                          onPressed: () {}, // Disable button if not ready
+                        );
+                      }
+                    },
+                  ),
       clearButton: ClearButton(
         onPressed: () => handleClearButtonPressed(),
       ),
@@ -83,6 +94,7 @@ class _DoubleIndefiniteIntegralInitialScreenState extends State<DoubleIndefinite
     widget.variableController.clear();
    
     context.read<IndefiniteDoubleFieldsCubit>().reset();   
+
   }
 
   

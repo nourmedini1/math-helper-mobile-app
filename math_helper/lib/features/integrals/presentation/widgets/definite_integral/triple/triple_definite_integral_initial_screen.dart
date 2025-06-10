@@ -38,13 +38,24 @@ class _TripleDefiniteIntegralInitialScreenState extends State<TripleDefiniteInte
     return InputContainer(
       title: "Triple Integral",
       body: buildBody(),
-      submitButton: SubmitButton(
-        color: Provider.of<ThemeManager>(context).themeData ==
-                AppThemeData.lightTheme
-            ? AppColors.primaryColorTint50
-            : AppColors.primaryColor,
-        onPressed: () => handleSubmitButtonPressed(),
-      ),
+      submitButton:BlocBuilder<TripleFieldsCubit, TripleFieldsState>(
+                    builder: (context, state) {
+                      if (state is TripleFieldsReady) {
+                        return SubmitButton(
+                          color: Provider.of<ThemeManager>(context).themeData ==
+                                  AppThemeData.lightTheme
+                              ? AppColors.primaryColorTint50
+                              : AppColors.primaryColor,
+                          onPressed: () => handleSubmitButtonPressed(),
+                        );
+                      } else {
+                        return SubmitButton(
+                          color: AppColors.customBlackTint80,
+                          onPressed: () {}, // Disable button if not ready
+                        );
+                      }
+                    },
+                  ),
       clearButton: ClearButton(
         onPressed: () => handleClearButtonPressed(),
       ),
@@ -295,6 +306,7 @@ void handlePopupInputChange() {
     widget.variableController.clear();
    
     context.read<TripleDefiniteIntegralLimitTextCubit>().resetText();   
+    context.read<TripleFieldsCubit>().reset();
   }
 
   

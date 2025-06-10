@@ -38,13 +38,24 @@ class _DoubleDefiniteIntegralInitialScreenState extends State<DoubleDefiniteInte
     return InputContainer(
       title: "Double Integral",
       body: buildBody(),
-      submitButton: SubmitButton(
-        color: Provider.of<ThemeManager>(context).themeData ==
-                AppThemeData.lightTheme
-            ? AppColors.primaryColorTint50
-            : AppColors.primaryColor,
-        onPressed: () => handleSubmitButtonPressed(),
-      ),
+      submitButton: BlocBuilder<DoubleFieldsCubit, DoubleFieldsState>(
+                    builder: (context, state) {
+                      if (state is DoubleFieldsReady) {
+                        return SubmitButton(
+                          color: Provider.of<ThemeManager>(context).themeData ==
+                                  AppThemeData.lightTheme
+                              ? AppColors.primaryColorTint50
+                              : AppColors.primaryColor,
+                          onPressed: () => handleSubmitButtonPressed(),
+                        );
+                      } else {
+                        return SubmitButton(
+                          color: AppColors.customBlackTint80,
+                          onPressed: () {}, // Disable button if not ready
+                        );
+                      }
+                    },
+                  ),
       clearButton: ClearButton(
         onPressed: () => handleClearButtonPressed(),
       ),
@@ -258,6 +269,7 @@ void handlePopupInputChange() {
     widget.variableController.clear();
    
     context.read<DoubleDefiniteIntegralLimitsTextCubit>().resetText();   
+    context.read<DoubleFieldsCubit>().reset();
   }
 
   

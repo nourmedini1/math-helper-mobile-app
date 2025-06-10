@@ -9,33 +9,35 @@ import 'package:math_helper/core/ui/components/custom_text_field.dart';
 import 'package:math_helper/core/ui/components/input_container.dart';
 import 'package:math_helper/core/ui/components/submit_button.dart';
 import 'package:math_helper/core/ui/theme_manager.dart';
-import 'package:math_helper/features/integrals/data/models/integral_request.dart';
-import 'package:math_helper/features/integrals/presentation/bloc/triple_primitive/triple_primitive_bloc.dart';
-import 'package:math_helper/features/integrals/presentation/cubit/indefinite_integral/indefinite_triple_fields/indefinite_triple_fields_cubit.dart';
+import 'package:math_helper/features/sum/data/models/sum_request.dart';
+import 'package:math_helper/features/sum/presentation/bloc/symbolic_sum/symbolic_sum_bloc.dart';
+import 'package:math_helper/features/sum/presentation/cubit/symbolic/symbolic_sum_fields/symbolic_sum_fields_cubit.dart';
 import 'package:provider/provider.dart';
 
-class TripleIndefiniteIntegralInitialScreen extends StatefulWidget {
+class SymbolicSumInitialScreen extends StatefulWidget {
   final TextEditingController expressionController;
   final TextEditingController variableController;
-  const TripleIndefiniteIntegralInitialScreen(
+  final TextEditingController lowerBoundController;
+  const SymbolicSumInitialScreen(
       {super.key,
       required this.expressionController,
       required this.variableController,
+      required this.lowerBoundController,
       });
 
   @override
-  State<TripleIndefiniteIntegralInitialScreen> createState() => _TripleIndefiniteIntegralInitialScreenState();
+  State<SymbolicSumInitialScreen> createState() => _SymbolicSumIitialScreenState();
 }
 
-class _TripleIndefiniteIntegralInitialScreenState extends State<TripleIndefiniteIntegralInitialScreen> {
+class _SymbolicSumIitialScreenState extends State<SymbolicSumInitialScreen> {
   @override
   Widget build(BuildContext context) {
     return InputContainer(
-      title: "Triple Primitive",
+      title: "Symbolic Sum",
       body: buildBody(),
-      submitButton: BlocBuilder<IndefiniteTripleFieldsCubit, IndefiniteTripleFieldsState>(
+      submitButton: BlocBuilder<SymbolicSumFieldsCubit, SymbolicSumFieldsState>(
                     builder: (context, state) {
-                      if (state is IndefiniteTripleFieldsReady) {
+                      if (state is SymbolicSumFieldsReady) {
                         return SubmitButton(
                           color: Provider.of<ThemeManager>(context).themeData ==
                                   AppThemeData.lightTheme
@@ -68,16 +70,24 @@ class _TripleIndefiniteIntegralInitialScreenState extends State<TripleIndefinite
         children: [
           CustomTextField(
             label: "The expression",
-            hint: "The expression to integrate",
+            hint: "The expression of the sum",
             controller: widget.expressionController,
             onChanged: (value) => handleInputChange(),
           ),
           CustomTextField(
             label: "The variable",
-            hint: "The variable of integration, default is x,y,z",
+            hint: "The variable used, default is n",
             controller: widget.variableController,
             onChanged: (value) => () {},
           ),
+           CustomTextField(
+            label: "The lower bound",
+            hint: "The lower bound of the sum, default is 0",
+            controller: widget.lowerBoundController,
+            onChanged: (value) => () {},
+          ),
+          
+          
       
           
         ],
@@ -87,15 +97,17 @@ class _TripleIndefiniteIntegralInitialScreenState extends State<TripleIndefinite
 
   
   
-
-
  
+
+
 
   void handleClearButtonPressed() {
     widget.expressionController.clear();
     widget.variableController.clear();
+    widget.lowerBoundController.clear();
    
-    context.read<IndefiniteTripleFieldsCubit>().reset();   
+    context.read<SymbolicSumFieldsCubit>().reset();  
+    
   }
 
   
@@ -103,7 +115,7 @@ class _TripleIndefiniteIntegralInitialScreenState extends State<TripleIndefinite
   
 
  void handleInputChange() {
-  context.read<IndefiniteTripleFieldsCubit>().checkFieldsReady(
+  context.read<SymbolicSumFieldsCubit>().checkAllFieldsReady(
     widget.expressionController.text.isNotEmpty
       );
 }
@@ -111,14 +123,18 @@ class _TripleIndefiniteIntegralInitialScreenState extends State<TripleIndefinite
 
 
   void handleSubmitButtonPressed() {
-    IntegralRequest request = IntegralRequest( 
+    SumRequest request = SumRequest(
       expression: widget.expressionController.text,
-       variables: widget.variableController.text.isNotEmpty
-          ? widget.variableController.text.split(",").map((e) => e.trim()).toList()
-          : ["x","y","z"], // Default variable if not provided
+      variable: widget.variableController.text.isNotEmpty
+          ? widget.variableController.text
+          : "n",
+      lowerLimit: widget.lowerBoundController.text.isNotEmpty
+          ? widget.lowerBoundController.text
+          : "0", 
+      upperLimit: "oo", // Symbolic sums typically don't have an upper limit
           );
-    BlocProvider.of<TriplePrimitiveBloc>(context)
-        .add(TriplePrimitiveRequested(request: request));
+    BlocProvider.of<SymbolicSumBloc>(context)
+        .add(SymbolicSumRequested(request: request));
     
   }
 

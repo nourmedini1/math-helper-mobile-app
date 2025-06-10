@@ -33,13 +33,24 @@ class _SingleIndefiniteIntegralIitialScreenState extends State<SingleIndefiniteI
     return InputContainer(
       title: "Single Primitive",
       body: buildBody(),
-      submitButton: SubmitButton(
-        color: Provider.of<ThemeManager>(context).themeData ==
-                AppThemeData.lightTheme
-            ? AppColors.primaryColorTint50
-            : AppColors.primaryColor,
-        onPressed: () => handleSubmitButtonPressed(),
-      ),
+      submitButton: BlocBuilder<IndefiniteSingleFieldsCubit, IndefiniteSingleFieldsState>(
+                    builder: (context, state) {
+                      if (state is IndefiniteSingleFieldsReady) {
+                        return SubmitButton(
+                          color: Provider.of<ThemeManager>(context).themeData ==
+                                  AppThemeData.lightTheme
+                              ? AppColors.primaryColorTint50
+                              : AppColors.primaryColor,
+                          onPressed: () => handleSubmitButtonPressed(),
+                        );
+                      } else {
+                        return SubmitButton(
+                          color: AppColors.customBlackTint80,
+                          onPressed: () {}, // Disable button if not ready
+                        );
+                      }
+                    },
+                  ),
       clearButton: ClearButton(
         onPressed: () => handleClearButtonPressed(),
       ),
@@ -86,7 +97,8 @@ class _SingleIndefiniteIntegralIitialScreenState extends State<SingleIndefiniteI
     widget.expressionController.clear();
     widget.variableController.clear();
    
-    context.read<IndefiniteSingleFieldsCubit>().reset();   
+    context.read<IndefiniteSingleFieldsCubit>().reset();  
+    
   }
 
   

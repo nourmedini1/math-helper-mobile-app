@@ -40,13 +40,24 @@ class _DoubleLimitInitialScreenState extends State<DoubleLimitInitialScreen> {
     return InputContainer(
       title: "Double Limit",
       body: buildBody(),
-      submitButton: SubmitButton(
-        color: Provider.of<ThemeManager>(context).themeData ==
-                AppThemeData.lightTheme
-            ? AppColors.primaryColorTint50
-            : AppColors.primaryColor,
-        onPressed: () => handleSubmitButtonPressed(),
-      ),
+      submitButton: BlocBuilder<DoubleLimitFieldsCubit, DoubleLimitFieldsState>(
+                    builder: (context, state) {
+                      if (state is DoubleLimitFieldsReady) {
+                        return SubmitButton(
+                          color: Provider.of<ThemeManager>(context).themeData ==
+                                  AppThemeData.lightTheme
+                              ? AppColors.primaryColorTint50
+                              : AppColors.primaryColor,
+                          onPressed: () => handleSubmitButtonPressed(),
+                        );
+                      } else {
+                        return SubmitButton(
+                          color: AppColors.customBlackTint80,
+                          onPressed: () {}, // Disable button if not ready
+                        );
+                      }
+                    },
+                  ),
       clearButton: ClearButton(
         onPressed: () => handleClearButtonPressed(),
       ),
@@ -255,7 +266,8 @@ void handlePopupInputChange() {
     widget.expressionController.clear();
     widget.variableController.clear();
    
-    context.read<DoubleLimitTextCubit>().reset();   
+    context.read<DoubleLimitTextCubit>().reset();  
+    context.read<DoubleLimitFieldsCubit>().reset(); 
   }
 
   

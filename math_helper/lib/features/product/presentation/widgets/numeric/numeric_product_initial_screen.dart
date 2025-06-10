@@ -11,38 +11,36 @@ import 'package:math_helper/core/ui/components/input_container.dart';
 import 'package:math_helper/core/ui/components/submit_button.dart';
 import 'package:math_helper/core/ui/components/textfield_label.dart';
 import 'package:math_helper/core/ui/theme_manager.dart';
-import 'package:math_helper/features/limits/data/models/limit_request.dart';
-import 'package:math_helper/features/limits/presentation/bloc/single_limit/single_limit_bloc.dart';
-import 'package:math_helper/features/limits/presentation/cubit/single/single_limit_fields/single_limit_fields_cubit.dart';
-import 'package:math_helper/features/limits/presentation/cubit/single/single_limit_text/single_limit_text_cubit.dart';
+import 'package:math_helper/features/product/data/models/product_request.dart';
+import 'package:math_helper/features/product/presentation/bloc/numeric_product/numeric_product_bloc.dart';
+import 'package:math_helper/features/product/presentation/cubit/numeric/numeric_product_fields/numeric_product_fields_cubit.dart';
+import 'package:math_helper/features/product/presentation/cubit/numeric/numeric_product_text/numeric_product_text_cubit.dart';
 import 'package:provider/provider.dart';
 
-class SingleLimitInitialScreen extends StatefulWidget {
+class NumericProductInitialScreen extends StatefulWidget {
   final TextEditingController expressionController;
   final List<TextEditingController> boundControllers;
-  final List<TextEditingController> signControllers;
   final TextEditingController variableController;
-  const SingleLimitInitialScreen(
+  const NumericProductInitialScreen(
       {super.key,
       required this.expressionController,
       required this.variableController,
       required this.boundControllers,
-      required this.signControllers,
       });
 
   @override
-  State<SingleLimitInitialScreen> createState() => _SingleLimitInitialScreenState();
+  State<NumericProductInitialScreen> createState() => _NumericProductInitialScreenState();
 }
 
-class _SingleLimitInitialScreenState extends State<SingleLimitInitialScreen> {
+class _NumericProductInitialScreenState extends State<NumericProductInitialScreen> {
   @override
   Widget build(BuildContext context) {
     return InputContainer(
-      title: "Single Limit",
+      title: "Numeric Product",
       body: buildBody(),
-      submitButton:BlocBuilder<SingleLimitFieldsCubit, SingleLimitFieldsState>(
+      submitButton:BlocBuilder<NumericProductFieldsCubit, NumericProductFieldsState>(
                     builder: (context, state) {
-                      if (state is SingleLimitFieldsReady) {
+                      if (state is NumericProductFieldsReady) {
                         return SubmitButton(
                           color: Provider.of<ThemeManager>(context).themeData ==
                                   AppThemeData.lightTheme
@@ -75,13 +73,13 @@ class _SingleLimitInitialScreenState extends State<SingleLimitInitialScreen> {
         children: [
           CustomTextField(
             label: "The expression",
-            hint: "The expression to evaluate the limit for",
+            hint: "The expression to evaluate the product for",
             controller: widget.expressionController,
             onChanged: (value) => handleInputChange(),
           ),
           CustomTextField(
             label: "The variable",
-            hint: "The variable, default is x",
+            hint: "The variable, default is n",
             controller: widget.variableController,
             onChanged: (value) => () {},
           ),
@@ -92,11 +90,11 @@ class _SingleLimitInitialScreenState extends State<SingleLimitInitialScreen> {
               children: [
                 const Padding(
                   padding:  EdgeInsets.only(left: 32, bottom: 5),
-                  child: TextFieldLabel(label: "The limit bounds"),
+                  child: TextFieldLabel(label: "The product bounds"),
                 ),
-                BlocBuilder<SingleLimitTextCubit, SingleLimitTextState>(
+                BlocBuilder<NumericProductTextCubit, NumericProductTextState>(
                   builder: (context, state) {
-                    if (state is SingleLimitTextInitial) {
+                    if (state is NumericProductTextInitial) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: CustomPopupInvoker(
@@ -142,7 +140,7 @@ class _SingleLimitInitialScreenState extends State<SingleLimitInitialScreen> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: Text(
-                      "Single Limit",
+                      "Numeric Product",
                       style: TextStyle(
                         color:
                             Provider.of<ThemeManager>(context, listen: false)
@@ -159,14 +157,14 @@ class _SingleLimitInitialScreenState extends State<SingleLimitInitialScreen> {
                   ),
                 ),
                 CustomTextField(
-                  hint: "The x bound of the limit",
+                  hint: "The lower bound of the product",
                   controller: widget.boundControllers[0],
                   onChanged: (value) => handlePopupInputChange(),
                 ),
                 const SizedBox(height: 10),
                 CustomTextField(
-                  hint: "The sign of the bound (+/-)",
-                  controller: widget.signControllers[0],
+                  hint: "The upper bound of the product",
+                  controller: widget.boundControllers[1],
                   onChanged: (value) => handlePopupInputChange(),
                 ),
                 const SizedBox(height: 10),
@@ -192,12 +190,12 @@ class _SingleLimitInitialScreenState extends State<SingleLimitInitialScreen> {
   }
 
 void handlePopupInputChange() {
- context.read<SingleLimitTextCubit>().updateXValue(
+ context.read<NumericProductTextCubit>().updateLowerLimit(
           widget.boundControllers[0].text.isEmpty ? "0" : widget.boundControllers[0].text,
         );
   
-     context.read<SingleLimitTextCubit>().updateSign(
-          widget.signControllers[0].text.isEmpty ? "+" : widget.signControllers[0].text,
+     context.read<NumericProductTextCubit>().updateUpperLimit(
+          widget.boundControllers[1].text.isEmpty ? "oo" : widget.boundControllers[1].text,
         );
 }
  
@@ -206,14 +204,11 @@ void handlePopupInputChange() {
     for (var controller in widget.boundControllers) {
       controller.clear();
     }
-    for (var controller in widget.signControllers) {
-      controller.clear();
-    }
     widget.expressionController.clear();
     widget.variableController.clear();
    
-    context.read<SingleLimitTextCubit>().reset();   
-    context.read<SingleLimitFieldsCubit>().reset();
+    context.read<NumericProductTextCubit>().reset();   
+    context.read<NumericProductFieldsCubit>().reset();
   }
 
   
@@ -221,7 +216,7 @@ void handlePopupInputChange() {
   
 
  void handleInputChange() {
-  context.read<SingleLimitFieldsCubit>().checkAllFieldsReady(
+  context.read<NumericProductFieldsCubit>().checkAllFieldsReady(
     widget.expressionController.text.isNotEmpty
       );
 }
@@ -229,16 +224,13 @@ void handlePopupInputChange() {
 
 
   void handleSubmitButtonPressed() {
-    LimitRequest request = LimitRequest(
+   final ProductRequest request = ProductRequest(
       expression: widget.expressionController.text,
-      variables: widget.variableController.text.isEmpty ? ["x"] : [widget.variableController.text],
-      bounds: [
-        Bound(
-          value: widget.boundControllers[0].text.isEmpty ? "0" : widget.boundControllers[0].text,
-          sign: widget.signControllers[0].text.isEmpty ? "+" : widget.signControllers[0].text,)
-      ]
+      variable: widget.variableController.text.isEmpty ? "n" : widget.variableController.text,
+      lowerLimit: widget.boundControllers[0].text.isEmpty ? "0" : widget.boundControllers[0].text,
+      upperLimit: widget.boundControllers[1].text.isEmpty ? "oo" : widget.boundControllers[1].text,
     );
-    context.read<SingleLimitBloc>().add(SingleLimitRequested(request: request));
+    context.read<NumericProductBloc>().add(NumericProductRequested(request: request));
   }
 
 

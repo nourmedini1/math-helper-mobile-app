@@ -28,7 +28,7 @@ class SymbolicSumBloc extends Bloc<SymbolicSumEvent, SymbolicSumState> {
           (response) {
             ic<LocalStorageService>().registerOperation(Operation(
                 title: "Symbolic Sum",
-                results: [response.summation, response.result],
+                results: [response.summation, response.result, response.convergent.toString()],
                 doneAt: DateTime.now(),
                 label: Labels.SUMMATION_LABEL));
             emit(SymbolicSumSuccess(response: response));

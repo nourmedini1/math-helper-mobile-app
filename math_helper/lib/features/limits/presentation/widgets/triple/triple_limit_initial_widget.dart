@@ -40,13 +40,24 @@ class _TripleLimitInitialScreenState extends State<TripleLimitInitialScreen> {
     return InputContainer(
       title: "Triple Limit",
       body: buildBody(),
-      submitButton: SubmitButton(
-        color: Provider.of<ThemeManager>(context).themeData ==
-                AppThemeData.lightTheme
-            ? AppColors.primaryColorTint50
-            : AppColors.primaryColor,
-        onPressed: () => handleSubmitButtonPressed(),
-      ),
+      submitButton: BlocBuilder<TripleLimitFieldsCubit, TripleLimitFieldsState>(
+                    builder: (context, state) {
+                      if (state is TripleLimitFieldsReady) {
+                        return SubmitButton(
+                          color: Provider.of<ThemeManager>(context).themeData ==
+                                  AppThemeData.lightTheme
+                              ? AppColors.primaryColorTint50
+                              : AppColors.primaryColor,
+                          onPressed: () => handleSubmitButtonPressed(),
+                        );
+                      } else {
+                        return SubmitButton(
+                          color: AppColors.customBlackTint80,
+                          onPressed: () {}, // Disable button if not ready
+                        );
+                      }
+                    },
+                  ),
       clearButton: ClearButton(
         onPressed: () => handleClearButtonPressed(),
       ),
@@ -291,6 +302,7 @@ void handlePopupInputChange() {
     widget.variableController.clear();
    
     context.read<TripleLimitTextCubit>().reset();   
+    context.read<TripleLimitFieldsCubit>().reset();
   }
 
   

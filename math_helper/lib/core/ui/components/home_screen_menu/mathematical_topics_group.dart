@@ -76,10 +76,16 @@ import 'package:math_helper/features/matrix/presentation/screens/matrix_operatio
 import 'package:math_helper/features/matrix/presentation/screens/matrix_rank_page.dart';
 import 'package:math_helper/features/product/presentation/bloc/numeric_product/numeric_product_bloc.dart';
 import 'package:math_helper/features/product/presentation/bloc/symbolic_product/symbolic_product_bloc.dart';
-import 'package:math_helper/features/product/presentation/screens/product_page.dart';
+import 'package:math_helper/features/product/presentation/cubit/numeric/numeric_product_fields/numeric_product_fields_cubit.dart';
+import 'package:math_helper/features/product/presentation/cubit/numeric/numeric_product_text/numeric_product_text_cubit.dart';
+import 'package:math_helper/features/product/presentation/cubit/symbolic/symbolic_product_fields/symbolic_product_fields_cubit.dart';
+import 'package:math_helper/features/product/presentation/pages/product_page.dart';
 import 'package:math_helper/features/sum/presentation/bloc/numeric_sum/numeric_sum_bloc.dart';
 import 'package:math_helper/features/sum/presentation/bloc/symbolic_sum/symbolic_sum_bloc.dart';
-import 'package:math_helper/features/sum/presentation/screens/sum_page.dart';
+import 'package:math_helper/features/sum/presentation/cubit/numeric/numeric_sum_fields/numeric_sum_fields_cubit.dart';
+import 'package:math_helper/features/sum/presentation/cubit/numeric/numeric_sum_text/numeric_sum_text_cubit.dart';
+import 'package:math_helper/features/sum/presentation/cubit/symbolic/symbolic_sum_fields/symbolic_sum_fields_cubit.dart';
+import 'package:math_helper/features/sum/presentation/pages/sum_page.dart';
 import 'package:math_helper/features/taylor_series/presentation/bloc/expand_taylor_series/expand_taylor_series_bloc.dart';
 import 'package:math_helper/features/taylor_series/presentation/cubit/taylor_series/taylor_series_fields_cubit.dart';
 import 'package:math_helper/features/taylor_series/presentation/pages/taylor_series_page.dart';
@@ -454,6 +460,15 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                             BlocProvider(
                               create: (context) => ic<NumericSumBloc>(),
                             ),
+                            BlocProvider(
+                              create: (context) => ic<NumericSumTextCubit>(),
+                            ),
+                            BlocProvider(
+                                create: (context) => ic<SymbolicSumFieldsCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) => ic<NumericSumFieldsCubit>(),
+                            ),
                           ], child: const SumPage()),
                         ));
                       }),
@@ -479,6 +494,15 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                             ),
                             BlocProvider(
                               create: (context) => ic<NumericProductBloc>(),
+                            ),
+                             BlocProvider(
+                              create: (context) => ic<NumericProductTextCubit>(),
+                            ),
+                            BlocProvider(
+                                create: (context) => ic<SymbolicProductFieldsCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) => ic<NumericProductFieldsCubit>(),
                             ),
                           ], child: const ProductPage()),
                         ));

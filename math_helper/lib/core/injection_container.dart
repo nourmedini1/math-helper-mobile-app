@@ -117,6 +117,9 @@ import 'package:math_helper/features/product/domain/usecases/numeric_product_use
 import 'package:math_helper/features/product/domain/usecases/symbolic_product_usecase.dart';
 import 'package:math_helper/features/product/presentation/bloc/numeric_product/numeric_product_bloc.dart';
 import 'package:math_helper/features/product/presentation/bloc/symbolic_product/symbolic_product_bloc.dart';
+import 'package:math_helper/features/product/presentation/cubit/numeric/numeric_product_fields/numeric_product_fields_cubit.dart';
+import 'package:math_helper/features/product/presentation/cubit/numeric/numeric_product_text/numeric_product_text_cubit.dart';
+import 'package:math_helper/features/product/presentation/cubit/symbolic/symbolic_product_fields/symbolic_product_fields_cubit.dart';
 import 'package:math_helper/features/sum/data/api/sum_api.dart';
 import 'package:math_helper/features/sum/data/repository/sum_repository_impl.dart';
 import 'package:math_helper/features/sum/domain/repository/sum_repository.dart';
@@ -124,6 +127,9 @@ import 'package:math_helper/features/sum/domain/usecases/numeric_sum_usecase.dar
 import 'package:math_helper/features/sum/domain/usecases/symbolic_sum_usecase.dart';
 import 'package:math_helper/features/sum/presentation/bloc/numeric_sum/numeric_sum_bloc.dart';
 import 'package:math_helper/features/sum/presentation/bloc/symbolic_sum/symbolic_sum_bloc.dart';
+import 'package:math_helper/features/sum/presentation/cubit/numeric/numeric_sum_fields/numeric_sum_fields_cubit.dart';
+import 'package:math_helper/features/sum/presentation/cubit/numeric/numeric_sum_text/numeric_sum_text_cubit.dart';
+import 'package:math_helper/features/sum/presentation/cubit/symbolic/symbolic_sum_fields/symbolic_sum_fields_cubit.dart';
 import 'package:math_helper/features/taylor_series/data/api/taylor_series_api.dart';
 import 'package:math_helper/features/taylor_series/data/repository/taylor_series_repository_impl.dart';
 import 'package:math_helper/features/taylor_series/domain/repository/taylor_series_repository.dart';
@@ -284,6 +290,11 @@ Future<void> init() async {
   ic.registerFactory(() => SymbolicProductBloc(symbolicProductUsecase: ic()));
   ic.registerFactory(() => NumericProductBloc(numericProductUsecase: ic()));
 
+
+  ic.registerFactory(() => SymbolicProductFieldsCubit());
+  ic.registerFactory(() => NumericProductFieldsCubit());
+  ic.registerFactory(() => NumericProductTextCubit());
+
   // sum
   ic.registerLazySingleton(() => SumApi(client: ic()));
   ic.registerLazySingleton<SumRepository>(
@@ -294,6 +305,9 @@ Future<void> init() async {
 
   ic.registerFactory(() => SymbolicSumBloc(symbolicSumUsecase: ic()));
   ic.registerFactory(() => NumericSumBloc(numericSumUsecase: ic()));
+  ic.registerFactory(() => SymbolicSumFieldsCubit());
+  ic.registerFactory(() => NumericSumFieldsCubit());
+  ic.registerFactory(() => NumericSumTextCubit());
 
   // taylor series
   ic.registerLazySingleton(() => TaylorSeriesApi(client: ic()));

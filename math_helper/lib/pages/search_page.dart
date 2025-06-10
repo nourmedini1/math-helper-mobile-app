@@ -11,7 +11,6 @@ import 'package:math_helper/core/storage/operation.dart';
 import 'package:math_helper/core/ui/app_colors.dart';
 import 'package:math_helper/core/ui/app_theme_data.dart';
 
-import 'package:math_helper/core/ui/components/loading_screen.dart';
 import 'package:math_helper/core/ui/components/search/search_app_bar.dart';
 import 'package:math_helper/core/ui/components/search/search_item.dart';
 import 'package:math_helper/core/ui/cubits/search/search_cubit.dart';
@@ -21,31 +20,24 @@ import 'package:math_helper/features/complex/presentation/bloc/complex_multiplic
 import 'package:math_helper/features/complex/presentation/bloc/complex_substraction/complex_substraction_bloc.dart';
 import 'package:math_helper/features/complex/presentation/bloc/polar_form/polar_form_bloc.dart';
 import 'package:math_helper/features/complex/presentation/pages/complex_operation_page.dart';
-import 'package:math_helper/features/complex/presentation/pages/complex_operation_result_page.dart';
 import 'package:math_helper/features/complex/presentation/pages/complex_polar_form_page.dart';
-import 'package:math_helper/features/complex/presentation/pages/complex_polar_form_result_page.dart';
 import 'package:math_helper/features/derivatives/presentation/bloc/numeric_derivative/numeric_derivative_bloc.dart';
 import 'package:math_helper/features/derivatives/presentation/bloc/symbolic_derivative/symbolic_derivative_bloc.dart';
-import 'package:math_helper/features/derivatives/presentation/pages/derivative_result_screen.dart';
 import 'package:math_helper/features/derivatives/presentation/pages/derivatives_page.dart';
 import 'package:math_helper/features/differential_equations/presentation/bloc/first_order_differential_equation/first_order_differential_equation_bloc.dart';
 import 'package:math_helper/features/differential_equations/presentation/bloc/second_order_differential_equation/second_order_differential_equation_bloc.dart';
 import 'package:math_helper/features/differential_equations/presentation/bloc/third_order_differential_equation/third_order_differential_equation_bloc.dart';
 import 'package:math_helper/features/differential_equations/presentation/pages/differential_equations_page.dart';
-import 'package:math_helper/features/differential_equations/presentation/pages/differential_equations_result_screen.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/double_integral/double_integral_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/single_integral/single_integral_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/bloc/triple_integral/triple_integral_bloc.dart';
 import 'package:math_helper/features/integrals/presentation/pages/definite_integral_page.dart';
-import 'package:math_helper/features/integrals/presentation/pages/integrals_result_screen.dart';
 import 'package:math_helper/features/limits/presentation/bloc/double_limit/double_limit_bloc.dart';
 import 'package:math_helper/features/limits/presentation/bloc/single_limit/single_limit_bloc.dart';
 import 'package:math_helper/features/limits/presentation/bloc/triple_limit/triple_limit_bloc.dart';
 import 'package:math_helper/features/limits/presentation/pages/limits_page.dart';
-import 'package:math_helper/features/limits/presentation/pages/limits_result_screen.dart';
 import 'package:math_helper/features/linear_systems/presentation/bloc/solve_linear_system/solve_linear_system_bloc.dart';
 import 'package:math_helper/features/linear_systems/presentation/screens/linear_equations_page.dart';
-import 'package:math_helper/features/linear_systems/presentation/screens/linear_equations_result_screen.dart';
 import 'package:math_helper/features/matrix/presentation/bloc/add_matrix/add_matrix_bloc.dart';
 import 'package:math_helper/features/matrix/presentation/bloc/determinant/determinant_bloc.dart';
 import 'package:math_helper/features/matrix/presentation/bloc/eigen/eigen_bloc.dart';
@@ -53,26 +45,18 @@ import 'package:math_helper/features/matrix/presentation/bloc/invert_matrix/inve
 import 'package:math_helper/features/matrix/presentation/bloc/multiply_matrix/multiply_matrix_bloc.dart';
 import 'package:math_helper/features/matrix/presentation/bloc/rank/rank_bloc.dart';
 import 'package:math_helper/features/matrix/presentation/screens/determinant_page.dart';
-import 'package:math_helper/features/matrix/presentation/screens/determinant_result_screen.dart';
 import 'package:math_helper/features/matrix/presentation/screens/eigen_page.dart';
-import 'package:math_helper/features/matrix/presentation/screens/eigen_result_screen.dart';
 import 'package:math_helper/features/matrix/presentation/screens/invert_matrix_page.dart';
-import 'package:math_helper/features/matrix/presentation/screens/invert_matrix_result_screen.dart';
-import 'package:math_helper/features/matrix/presentation/screens/matrix_operation_result_screen.dart';
 import 'package:math_helper/features/matrix/presentation/screens/matrix_operations_page.dart';
 import 'package:math_helper/features/matrix/presentation/screens/matrix_rank_page.dart';
-import 'package:math_helper/features/matrix/presentation/screens/matrix_rank_result_screen.dart';
 import 'package:math_helper/features/product/presentation/bloc/numeric_product/numeric_product_bloc.dart';
 import 'package:math_helper/features/product/presentation/bloc/symbolic_product/symbolic_product_bloc.dart';
-import 'package:math_helper/features/product/presentation/screens/product_page.dart';
-import 'package:math_helper/features/product/presentation/screens/product_result_screen.dart';
+import 'package:math_helper/features/product/presentation/pages/product_page.dart';
 import 'package:math_helper/features/sum/presentation/bloc/numeric_sum/numeric_sum_bloc.dart';
 import 'package:math_helper/features/sum/presentation/bloc/symbolic_sum/symbolic_sum_bloc.dart';
-import 'package:math_helper/features/sum/presentation/screens/sum_page.dart';
-import 'package:math_helper/features/sum/presentation/screens/sum_result_screen.dart';
+import 'package:math_helper/features/sum/presentation/pages/sum_page.dart';
 import 'package:math_helper/features/taylor_series/presentation/bloc/expand_taylor_series/expand_taylor_series_bloc.dart';
 import 'package:math_helper/features/taylor_series/presentation/pages/taylor_series_page.dart';
-import 'package:math_helper/features/taylor_series/presentation/pages/taylor_series_result_screen.dart';
 import 'package:provider/provider.dart';
 
 class SearchPage extends StatefulWidget {
@@ -160,53 +144,9 @@ class _SearchPageState extends State<SearchPage> {
     } else {
       final List<String> topLabels = getTopFiveOperationsIfExists(operations);
       return SingleChildScrollView(
-        child: Column(children: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                "Recent Operations",
-                style: TextStyle(
-                    color: AppColors.primaryColorTint50,
-                    fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
-                    fontFamily:
-                        Theme.of(context).textTheme.titleMedium!.fontFamily),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          ListView.builder(
-              shrinkWrap: true,
-              itemCount: operations.length,
-              itemBuilder: (context, index) {
-                return SearchItem(
-                  title: operations[index].title,
-                  description:
-                      "${operations[index].doneAt.year}/${operations[index].doneAt.month}/${operations[index].doneAt.day} ${operations[index].doneAt.hour}:${operations[index].doneAt.minute}",
-                  leadingIcon: Image.asset(
-                    mapOperationToIcom(operations[index].label),
-                    width: 25,
-                    height: 400,
-                    color: Provider.of<ThemeManager>(context, listen: false)
-                                .themeData ==
-                            AppThemeData.lightTheme
-                        ? AppColors.customBlack
-                        : AppColors.customWhite,
-                  ),
-                  onTap: (context) {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) =>
-                          mapOperationToScreen(operations.elementAt(index)),
-                    ));
-                  },
-                );
-              }),
-          const SizedBox(
-            height: 20,
-          ),
+        child:
+         
+      
           Column(
             children: [
               Padding(
@@ -238,7 +178,7 @@ class _SearchPageState extends State<SearchPage> {
                   }),
             ],
           )
-        ]),
+        
       );
     }
   }
@@ -256,43 +196,6 @@ class _SearchPageState extends State<SearchPage> {
     }
 
     return pickedElements.toList();
-  }
-
-  dynamic mapOperationToScreen(Operation operation) {
-    switch (operation.label) {
-      case Labels.COMPLEX_OPERATIONS_LABEL:
-        return ComplexOperationsResultScreen(operation: operation);
-      case Labels.COMPLEX_POLAR_FORM_LABEL:
-        return ComplexPolarFormResultScreen(operation: operation);
-      case Labels.DEFINITE_INTEGRAL_LABEL:
-        return IntegralsResultScreen(operation: operation);
-      case Labels.INDEFINITE_INTEGRAL_LABEL:
-        return IntegralsResultScreen(operation: operation);
-      case Labels.DERIVATIVE_LABEL:
-        return DerivativeResultScreen(operation: operation);
-      case Labels.DIFFERENTIAL_EQUATIONS_LABEL:
-        return DifferentialEquationsResultScreen(operation: operation);
-      case Labels.DETERMINANT_LABEL:
-        return DeterminantResultScreen(operation: operation);
-      case Labels.EIGEN_LABEL:
-        return EigenResultScreen(operation: operation);
-      case Labels.INVERT_MATRIX_LABEL:
-        return InvertMatrixResultScreen(operation: operation);
-      case Labels.MATRIX_OPERATIONS_LABEL:
-        return MatrixOperationResultScreen(operation: operation);
-      case Labels.LINEAR_EQUATIONS_LABEL:
-        return LinearEquationsResultScreen(operation: operation);
-      case Labels.RANK_MATRIX_LABEL:
-        return RankResultScreen(operation: operation);
-      case Labels.LIMIT_LABEL:
-        return LimitsResultScreen(operation: operation);
-      case Labels.PRODUCT_LABEL:
-        return ProductResultScreen(operation: operation);
-      case Labels.SUMMATION_LABEL:
-        return SumResultScreen(operation: operation);
-      case Labels.TAYLOR_SERIES_LABEL:
-        return TaylorSeriesResultScreen(operation: operation);
-    }
   }
 
   dynamic mapOperationToIcom(String label) {
