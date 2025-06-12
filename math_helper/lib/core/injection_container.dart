@@ -50,7 +50,10 @@ import 'package:math_helper/features/function_plotting/data/api/function_plottin
 import 'package:math_helper/features/function_plotting/data/repository/function_plotting_repository.dart';
 import 'package:math_helper/features/function_plotting/domain/repository/function_plotting_repository.dart';
 import 'package:math_helper/features/function_plotting/domain/usecases/function_plotting_usecase.dart';
-import 'package:math_helper/features/function_plotting/presentation/function_plotting_bloc/function_plotting_bloc.dart';
+import 'package:math_helper/features/function_plotting/presentation/bloc/function_plotting_bloc.dart';
+import 'package:math_helper/features/function_plotting/presentation/cubit/first_graph_fields/first_graph_fields_cubit.dart';
+import 'package:math_helper/features/function_plotting/presentation/cubit/graph/graph_cubit.dart';
+import 'package:math_helper/features/function_plotting/presentation/cubit/second_graph_fields/second_graph_fields_cubit.dart';
 import 'package:math_helper/features/integrals/data/api/integrals_api.dart';
 import 'package:math_helper/features/integrals/data/repository/integrals_repository_impl.dart';
 import 'package:math_helper/features/integrals/domain/repository/integrals_repository.dart';
@@ -355,4 +358,7 @@ Future<void> init() async {
   ic.registerLazySingleton(() => FunctionPlottingUsecase(functionPlottingRepository: ic()));
 
   ic.registerFactory(() => FunctionPlottingBloc(functionPlottingUsecase: ic()));
+  ic.registerFactory(() => FirstGraphFieldsCubit());
+  ic.registerFactory(() => SecondGraphFieldsCubit());
+  ic.registerFactory(() => GraphCubit());
 }

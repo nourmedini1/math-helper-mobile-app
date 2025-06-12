@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:math_helper/core/injection_container.dart';
 import 'package:math_helper/core/storage/operation.dart';
 import 'package:math_helper/core/ui/app_colors.dart';
 import 'package:math_helper/core/ui/app_theme_data.dart';
@@ -8,6 +10,10 @@ import 'package:math_helper/core/ui/components/app_bar/custom_app_bar.dart';
 import 'package:math_helper/core/ui/components/app_bar/tab_bar_item.dart';
 import 'package:math_helper/core/ui/components/drawer/custom_drawer.dart';
 import 'package:math_helper/core/ui/theme_manager.dart';
+import 'package:math_helper/features/function_plotting/presentation/bloc/function_plotting_bloc.dart';
+import 'package:math_helper/features/function_plotting/presentation/cubit/first_graph_fields/first_graph_fields_cubit.dart';
+import 'package:math_helper/features/function_plotting/presentation/cubit/graph/graph_cubit.dart';
+import 'package:math_helper/features/function_plotting/presentation/cubit/second_graph_fields/second_graph_fields_cubit.dart';
 import 'package:math_helper/pages/graph_page.dart';
 import 'package:math_helper/pages/topics_page.dart';
 import 'package:provider/provider.dart';
@@ -51,7 +57,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         drawer: const CustomDrawer(),
         body: TabBarView(children: [
           const TopicsPage(),
-          const GraphPage(),
+          MultiBlocProvider(
+            providers: [
+        BlocProvider(
+          create: (context) => ic<FunctionPlottingBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => ic<GraphCubit>(),
+        ),
+        BlocProvider(create: (context) => ic<FirstGraphFieldsCubit>()),
+        BlocProvider(create: (context) => ic<SecondGraphFieldsCubit>()
+        ),
+      ],
+            child: const GraphPage(),
+          ),
           Container(),
         ]),
       ),

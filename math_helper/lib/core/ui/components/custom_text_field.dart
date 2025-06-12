@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:math_helper/core/ui/app_colors.dart';
 import 'package:math_helper/core/ui/app_theme_data.dart';
 import 'package:math_helper/core/ui/components/textfield_label.dart';
@@ -12,6 +13,7 @@ class CustomTextField extends StatefulWidget {
   final String? label;
   final TextEditingController controller;
   final TextInputType? keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
   void Function(String) onChanged;
 
   CustomTextField({super.key,
@@ -19,6 +21,7 @@ class CustomTextField extends StatefulWidget {
     this.label,
     required this.controller,
     this.keyboardType,
+    this.inputFormatters,
     required this.onChanged,
   });
 
@@ -56,6 +59,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   TextField textField(BuildContext context) {
     return TextField(
+            inputFormatters: widget.inputFormatters,
             onChanged: widget.onChanged,
             controller: widget.controller,
             keyboardType: widget.keyboardType ?? TextInputType.text,
