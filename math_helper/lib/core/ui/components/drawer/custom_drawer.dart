@@ -16,11 +16,11 @@ import 'package:math_helper/features/differential_equations/presentation/pages/d
 import 'package:math_helper/features/integrals/presentation/pages/integrals_result_screen.dart';
 import 'package:math_helper/features/limits/presentation/pages/limits_result_screen.dart';
 import 'package:math_helper/features/linear_systems/presentation/screens/linear_equations_result_screen.dart';
-import 'package:math_helper/features/matrix/presentation/screens/eigen_result_screen.dart';
-import 'package:math_helper/features/matrix/presentation/screens/invert_matrix_result_screen.dart';
-import 'package:math_helper/features/matrix/presentation/screens/matrix_operation_result_screen.dart';
-import 'package:math_helper/features/matrix/presentation/screens/matrix_rank_result_screen.dart';
-import 'package:math_helper/features/matrix/presentation/screens/determinant_result_screen.dart';
+import 'package:math_helper/features/matrix/presentation/pages/eigen_result_screen.dart';
+import 'package:math_helper/features/matrix/presentation/pages/invert_matrix_result_screen.dart';
+import 'package:math_helper/features/matrix/presentation/pages/matrix_operation_result_screen.dart';
+import 'package:math_helper/features/matrix/presentation/pages/matrix_rank_result_screen.dart';
+import 'package:math_helper/features/matrix/presentation/pages/determinant_result_screen.dart';
 import 'package:math_helper/features/product/presentation/pages/product_result_screen.dart';
 import 'package:math_helper/features/sum/presentation/pages/sum_result_screen.dart';
 import 'package:math_helper/features/taylor_series/presentation/pages/taylor_series_result_screen.dart';

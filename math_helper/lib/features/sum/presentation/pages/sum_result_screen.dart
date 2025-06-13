@@ -5,7 +5,7 @@ import 'package:math_helper/core/ui/app_theme_data.dart';
 import 'package:math_helper/core/ui/components/app_bar/custom_app_bar.dart';
 import 'package:math_helper/core/ui/components/drawer/custom_drawer.dart';
 import 'package:math_helper/core/ui/theme_manager.dart';
-import 'package:math_helper/features/sum/presentation/widgets/sum_success_screen.dart';
+import 'package:math_helper/features/sum/presentation/widgets/sum_success_widget.dart';
 import 'package:provider/provider.dart';
 
 class SumResultScreen extends StatefulWidget {
@@ -19,6 +19,7 @@ class SumResultScreen extends StatefulWidget {
 class _SumResultScreenState extends State<SumResultScreen> {
   @override
   Widget build(BuildContext context) {
+    debugPrint( "ERROR: ${widget.operation.results}");
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: CustomAppBar(
@@ -38,8 +39,8 @@ class _SumResultScreenState extends State<SumResultScreen> {
           hasHomeIcon: true),
       drawer: const CustomDrawer(),
       body: Center(
-        child: SumSuccessScreen(title :  "Sum Series", sum : widget.operation.results[0],
-           result :  widget.operation.results[1], isConvergent : bool.parse(widget.operation.results[2])),
+        child: SumSuccessWidget(title :  "Sum Series", expression : widget.operation.results[0],
+           result :  widget.operation.results[1], isConvergent : bool.parse(widget.operation.results[2] ),),
       ),
     );
   }

@@ -94,6 +94,16 @@ class GraphCubit extends Cubit<GraphState> {
     emit(GraphInitial.initial());
   }
 
+  void resetFirstGraph() {
+    final currentState = state as GraphInitial;
+    emit(currentState.copyWith(firstGraphData: GraphData.initialiseWithSin()));
+  }
+
+  void resetSecondGraph() {
+    final currentState = state as GraphInitial;
+    emit(currentState.copyWith(secondGraphData: GraphData.initialiseWithCos()));
+  }
+
   GraphData get firstGraphData => (state as GraphInitial).firstGraphData;
   GraphData get secondGraphData => (state as GraphInitial).secondGraphData;
 }

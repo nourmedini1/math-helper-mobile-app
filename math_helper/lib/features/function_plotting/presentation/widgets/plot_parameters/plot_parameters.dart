@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:math_helper/core/ui/components/expandable_widget.dart';
 import 'package:math_helper/core/ui/components/textfield_label.dart';
+import 'package:math_helper/features/function_plotting/presentation/widgets/plot_parameters/plot_reset_tile.dart';
 import 'package:provider/provider.dart';
 import 'package:math_helper/core/ui/theme_manager.dart';
 import 'package:math_helper/core/ui/app_colors.dart';
@@ -56,6 +57,11 @@ class _PlotParametersWidgetState extends State<PlotParametersWidget> {
           graphData: widget.graphData,
         ),
         PlotSubmitTile(
+          isLight: isLight,
+          isFirstPlot: widget.isFirstPlot,
+          functionController: widget.functionController,
+        ),
+        PlotResetTile(
           isLight: isLight,
           isFirstPlot: widget.isFirstPlot,
           functionController: widget.functionController,

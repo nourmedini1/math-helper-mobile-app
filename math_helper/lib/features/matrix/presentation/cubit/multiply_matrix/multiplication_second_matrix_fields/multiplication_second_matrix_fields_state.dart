@@ -1,0 +1,7 @@
+part of 'multiplication_second_matrix_fields_cubit.dart';
+
+@immutable
+sealed class MultiplicationSecondMatrixFieldsState {}
+
+final class MultiplicationSecondMatrixFieldsMissing extends MultiplicationSecondMatrixFieldsState {}
+final class MultiplicationSecondMatrixFieldsReady extends MultiplicationSecondMatrixFieldsState {}

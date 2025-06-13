@@ -15,7 +15,7 @@ class SumResponse extends Equatable {
     return SumResponse(
       summation: json['summation'],
       result: json['result'],
-      convergent: json['convergent'],
+      convergent: json['convergent'] ?? false,
     );
   }
 

@@ -69,11 +69,27 @@ import 'package:math_helper/features/matrix/presentation/bloc/eigen/eigen_bloc.d
 import 'package:math_helper/features/matrix/presentation/bloc/invert_matrix/invert_matrix_bloc.dart';
 import 'package:math_helper/features/matrix/presentation/bloc/multiply_matrix/multiply_matrix_bloc.dart';
 import 'package:math_helper/features/matrix/presentation/bloc/rank/rank_bloc.dart';
-import 'package:math_helper/features/matrix/presentation/screens/determinant_page.dart';
-import 'package:math_helper/features/matrix/presentation/screens/eigen_page.dart';
-import 'package:math_helper/features/matrix/presentation/screens/invert_matrix_page.dart';
-import 'package:math_helper/features/matrix/presentation/screens/matrix_operations_page.dart';
-import 'package:math_helper/features/matrix/presentation/screens/matrix_rank_page.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/add_matrix/addition_first_matrix/addition_first_matrix_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/add_matrix/addition_first_matrix_fields/addition_first_matrix_fields_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/add_matrix/addition_second_matrix/addition_second_matrix_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/add_matrix/addition_second_matrix_fields/addition_second_matrix_fields_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/determinant/determinant_matrix/determinant_matrix_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/determinant/determinant_matrix_fields/determinant_matrix_fields_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/eigen/eigen_matrix/eigen_matrix_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/eigen/eigen_matrix_fields/eigen_matrix_fields_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/invert_matrix/invert_matrix/invert_matrix_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/invert_matrix/invert_matrix_fields/invert_matrix_fields_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/multiply_matrix/multiplication_first_matrix/multiplication_first_matrix_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/multiply_matrix/multiplication_first_matrix_fields/multiplication_first_matrix_fields_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/multiply_matrix/multiplication_second_matrix/multiplication_second_matrix_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/multiply_matrix/multiplication_second_matrix_fields/multiplication_second_matrix_fields_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/rank/rank_matrix/rank_matrix_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/rank/rank_matrix_fields/rank_matrix_fields_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/pages/determinant_page.dart';
+import 'package:math_helper/features/matrix/presentation/pages/eigen_page.dart';
+import 'package:math_helper/features/matrix/presentation/pages/invert_matrix_page.dart';
+import 'package:math_helper/features/matrix/presentation/pages/matrix_operations_page.dart';
+import 'package:math_helper/features/matrix/presentation/pages/matrix_rank_page.dart';
 import 'package:math_helper/features/product/presentation/bloc/numeric_product/numeric_product_bloc.dart';
 import 'package:math_helper/features/product/presentation/bloc/symbolic_product/symbolic_product_bloc.dart';
 import 'package:math_helper/features/product/presentation/cubit/numeric/numeric_product_fields/numeric_product_fields_cubit.dart';
@@ -147,27 +163,26 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                               create: (context) => ic<TripleIntegralBloc>(),
                             ),
                             BlocProvider(
-                              create: (context) =>
-                                  ic<SingleFieldsCubit>(),
+                              create: (context) => ic<SingleFieldsCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) => ic<DoubleFieldsCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) => ic<TripleFieldsCubit>(),
                             ),
                             BlocProvider(
                               create: (context) =>
-                                  ic<DoubleFieldsCubit>(),
+                                  ic<SingleDefiniteIntegralLimitsTextCubit>(),
                             ),
                             BlocProvider(
                               create: (context) =>
-                                  ic<TripleFieldsCubit>(),
+                                  ic<DoubleDefiniteIntegralLimitsTextCubit>(),
                             ),
                             BlocProvider(
-                              create: (context) => ic<SingleDefiniteIntegralLimitsTextCubit>(),
+                              create: (context) =>
+                                  ic<TripleDefiniteIntegralLimitTextCubit>(),
                             ),
-                            BlocProvider(
-                              create: (context) => ic<DoubleDefiniteIntegralLimitsTextCubit>(),
-                            ),
-                            BlocProvider(
-                              create: (context) => ic<TripleDefiniteIntegralLimitTextCubit>(),
-                            ),
-                            
                           ], child: const DefiniteIntegralPage()),
                         ));
                       }),
@@ -464,7 +479,7 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                               create: (context) => ic<NumericSumTextCubit>(),
                             ),
                             BlocProvider(
-                                create: (context) => ic<SymbolicSumFieldsCubit>(),
+                              create: (context) => ic<SymbolicSumFieldsCubit>(),
                             ),
                             BlocProvider(
                               create: (context) => ic<NumericSumFieldsCubit>(),
@@ -495,14 +510,17 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                             BlocProvider(
                               create: (context) => ic<NumericProductBloc>(),
                             ),
-                             BlocProvider(
-                              create: (context) => ic<NumericProductTextCubit>(),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<NumericProductTextCubit>(),
                             ),
                             BlocProvider(
-                                create: (context) => ic<SymbolicProductFieldsCubit>(),
+                              create: (context) =>
+                                  ic<SymbolicProductFieldsCubit>(),
                             ),
                             BlocProvider(
-                              create: (context) => ic<NumericProductFieldsCubit>(),
+                              create: (context) =>
+                                  ic<NumericProductFieldsCubit>(),
                             ),
                           ], child: const ProductPage()),
                         ));
@@ -530,7 +548,7 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                                     ic<ExpandTaylorSeriesBloc>(),
                               ),
                               BlocProvider(
-                                create: (context) => TaylorSeriesFieldsCubit(),
+                                create: (context) => ic<TaylorSeriesFieldsCubit>(),
                               ),
                             ],
                             child: const TaylorSeriesPage(),
@@ -583,16 +601,13 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                               create: (context) => ic<TripleLimitBloc>(),
                             ),
                             BlocProvider(
-                              create: (context) =>
-                                  ic<SingleLimitTextCubit>(),
+                              create: (context) => ic<SingleLimitTextCubit>(),
                             ),
                             BlocProvider(
-                              create: (context) =>
-                                  ic<DoubleLimitTextCubit>(),
+                              create: (context) => ic<DoubleLimitTextCubit>(),
                             ),
                             BlocProvider(
-                              create: (context) =>
-                                  ic<TripleLimitTextCubit>(),
+                              create: (context) => ic<TripleLimitTextCubit>(),
                             ),
                             BlocProvider(
                               create: (context) => ic<SingleLimitFieldsCubit>(),
@@ -648,6 +663,38 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                             BlocProvider(
                               create: (context) => ic<MultiplyMatrixBloc>(),
                             ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<MultiplicationFirstMatrixCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<MultiplicationFirstMatrixFieldsCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<MultiplicationSecondMatrixFieldsCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<MultiplicationSecondMatrixCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<AdditionFirstMatrixCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<AdditionFirstMatrixFieldsCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<AdditionSecondMatrixFieldsCubit>(),
+                            ),
+                            BlocProvider(
+                              create: (context) =>
+                                  ic<AdditionSecondMatrixCubit>(),
+                            ),
                           ], child: const MatrixOperationsPage()),
                         ));
                       }),
@@ -667,8 +714,19 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                                 : AppColors.customWhite,
                           ), (context) {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => BlocProvider(
-                            create: (context) => ic<InvertMatrixBloc>(),
+                          builder: (context) => MultiBlocProvider(
+                            providers: [
+                              BlocProvider(
+                                create: (context) => ic<InvertMatrixBloc>(),
+                              ),
+                              BlocProvider(
+                                create: (context) => ic<InvertMatrixCubit>(),
+                              ),
+                              BlocProvider(
+                                create: (context) =>
+                                    ic<InvertMatrixFieldsCubit>(),
+                              ),
+                            ],
                             child: const InvertMatrixPage(),
                           ),
                         ));
@@ -689,9 +747,20 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                                 : AppColors.customWhite,
                           ), (context) {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => BlocProvider(
-                            create: (context) => ic<RankBloc>(),
-                            child: const MatrixRankPage(),
+                          builder: (context) => MultiBlocProvider(
+                            providers: [
+                              BlocProvider(
+                                create: (context) => ic<RankBloc>(),
+                              ),
+                              BlocProvider(
+                                create: (context) => ic<RankMatrixCubit>(),
+                              ),
+                              BlocProvider(
+                                create: (context) =>
+                                    ic<RankMatrixFieldsCubit>(),
+                              ),
+                            ],
+                            child: const RankPage(),
                           ),
                         ));
                       }),
@@ -711,8 +780,20 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                                 : AppColors.customWhite,
                           ), (context) {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => BlocProvider(
-                            create: (context) => ic<DeterminantBloc>(),
+                          builder: (context) => MultiBlocProvider(
+                            providers: [
+                              BlocProvider(
+                                create: (context) => ic<DeterminantBloc>(),
+                              ),
+                              BlocProvider(
+                                create: (context) =>
+                                    ic<DeterminantMatrixCubit>(),
+                              ),
+                              BlocProvider(
+                                create: (context) =>
+                                    ic<DeterminantMatrixFieldsCubit>(),
+                              ),
+                            ],
                             child: const DeterminantPage(),
                           ),
                         ));
@@ -733,8 +814,19 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                                 : AppColors.customWhite,
                           ), (context) {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => BlocProvider(
-                            create: (context) => ic<EigenBloc>(),
+                          builder: (context) => MultiBlocProvider(
+                            providers: [
+                              BlocProvider(
+                                create: (context) => ic<EigenBloc>(),
+                              ),
+                              BlocProvider(
+                                create: (context) => ic<EigenMatrixCubit>(),
+                              ),
+                              BlocProvider(
+                                create: (context) =>
+                                    ic<EigenMatrixFieldsCubit>(),
+                              ),
+                            ],
                             child: const EigenPage(),
                           ),
                         ));
@@ -781,7 +873,11 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: AppColors.primaryColorTint50,
+            color:
+                Provider.of<ThemeManager>(context, listen: false).themeData ==
+                        AppThemeData.lightTheme
+                    ? AppColors.primaryColorTint50
+                    : AppColors.primaryColor,
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),

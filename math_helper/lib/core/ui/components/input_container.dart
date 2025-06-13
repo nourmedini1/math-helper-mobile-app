@@ -7,11 +7,11 @@ import 'package:math_helper/core/ui/theme_manager.dart';
 import 'package:provider/provider.dart';
 
 class InputContainer extends StatelessWidget {
-  String title;
+  String? title;
   Widget body;
-  Widget submitButton;
+  Widget? submitButton;
   Widget? clearButton;
-  InputContainer({super.key, required this.title, required this.body, required this.submitButton, this.clearButton,});
+  InputContainer({super.key, this.title, required this.body, this.submitButton, this.clearButton,});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class InputContainer extends StatelessWidget {
 
   Padding inputContainerClearButton() {
     return Padding(
-          padding:  const EdgeInsets.symmetric(horizontal: 64, vertical: 10),
+          padding:  const EdgeInsets.symmetric(horizontal: 64, vertical: 5),
           child: clearButton ?? const SizedBox.shrink(),
         );
   }
@@ -35,7 +35,7 @@ class InputContainer extends StatelessWidget {
   Padding inputContainerSubmitButton() {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 0),
-        child: submitButton,
+        child: submitButton ?? const SizedBox.shrink(),
         );
   }
 
@@ -66,7 +66,7 @@ class InputContainer extends StatelessWidget {
     return Align(
           alignment: Alignment.center,
           child: Text(
-            title,
+            title ?? '',
             style: TextStyle(
                 color: Provider.of<ThemeManager>(context, listen: false).themeData == AppThemeData.lightTheme
           ? AppColors.primaryColorTint50

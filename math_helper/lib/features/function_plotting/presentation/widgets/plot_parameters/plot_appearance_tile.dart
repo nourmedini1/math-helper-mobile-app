@@ -39,11 +39,11 @@ class PlotAppearanceTile extends StatelessWidget {
         ),
         items: [
           PlotShowPlotSwitch(isLight: isLight, isFirstPlot: isFirstPlot, graphData: graphData),
-          PlotColorPickerTile(isLight: isLight, isFirstPlot: isFirstPlot, graphData: graphData),
+          PlotColorPickerTile(isLight: isLight, isFirstPlot: isFirstPlot, graphData: graphData,),
           PlotShowDotsSwitch(isLight: isLight, isFirstPlot: isFirstPlot, graphData: graphData),
           PlotStrokeWidthSlider(isLight: isLight, isFirstPlot: isFirstPlot, graphData: graphData),
           PlotShowAreaSwitch(isLight: isLight, isFirstPlot: isFirstPlot, graphData: graphData),
-          PlotAreaColorPickerTile(isLight: isLight, isFirstPlot: isFirstPlot, graphData: graphData),
+          PlotAreaColorPickerTile(isLight: isLight, isFirstPlot: isFirstPlot, graphData: graphData,),
         ],
       ),
     );

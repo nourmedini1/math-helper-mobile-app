@@ -99,6 +99,7 @@ class AxisControls extends StatelessWidget {
             SizedBox(
             width: 122,
              child: CustomTextField(
+              keyboardType: TextInputType.number,
               hint: "", 
               controller: minController, 
               onChanged: minOnChanged
@@ -114,6 +115,7 @@ class AxisControls extends StatelessWidget {
             SizedBox(
               width: 122,
               child: CustomTextField(
+                keyboardType: TextInputType.number,
                 hint: "",
                 controller: maxController,
                 onChanged: maxOnChanged,

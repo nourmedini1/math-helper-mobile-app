@@ -55,9 +55,9 @@ class PlotAreaColorPickerTile extends StatelessWidget {
               pickerColor: graphData.areaColor,
               onColorChanged: (color) {
                 if (isFirstPlot) {
-                  context.read<GraphCubit>().updateFirstGraph(areaColor: color);
+                  context.read<GraphCubit>().updateFirstGraph(areaColor: color.withOpacity(0.2));
                 } else {
-                  context.read<GraphCubit>().updateSecondGraph(areaColor: color);
+                  context.read<GraphCubit>().updateSecondGraph(areaColor: color.withOpacity(0.2));
                 }
               },
             ),

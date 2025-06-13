@@ -113,6 +113,22 @@ import 'package:math_helper/features/matrix/presentation/bloc/eigen/eigen_bloc.d
 import 'package:math_helper/features/matrix/presentation/bloc/invert_matrix/invert_matrix_bloc.dart';
 import 'package:math_helper/features/matrix/presentation/bloc/multiply_matrix/multiply_matrix_bloc.dart';
 import 'package:math_helper/features/matrix/presentation/bloc/rank/rank_bloc.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/add_matrix/addition_first_matrix/addition_first_matrix_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/add_matrix/addition_first_matrix_fields/addition_first_matrix_fields_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/add_matrix/addition_second_matrix/addition_second_matrix_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/add_matrix/addition_second_matrix_fields/addition_second_matrix_fields_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/determinant/determinant_matrix/determinant_matrix_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/determinant/determinant_matrix_fields/determinant_matrix_fields_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/eigen/eigen_matrix/eigen_matrix_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/eigen/eigen_matrix_fields/eigen_matrix_fields_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/invert_matrix/invert_matrix/invert_matrix_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/invert_matrix/invert_matrix_fields/invert_matrix_fields_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/multiply_matrix/multiplication_first_matrix/multiplication_first_matrix_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/multiply_matrix/multiplication_first_matrix_fields/multiplication_first_matrix_fields_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/multiply_matrix/multiplication_second_matrix/multiplication_second_matrix_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/multiply_matrix/multiplication_second_matrix_fields/multiplication_second_matrix_fields_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/rank/rank_matrix/rank_matrix_cubit.dart';
+import 'package:math_helper/features/matrix/presentation/cubit/rank/rank_matrix_fields/rank_matrix_fields_cubit.dart';
 import 'package:math_helper/features/product/data/api/product_api.dart';
 import 'package:math_helper/features/product/data/repository/product_repository_impl.dart';
 import 'package:math_helper/features/product/domain/repository/product_repository.dart';
@@ -349,6 +365,29 @@ Future<void> init() async {
   ic.registerFactory(() => DeterminantBloc(getDeterminantUsecase: ic()));
   ic.registerFactory(() => RankBloc(getRankUsecase: ic()));
   ic.registerFactory(() => InvertMatrixBloc(invertMatrixUsecase: ic()));
+
+  ic.registerFactory(() => MultiplicationFirstMatrixFieldsCubit());
+  ic.registerFactory(() => MultiplicationSecondMatrixFieldsCubit());
+  ic.registerFactory(() => MultiplicationFirstMatrixCubit());
+  ic.registerFactory(() => MultiplicationSecondMatrixCubit());
+  
+  ic.registerFactory(() => AdditionFirstMatrixFieldsCubit());
+  ic.registerFactory(() => AdditionSecondMatrixFieldsCubit());
+  ic.registerFactory(() => AdditionFirstMatrixCubit());
+  ic.registerFactory(() => AdditionSecondMatrixCubit());
+
+  ic.registerFactory(() => DeterminantMatrixCubit());
+  ic.registerFactory(() => DeterminantMatrixFieldsCubit());
+
+    ic.registerFactory(() => EigenMatrixCubit());
+  ic.registerFactory(() => EigenMatrixFieldsCubit());
+
+    ic.registerFactory(() => InvertMatrixCubit());
+  ic.registerFactory(() => InvertMatrixFieldsCubit());
+
+  ic.registerFactory(() => RankMatrixCubit());
+  ic.registerFactory(() => RankMatrixFieldsCubit());
+
 
   // function plotting 
   ic.registerLazySingleton(() => FunctionPlottingApi(client: ic(), zlibDecoder: ic()));
