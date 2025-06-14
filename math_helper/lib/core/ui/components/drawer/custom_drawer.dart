@@ -8,6 +8,7 @@ import 'package:math_helper/core/storage/operation.dart';
 import 'package:math_helper/core/strings.dart';
 import 'package:math_helper/core/ui/app_colors.dart';
 import 'package:math_helper/core/ui/app_theme_data.dart';
+import 'package:math_helper/core/ui/components/textfield_label.dart';
 import 'package:math_helper/core/ui/theme_manager.dart';
 import 'package:math_helper/features/complex/presentation/pages/complex_operation_result_page.dart';
 import 'package:math_helper/features/complex/presentation/pages/complex_polar_form_result_page.dart';
@@ -45,38 +46,57 @@ class _CustomDrawerState extends State<CustomDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      backgroundColor: Provider.of<ThemeManager>(context).themeData ==
-              AppThemeData.lightTheme
-          ? AppColors.customWhite
-          : AppColors.customBlackTint20,
-      width: MediaQuery.of(context).size.width * 0.85,
-      child: Column(
-        children: <Widget>[
-          DrawerHeader(
-              child: Center(
-            child: Text(
-              Strings.appName,
-              style: Theme.of(context).appBarTheme.titleTextStyle,
-            ),
-          )),
-          ListTile(
-            title: Text(
-              Strings.drawerItemTitleRecentOperations,
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
-            onTap: () {
-              Navigator.pushNamed(context, '/');
-            },
+    return SafeArea(
+      child: Drawer(
+        backgroundColor: Provider.of<ThemeManager>(context).themeData ==
+                AppThemeData.lightTheme
+            ? AppColors.customWhite
+            : AppColors.customBlackTint20,
+        width: MediaQuery.of(context).size.width * 0.85,
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Fixed header
+              Container(
+                width: double.infinity,
+                height: 120,
+                alignment: Alignment.center,
+                color: Provider.of<ThemeManager>(context).themeData ==
+                        AppThemeData.lightTheme
+                    ? AppColors.customWhite
+                    : AppColors.customBlackTint20,
+                child: Text(
+                  Strings.appName,
+                  style: Theme.of(context).appBarTheme.titleTextStyle,
+                ),
+              ),
+              const Divider(height: 1, thickness: 1),
+              Container(
+              width: double.infinity,
+              height: 70,
+              alignment: Alignment.centerLeft,
+              color: Provider.of<ThemeManager>(context).themeData ==
+                      AppThemeData.lightTheme
+                  ? AppColors.customWhite
+                  : AppColors.customBlackTint20,
+              child: const Padding(
+                padding: EdgeInsets.only(left: 20),
+                child: TextFieldLabel(label: "Recent Operations",),
+              )
+                          ),
+              // Only the timeline/history is scrollable
+              Expanded(
+                child: historyPage(context, operations),
+              ),
+            ],
           ),
-          // Use Expanded to give the history section a bounded height
-          Expanded(child: historyPage(context, operations))
-        ],
+        ),
       ),
     );
   }
 
-  Widget historyPage(BuildContext context, List<Operation> operations) {
+    Widget historyPage(BuildContext context, List<Operation> operations) {
     return RefreshIndicator(
       color: Provider.of<ThemeManager>(context, listen: false).themeData ==
               AppThemeData.lightTheme
@@ -274,4 +294,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
         return CustomIcons.taylorSeries;
     }
   }
+
+
+
 }
