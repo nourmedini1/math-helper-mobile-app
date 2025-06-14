@@ -96,7 +96,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
 InputDecoration textFieldInputDecoration(BuildContext context, String hint) {
   return InputDecoration(
-    contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+    contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     border: InputBorder.none,
     hintText: hint,
     hintStyle: TextStyle(

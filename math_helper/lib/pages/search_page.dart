@@ -71,7 +71,7 @@ import 'package:math_helper/features/limits/presentation/cubit/triple/triple_lim
 import 'package:math_helper/features/limits/presentation/cubit/triple/triple_limit_text/triple_limit_text_cubit.dart';
 import 'package:math_helper/features/limits/presentation/pages/limits_page.dart';
 import 'package:math_helper/features/linear_systems/presentation/bloc/solve_linear_system/solve_linear_system_bloc.dart';
-import 'package:math_helper/features/linear_systems/presentation/screens/linear_equations_page.dart';
+import 'package:math_helper/features/linear_systems/presentation/pages/linear_equations_page.dart';
 import 'package:math_helper/features/matrix/presentation/bloc/add_matrix/add_matrix_bloc.dart';
 import 'package:math_helper/features/matrix/presentation/bloc/determinant/determinant_bloc.dart';
 import 'package:math_helper/features/matrix/presentation/bloc/eigen/eigen_bloc.dart';

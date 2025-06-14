@@ -62,7 +62,9 @@ import 'package:math_helper/features/limits/presentation/cubit/triple/triple_lim
 import 'package:math_helper/features/limits/presentation/cubit/triple/triple_limit_text/triple_limit_text_cubit.dart';
 import 'package:math_helper/features/limits/presentation/pages/limits_page.dart';
 import 'package:math_helper/features/linear_systems/presentation/bloc/solve_linear_system/solve_linear_system_bloc.dart';
-import 'package:math_helper/features/linear_systems/presentation/screens/linear_equations_page.dart';
+import 'package:math_helper/features/linear_systems/presentation/cubit/linear_system_equations/linear_system_equations_cubit.dart';
+import 'package:math_helper/features/linear_systems/presentation/cubit/linear_system_equations_fields/linear_system_equations_fields_cubit.dart';
+import 'package:math_helper/features/linear_systems/presentation/pages/linear_equations_page.dart';
 import 'package:math_helper/features/matrix/presentation/bloc/add_matrix/add_matrix_bloc.dart';
 import 'package:math_helper/features/matrix/presentation/bloc/determinant/determinant_bloc.dart';
 import 'package:math_helper/features/matrix/presentation/bloc/eigen/eigen_bloc.dart';
@@ -548,7 +550,8 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                                     ic<ExpandTaylorSeriesBloc>(),
                               ),
                               BlocProvider(
-                                create: (context) => ic<TaylorSeriesFieldsCubit>(),
+                                create: (context) =>
+                                    ic<TaylorSeriesFieldsCubit>(),
                               ),
                             ],
                             child: const TaylorSeriesPage(),
@@ -847,8 +850,20 @@ class MathematicalTopicsGroupWidget extends StatelessWidget {
                                 : AppColors.customWhite,
                           ), (context) {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => BlocProvider(
-                            create: (context) => ic<SolveLinearSystemBloc>(),
+                          builder: (context) => MultiBlocProvider(
+                            providers: [
+                              BlocProvider(
+                                create: (context) =>
+                                    ic<SolveLinearSystemBloc>(),
+                              ),
+                              BlocProvider(
+                                create: (context) => ic<LinearSystemEquationsFieldsCubit>(),
+                              ),
+                              BlocProvider(
+                                create: (context) =>
+                                    ic<LinearSystemEquationsCubit>(),
+                              ),
+                            ],
                             child: const LinearEquationsPage(),
                           ),
                         ));

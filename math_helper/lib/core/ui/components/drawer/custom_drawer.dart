@@ -15,7 +15,7 @@ import 'package:math_helper/features/derivatives/presentation/pages/derivative_r
 import 'package:math_helper/features/differential_equations/presentation/pages/differential_equations_result_screen.dart';
 import 'package:math_helper/features/integrals/presentation/pages/integrals_result_screen.dart';
 import 'package:math_helper/features/limits/presentation/pages/limits_result_screen.dart';
-import 'package:math_helper/features/linear_systems/presentation/screens/linear_equations_result_screen.dart';
+import 'package:math_helper/features/linear_systems/presentation/pages/linear_equations_result_screen.dart';
 import 'package:math_helper/features/matrix/presentation/pages/eigen_result_screen.dart';
 import 'package:math_helper/features/matrix/presentation/pages/invert_matrix_result_screen.dart';
 import 'package:math_helper/features/matrix/presentation/pages/matrix_operation_result_screen.dart';

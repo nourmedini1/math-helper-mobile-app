@@ -97,8 +97,6 @@ class MatrixAdditionInitialWidget extends StatelessWidget {
                     onPressed: () {
                       int rows = int.tryParse(additionFirstRowsController.text) ?? 5;
                       int columns = int.tryParse(additionFirstColumnsController.text) ?? 5;
-                      rows = rows.clamp(1, 5);
-                      columns = columns.clamp(1, 5);
                       additionFirstMatrixControllers.clear();
                       for (int i = 0; i < rows * columns; i++) {
                         additionFirstMatrixControllers.add(TextEditingController());
@@ -169,8 +167,6 @@ class MatrixAdditionInitialWidget extends StatelessWidget {
                     onPressed: () {
                       int rows = int.tryParse(additionSecondRowsController.text) ?? 5;
                       int columns = int.tryParse(additionSecondColumnsController.text) ?? 5;
-                      rows = rows.clamp(1, 5);
-                      columns = columns.clamp(1, 5);
                       additionSecondMatrixControllers.clear();
                       for (int i = 0; i < rows * columns; i++) {
                         additionSecondMatrixControllers.add(TextEditingController());
